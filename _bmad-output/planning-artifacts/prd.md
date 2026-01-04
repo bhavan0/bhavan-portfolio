@@ -1,5 +1,5 @@
 ---
-stepsCompleted: [1, 2, 3, 4]
+stepsCompleted: [1, 2, 3, 4, 7, 8]
 inputDocuments:
   - "_bmad-output/planning-artifacts/product-brief-bhavan-portfolio-2026-01-04.md"
   - "_bmad-output/planning-artifacts/research/domain-technical-portfolio-research-2026-01-04.md"
@@ -116,6 +116,170 @@ This is a personal portfolio, not a revenue-generating product. Success is quali
 | Performance Targets | Lighthouse audit |
 | Mobile Parity | Device testing |
 | Code Quality | Self-review against criteria |
+
+## Web Application Specific Requirements
+
+### Browser Support Matrix
+
+| Browser | Version | Support Level |
+|---------|---------|---------------|
+| Chrome | Latest 2 versions | Full |
+| Firefox | Latest 2 versions | Full |
+| Safari | Latest 2 versions | Full |
+| Edge | Latest 2 versions | Full |
+| IE11 | Any | Not Supported |
+
+**Rationale:** Modern evergreen browsers only. No polyfills or legacy support needed, simplifying development and reducing bundle size.
+
+### SEO Strategy
+
+**Target Search Terms:**
+- "Bhavan developer"
+- "Bhavan Full Stack Developer"
+- "Bhavan .Net Developer"
+- "Bhavan AI Developer"
+
+**SPA SEO Approach:**
+- Semantic HTML structure with proper heading hierarchy
+- Meta tags for title, description, keywords
+- OpenGraph tags for social sharing previews
+- Prerendered index.html with key content visible
+- Descriptive alt text on images
+
+**Note:** Full SEO optimization limited by SPA nature - focus on personal branding searches rather than competitive keywords.
+
+### Responsive Design Requirements
+
+| Breakpoint | Target Devices | Layout Behavior |
+|------------|----------------|-----------------|
+| < 640px | Mobile phones | Single column, hamburger menu, stacked project cards |
+| 640-1024px | Tablets | Adaptive columns, condensed navigation |
+| > 1024px | Desktop | Full layout, sticky header with all nav items |
+
+**Mobile-First Priorities:**
+- Touch-friendly tap targets (minimum 44px)
+- Readable text without zooming
+- Hamburger menu with smooth animation
+- Resume download accessible in mobile menu
+
+### Performance Targets
+
+| Metric | Target | Rationale |
+|--------|--------|-----------|
+| Lighthouse Performance | 90+ | Industry standard for quality |
+| First Contentful Paint | < 1.5s | User perceives page loading |
+| Time to Interactive | < 5s | WASM-realistic target |
+| Largest Contentful Paint | < 2.5s | Core Web Vitals threshold |
+| Styled Loading State | < 500ms | Prevent blank screen |
+
+### Accessibility Level
+
+**Target:** Basic best practices (not formal WCAG compliance)
+
+**Implementation:**
+- Semantic HTML elements (nav, main, section, article)
+- Keyboard navigation support
+- Focus indicators on interactive elements
+- Sufficient color contrast in both themes
+- Alt text on images
+- Skip-to-content link
+
+**Out of Scope:** Full WCAG 2.1 AA compliance, screen reader optimization, automated accessibility testing.
+
+### Implementation Considerations
+
+**Loading State Strategy:**
+- Immediate styled HTML shell (hero section visible)
+- Subtle fade-in animation during WASM load
+- No spinner - use progressive content reveal
+- B&W aesthetic maintained during loading
+
+**Theme Implementation:**
+- CSS custom properties for color tokens
+- localStorage for preference persistence
+- System preference detection as fallback
+- No flash of wrong theme on reload
+
+## Project Scoping & Phased Development
+
+### MVP Strategy & Philosophy
+
+**MVP Approach:** Experience MVP - Deliver the complete recruiter-first experience with minimal features, focusing on the 8-second scan test and 1-click resume download.
+
+**Why This Approach:**
+- Personal portfolio = no revenue pressure
+- Single developer = resource-constrained
+- Clear success metric = "Does this represent me well?"
+- The execution quality IS the product
+
+**Resource Requirements:**
+- Solo developer (Bhavan)
+- Estimated effort: Weekend project scope
+- Tech stack: Familiar (.NET/Blazor ecosystem)
+
+### MVP Feature Set (Phase 1)
+
+**Core User Journeys Supported:**
+- Rachel's 8-Second Decision (primary)
+- Marcus's Technical Validation (GitHub link prominent)
+- Dev's Peer Assessment (clean codebase)
+- Mobile Check (full responsive parity)
+
+**Must-Have Capabilities:**
+
+| Capability | Journey Support | MVP Priority |
+|------------|-----------------|--------------|
+| Sticky header with resume download | Rachel - 1-click access | Critical |
+| Hero with name/title | Rachel - 8-second scan | Critical |
+| Skills section (scannable) | Rachel - quick validation | Critical |
+| Projects section (3+ cards) | Rachel, Marcus - credibility | Critical |
+| GitHub links | Marcus, Dev - code validation | Critical |
+| Dark mode default | Marcus, Dev - developer preference | Critical |
+| Mobile hamburger menu | Rachel Redux - mobile parity | Critical |
+| Styled loading state | All - no "back button moment" | Critical |
+| Clean component architecture | Dev - codebase quality | Critical |
+
+**Explicitly Out of MVP:**
+- Analytics/tracking
+- Contact form (links only)
+- Blog/writing section
+- Project filtering
+- Live demos/previews
+- CMS integration
+
+### Post-MVP Features
+
+**Phase 2 (Growth):**
+- Project live previews or interactive demos
+- "Unexpected element" - memorable detail that sparks conversation
+- Blog or writing section for thought leadership
+- Data-driven project content (JSON/model for easier updates)
+- Enhanced project filtering/sorting
+
+**Phase 3 (Expansion):**
+- Custom domain (bhavan.dev or similar)
+- CMS for easier content updates
+- Multilingual support
+- Case study deep-dives with detailed project breakdowns
+- Testimonials section
+
+### Risk Mitigation Strategy
+
+**Technical Risks:**
+
+| Risk | Likelihood | Mitigation |
+|------|------------|------------|
+| Blazor WASM bundle size (2-5MB) | High | Styled loading state, lazy loading |
+| Lighthouse score <90 | Medium | Pre-render critical content, optimize images |
+| Theme flash on reload | Medium | localStorage check before render |
+
+**Market Risks:**
+- None significant - personal portfolio, not competing for market share
+- Risk: Portfolio becomes outdated → Mitigation: Simple update workflow
+
+**Resource Risks:**
+- Solo developer → Keep scope minimal, avoid feature creep
+- Time constraints → MVP-first, growth features only when time permits
 
 ## Product Scope
 
