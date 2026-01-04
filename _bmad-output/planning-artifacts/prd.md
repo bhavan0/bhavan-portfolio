@@ -1,5 +1,5 @@
 ---
-stepsCompleted: [1, 2, 3, 4, 7, 8]
+stepsCompleted: [1, 2, 3, 4, 7, 8, 9]
 inputDocuments:
   - "_bmad-output/planning-artifacts/product-brief-bhavan-portfolio-2026-01-04.md"
   - "_bmad-output/planning-artifacts/research/domain-technical-portfolio-research-2026-01-04.md"
@@ -333,6 +333,92 @@ This is a personal portfolio, not a revenue-generating product. Success is quali
 - CMS for easier content updates
 - Multilingual support
 - Case study deep-dives
+
+## Functional Requirements
+
+### Navigation & Header
+
+- FR1: Visitors can see a sticky header that remains visible while scrolling
+- FR2: Visitors can navigate to any section using header navigation links
+- FR3: Visitors can download the resume PDF in one click from the header
+- FR4: Visitors can toggle between dark and light themes
+- FR5: Mobile visitors can access navigation through a hamburger menu
+- FR6: Mobile visitors can access resume download from the mobile menu
+
+### Hero Section
+
+- FR7: Visitors can see the developer's name prominently displayed
+- FR8: Visitors can see the developer's title/role (Full Stack Developer)
+- FR9: Visitors can read a brief professional introduction
+
+### About Section
+
+- FR10: Visitors can read a personal/professional summary
+- FR11: Visitors can understand the developer's background and approach
+
+### Skills Section
+
+- FR12: Visitors can identify key skills through scannable visual organization
+- FR13: Visitors can see skills organized in a scannable visual format
+- FR14: Visitors can identify primary technology competencies
+
+### Projects Section
+
+- FR15: Visitors can view at least 3 project showcases
+- FR16: Visitors can see project title, description, and technologies used for each project
+- FR17: Visitors can view a screenshot or visual for each project
+- FR18: Visitors can access the GitHub repository link for each project
+- FR19: Visitors can access live demo links when available for projects
+- FR20: Visitors can see visual feedback when interacting with project cards
+
+### Timeline Section
+
+- FR21: Visitors can view work experience in chronological order
+- FR22: Visitors can see role titles, companies, and timeframes
+- FR23: Visitors can understand career progression
+
+### Contact Section
+
+- FR24: Visitors can access the developer's email address
+- FR25: Visitors can access the developer's LinkedIn profile
+- FR26: Visitors can access the developer's GitHub profile
+
+### Footer
+
+- FR27: Visitors can access the portfolio's source code repository
+- FR28: Visitors can access social links from the footer
+
+### Theme & Appearance
+
+- FR29: The site can default to dark mode on initial visit
+- FR30: The site can persist theme preference across sessions
+- FR31: The site can detect and respect system theme preference as fallback
+- FR32: The site can resolve theme using priority: stored preference > system preference > dark default
+- FR33: The theme toggle can provide immediate visual transition feedback
+
+### Loading Experience
+
+- FR34: Visitors can see styled content within 500ms of page request
+- FR35: Visitors can see a progressive content reveal during WASM initialization
+- FR36: The loading state can maintain the B&W aesthetic
+- FR37: Visitors can see a fallback message if the application fails to initialize
+
+### Responsive Design
+
+- FR38: The site can adapt layout for mobile devices (< 640px)
+- FR39: The site can adapt layout for tablet devices (640-1024px)
+- FR40: The site can adapt layout for desktop devices (> 1024px)
+- FR41: Touch targets can meet minimum 44px size on mobile
+
+### Navigation Experience
+
+- FR42: Visitors can experience smooth scroll navigation between sections
+
+### SEO & Discoverability
+
+- FR43: The site can provide meta tags for search engines
+- FR44: The site can provide OpenGraph tags for social sharing
+- FR45: The site can use semantic HTML structure
 
 ## User Journeys
 
