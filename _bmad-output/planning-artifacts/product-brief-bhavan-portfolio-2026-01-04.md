@@ -1,5 +1,5 @@
 ---
-stepsCompleted: [1, 2, 3, 4]
+stepsCompleted: [1, 2, 3, 4, 5]
 inputDocuments:
   - "_bmad-output/analysis/brainstorming-session-2026-01-04.md"
   - "_bmad-output/planning-artifacts/research/domain-technical-portfolio-research-2026-01-04.md"
@@ -180,3 +180,85 @@ For this phase, success is measured by **quality of execution**, not conversion 
 - [ ] Inline comments for key decision points only (not over-commented)
 
 *Note: Analytics and conversion tracking out of scope for MVP. Success is qualitative - "does this represent me well?" - validated through self-review and peer feedback.*
+
+---
+
+## MVP Scope
+
+### Core Features
+
+**1. Foundation**
+- Blazor WASM project with Tailwind CSS
+- GitHub Pages deployment with template GitHub Actions workflow
+- Dark mode default with light mode toggle
+- Styled loading state (fade-in, B&W aesthetic)
+- Single page with smooth scroll navigation
+- Full mobile responsiveness
+
+**2. Sticky Header**
+- Name/Logo (top-left)
+- Navigation links to all sections
+- Resume download button (1-click, PDF)
+- Theme toggle
+- Mobile: Hamburger menu with same functionality
+
+**3. Six Sections**
+| Section | Purpose |
+|---------|---------|
+| **Hero** | Name, Title [TBD], brief intro - immediate value communication |
+| **About** | Personal/professional summary |
+| **Skills** | Tech stack visualization (scannable in 5 seconds) |
+| **Projects** | 3+ project showcases (can link to detail route) |
+| **Timeline** | Work experience chronology |
+| **Contact** | Email, LinkedIn, GitHub links |
+
+**4. Project Card Fields**
+Each project showcase includes:
+- Title
+- Description
+- Tech stack used
+- GitHub link
+- Screenshot (if available)
+
+*Note: Project content hardcoded for MVP. Refactor to data-driven if project count grows.*
+
+**5. Footer**
+- "Built with Blazor" colophon
+- Social links (GitHub, LinkedIn)
+
+**6. Codebase Quality**
+- Clean component structure per defined architecture
+- README with setup instructions and key architectural decisions
+- Inline comments for key decision points only
+
+### Out of Scope for MVP
+
+| Feature | Rationale |
+|---------|-----------|
+| Project live previews/embeds | Enhancement for future phase |
+| "Unexpected element" / easter eggs | Defer to future phase |
+| Analytics / tracking | Quality focus, not metrics |
+| Contact form | Email link sufficient for MVP |
+| Blog section | Not core to recruiter journey |
+| CONTRIBUTING.md | Personal project, not open for contributions |
+| Automated testing | Defer per user decision |
+| Secondary user journey optimization | Recruiter-first, others benefit as side effect |
+| Internationalization (i18n) | English only for MVP |
+| Data-driven project content | Hardcoded sufficient for 3-5 projects |
+
+### Future Vision
+
+**Phase 2 Enhancements (Post-MVP):**
+- Project live previews/interactive demos
+- "Unexpected element" or memorable detail
+- Blog or writing section
+- Data-driven project content (JSON/model)
+- Enhanced project filtering/categorization
+
+**Long-term Possibilities:**
+- Custom domain
+- CMS for easier content updates
+- Multilingual support
+- Case study deep-dives
+
+*The MVP establishes a solid, professional foundation. Future phases add personality and depth without compromising the core "less is more" philosophy.*
