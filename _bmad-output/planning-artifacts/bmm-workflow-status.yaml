@@ -48,9 +48,10 @@ workflow_status:
   # Phase 2: Planning
   phase_2_planning:
     prd:
-      status: "required"
+      status: "_bmad-output/planning-artifacts/prd.md"
       agent: "pm"
       command: "/bmad:bmm:workflows:create-prd"
+      completed: "2026-01-04"
     ux_design:
       status: "conditional"
       condition: "if_has_ui"

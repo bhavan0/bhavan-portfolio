@@ -1,5 +1,5 @@
 ---
-stepsCompleted: [1, 2, 3, 4, 7, 8, 9]
+stepsCompleted: [1, 2, 3, 4, 7, 8, 9, 10, 11]
 inputDocuments:
   - "_bmad-output/planning-artifacts/product-brief-bhavan-portfolio-2026-01-04.md"
   - "_bmad-output/planning-artifacts/research/domain-technical-portfolio-research-2026-01-04.md"
@@ -419,6 +419,63 @@ This is a personal portfolio, not a revenue-generating product. Success is quali
 - FR43: The site can provide meta tags for search engines
 - FR44: The site can provide OpenGraph tags for social sharing
 - FR45: The site can use semantic HTML structure
+
+## Non-Functional Requirements
+
+### Performance
+
+| Requirement | Target | Measurement |
+|-------------|--------|-------------|
+| NFR1: Lighthouse Performance Score | ≥ 90 | Lighthouse audit on desktop |
+| NFR2: First Contentful Paint (FCP) | < 1.5s | Lighthouse/WebPageTest |
+| NFR3: Largest Contentful Paint (LCP) | < 2.5s | Core Web Vitals |
+| NFR4: Time to Interactive (TTI) | < 5s | Lighthouse (WASM-realistic) |
+| NFR5: Styled Loading Shell | < 500ms | Manual testing |
+| NFR6: Theme Toggle Response | Immediate (<100ms) | Perceived instant |
+| NFR7: Smooth Scroll Animation | 60fps | No jank during navigation |
+
+**Rationale:** Performance directly impacts Rachel's 8-second decision. Slow loading = back button = rejected candidate.
+
+### Accessibility
+
+| Requirement | Target | Measurement |
+|-------------|--------|-------------|
+| NFR8: Color Contrast | WCAG AA (4.5:1 text) | Automated contrast checker |
+| NFR9: Keyboard Navigation | All interactive elements reachable | Manual testing |
+| NFR10: Focus Indicators | Visible on all focusable elements | Visual inspection |
+| NFR11: Touch Targets | ≥ 44px on mobile | Design review |
+
+**Rationale:** Basic best practices ensure the portfolio doesn't exclude users and demonstrates professional standards.
+
+### Reliability
+
+| Requirement | Target | Measurement |
+|-------------|--------|-------------|
+| NFR12: WASM Load Failure | Graceful fallback message | Error scenario testing |
+| NFR13: Asset Loading | No broken images or missing resources | Visual inspection |
+| NFR14: Cross-Browser Consistency | Identical experience across supported browsers | Browser matrix testing |
+
+**Rationale:** A broken portfolio is worse than no portfolio. Reliability demonstrates attention to detail.
+
+### Maintainability (Codebase Quality)
+
+| Requirement | Target | Measurement |
+|-------------|--------|-------------|
+| NFR15: Component Organization | Logical folder structure (Layout/, Sections/, Shared/) | Code review |
+| NFR16: Naming Conventions | Consistent PascalCase for components | Code review |
+| NFR17: Code Cleanliness | No commented-out code, no console.logs | Code review |
+| NFR18: README Documentation | Clear setup and architecture explanation | Documentation review |
+| NFR19: Inline Comments | Key decisions documented | Code review |
+
+**Rationale:** The codebase IS the portfolio. Marcus and Dev will judge Bhavan's skills by reading the code. These NFRs ensure the code demonstrates the qualities Bhavan claims.
+
+### Skipped Categories
+
+**Security:** Not applicable - static site with no user data, authentication, or sensitive operations.
+
+**Scalability:** Not applicable - GitHub Pages provides automatic CDN distribution and handles traffic scaling.
+
+**Integration:** Not applicable - no external APIs or third-party system connections in MVP.
 
 ## User Journeys
 
