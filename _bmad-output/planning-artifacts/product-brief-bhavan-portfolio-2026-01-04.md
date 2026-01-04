@@ -1,5 +1,5 @@
 ---
-stepsCompleted: [1, 2, 3]
+stepsCompleted: [1, 2, 3, 4]
 inputDocuments:
   - "_bmad-output/analysis/brainstorming-session-2026-01-04.md"
   - "_bmad-output/planning-artifacts/research/domain-technical-portfolio-research-2026-01-04.md"
@@ -118,3 +118,65 @@ Fellow developer who found the portfolio through GitHub, conferences, or network
 | **Validation** | Scrolls to Skills - checks requirements. Projects - sees real work |
 | **Action** | Downloads resume via sticky header, copies contact email |
 | **Outcome** | Presents candidate to engineering hiring manager with confidence |
+
+---
+
+## Success Metrics
+
+### Product Success (Quality Focus)
+
+For this phase, success is measured by **quality of execution**, not conversion metrics or analytics. The portfolio succeeds when it meets the high bar set in the vision.
+
+**Core Quality Criteria:**
+- Clean, professional presentation that reflects "getting things done" philosophy
+- Both dark and light modes equally polished
+- Fast, smooth experience across devices
+- Codebase quality matches the portfolio's claims
+
+### Technical Performance Indicators
+
+| Metric | Target |
+|--------|--------|
+| **Lighthouse Performance** | 90+ |
+| **First Contentful Paint** | < 1.5s |
+| **Time to Interactive** | < 5s (WASM realistic target) |
+| **Largest Contentful Paint** | < 2.5s |
+| **Loading Experience** | Styled content visible within 500ms |
+| **Mobile Responsive** | Full parity with desktop |
+
+*Note: Blazor WASM has a 2-5MB runtime. Targets assume Brotli compression and styled loading state to mask initial download.*
+
+### User Experience Success
+
+| Criteria | Validation |
+|----------|------------|
+| **8-Second Test** | New visitor can identify name, title, and find resume in 8 seconds |
+| **Theme Toggle - Smooth** | Toggle transition has no flash, smooth animation |
+| **Theme Toggle - Readable** | No unreadable text in either mode |
+| **Theme Toggle - Hierarchy** | Same visual hierarchy maintained in both modes |
+| **Loading Experience** | Styled loading state, not blank screen or spinner |
+| **Navigation Clarity** | All 6 sections accessible within 2 clicks |
+
+### Codebase Quality
+
+**Project Structure:**
+```
+/Components
+  /Layout (Header, Footer, Navigation)
+  /Sections (Hero, About, Skills, Projects, Contact, Timeline)
+  /Shared (ThemeToggle, ProjectCard, SkillBadge)
+/wwwroot
+  /css (or Tailwind setup)
+  /assets (images, resume PDF)
+/Services (theme state, etc.)
+```
+
+**Code Criteria:**
+- [ ] No components > 200 lines
+- [ ] Consistent naming (PascalCase components)
+- [ ] CSS organized by component or utility-first pattern
+- [ ] No commented-out code in main branch
+- [ ] README with setup instructions and key architectural decisions
+- [ ] Inline comments for key decision points only (not over-commented)
+
+*Note: Analytics and conversion tracking out of scope for MVP. Success is qualitative - "does this represent me well?" - validated through self-review and peer feedback.*
