@@ -1,5 +1,5 @@
 ---
-stepsCompleted: [1, 2]
+stepsCompleted: [1, 2, 3]
 inputDocuments:
   - "_bmad-output/analysis/brainstorming-session-2026-01-04.md"
   - "_bmad-output/planning-artifacts/research/domain-technical-portfolio-research-2026-01-04.md"
@@ -11,7 +11,7 @@ author: Bhavan
 
 ## Executive Summary
 
-Bhavan Portfolio is a personal developer portfolio website designed to serve multiple audiences - recruiters, clients, developers, and hiring managers - through a singular philosophy: **less is more**. Built with Blazor WebAssembly, Tailwind CSS, and hosted on GitHub Pages, the portfolio demonstrates technical competence not through flashy features, but through clean execution, fast performance, and polished design.
+Bhavan Portfolio is a personal developer portfolio website designed to serve recruiters, engineering hiring managers, and developers through a singular philosophy: **less is more**. Built with Blazor WebAssembly, Tailwind CSS, and hosted on GitHub Pages, the portfolio demonstrates technical competence not through flashy features, but through clean execution, fast performance, and polished design.
 
 The portfolio positions Bhavan as a **Full Stack Developer who gets things done** - reliable, clean code, fast delivery, and technical depth. The open-source codebase itself serves as proof of these qualities.
 
@@ -21,14 +21,14 @@ The portfolio positions Bhavan as a **Full Stack Developer who gets things done*
 
 ### Problem Statement
 
-Developers need a way to present their professional identity, skills, and work to diverse audiences (recruiters scanning in 8 seconds, clients evaluating capability, peers assessing technical depth) without maintaining multiple presentations or cluttered portfolios that dilute their message.
+Developers need a way to present their professional identity, skills, and work to diverse audiences (technical recruiters scanning in 8 seconds, engineering hiring managers evaluating fit, peers assessing technical depth) without maintaining multiple presentations or cluttered portfolios that dilute their message.
 
 ### Problem Impact
 
-- Recruiters skip portfolios that don't immediately communicate competence
-- Clients struggle to assess developer capability without clear project showcases
+- Technical recruiters skip portfolios that don't immediately communicate competence
 - Developers lose opportunities when their portfolio doesn't reflect their actual skill level
-- Hiring managers need quick validation of both technical ability and professional polish
+- Engineering hiring managers need quick validation of both technical ability and professional polish
+- Peers can't assess credibility for referrals without clear evidence of competence
 
 ### Why Existing Solutions Fall Short
 
@@ -57,3 +57,64 @@ A minimalist, Apple-inspired portfolio with:
 3. **Dark mode as first-class citizen** - Default to what developers actually use
 4. **Performance-first approach** - Fast load, smooth interactions, no unnecessary bloat
 5. **"Getting things done" philosophy** visible in every detail - from load time to navigation
+
+---
+
+## Target Users
+
+### Primary Users
+
+**Rachel - Technical Recruiter**
+
+A technical recruiter at a mid-size company or agency, screening 50+ candidates weekly. She has your portfolio open in one of 20 browser tabs, giving it 8-15 seconds before deciding to dig deeper or move on.
+
+**Goals:**
+- Quickly validate "Is this developer worth presenting to the engineering hiring manager?"
+- Find skills that match job requirements
+- See evidence of real work, not just tutorials
+- Grab resume and contact info efficiently
+
+**Success Criteria:** "This looks clean, skills match, projects are relevant - downloading resume now."
+
+**Critical UX Requirements:**
+- Resume download in sticky header (accessible within 1 click from any page position)
+- Hero must communicate value in F-pattern scan zones (Name/Title top-left, CTA visible)
+- First 3 seconds must prevent the "back button moment"
+
+**Testable Acceptance Criteria:**
+- [ ] Page loads in under 3 seconds on 3G
+- [ ] Name + Title visible without scroll
+- [ ] Resume download accessible within 1 click from any page position (sticky header)
+- [ ] Skills section scannable in under 5 seconds
+- [ ] At least 3 project examples visible
+
+### Secondary Users
+
+**Marcus - Engineering Hiring Manager**
+
+Received the candidate profile from a technical recruiter, doing deeper technical validation. Assesses team fit technically and culturally by reviewing project depth, code quality (may check GitHub), and communication clarity.
+
+**Dev (Technical Evaluator)**
+
+Senior developer on hiring committee who validates technical decisions. Digs into GitHub, reviews code structure, assesses architectural choices.
+
+**Dev (Peer/Referrer)**
+
+Fellow developer who found the portfolio through GitHub, conferences, or networking. Needs to trust competence enough to stake their reputation on a referral.
+
+**Testable Acceptance Criteria (Secondary Users):**
+- [ ] GitHub link prominent
+- [ ] Code demonstrates claimed skills
+- [ ] README explains key decisions
+
+*Note: Secondary user journeys out of scope for MVP. Recruiter-optimized design benefits secondary users as side effect.*
+
+### User Journey (Primary: Technical Recruiter)
+
+| Stage | Experience |
+|-------|------------|
+| **Discovery** | LinkedIn link, job application, or Google search |
+| **First Impression (8 sec)** | Hero loads fast, sees [Title - TBD], clean design signals professionalism |
+| **Validation** | Scrolls to Skills - checks requirements. Projects - sees real work |
+| **Action** | Downloads resume via sticky header, copies contact email |
+| **Outcome** | Presents candidate to engineering hiring manager with confidence |
