@@ -71,15 +71,6 @@
         </div>
     </div>
 
-    <!-- WASM Fallback - shown after 10s timeout (AC1, AC2, AC3) -->
-    <div id="wasm-fallback" class="min-h-screen flex items-center justify-center" style="display: none;">
-        <div class="text-center max-w-6xl mx-auto px-4 md:px-6">
-            <p class="text-xl md:text-2xl text-gray-400">
-                This site requires a modern browser with JavaScript enabled.
-            </p>
-        </div>
-    </div>
-
     <!-- Blazor App Container -->
     <div id="app"></div>
 
@@ -91,35 +82,8 @@
 
     <script src="_framework/blazor.webassembly.js"></script>
     <script>
-        // Set timeout BEFORE calling Blazor.start() (AC1, AC5)
-        var wasmTimeout = setTimeout(function() {
-            // Hide loading shell (AC6)
-            var loadingShell = document.getElementById('loading-shell');
-            if (loadingShell) {
-                loadingShell.style.opacity = '0';
-                loadingShell.style.visibility = 'hidden';
-            }
-            // Show fallback after brief transition delay (AC6)
-            setTimeout(function() {
-                if (loadingShell) {
-                    loadingShell.style.display = 'none';
-                }
-                var fallback = document.getElementById('wasm-fallback');
-                if (fallback) {
-                    fallback.style.display = 'flex';
-                    fallback.style.opacity = '1';
-                }
-            }, 300);
-            document.body.classList.remove('blazor-loading');
-        }, 10000);
-
-        // Start Blazor and clear timeout on success (AC5, AC7)
         Blazor.start().then(function() {
-            clearTimeout(wasmTimeout);
             document.body.classList.remove('blazor-loading');
-        }).catch(function(error) {
-            // On Blazor error, let the timeout handle the fallback display
-            console.error('Blazor initialization failed:', error);
         });
     </script>
 </body>
