@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Tailwind v4: Use class-based dark mode instead of prefers-color-scheme */
+@variant dark (&:where(.dark, .dark *));
+
 /* Loading shell transitions */
 #loading-shell {
     transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
