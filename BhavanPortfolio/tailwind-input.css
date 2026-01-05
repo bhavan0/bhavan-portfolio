@@ -3,6 +3,30 @@
 /* Tailwind v4: Use class-based dark mode instead of prefers-color-scheme */
 @variant dark (&:where(.dark, .dark *));
 
+/* Blazor error UI - hidden by default, shown by Blazor on error */
+#blazor-error-ui {
+    display: none;
+    background: #b32121;
+    color: white;
+    padding: 0.5rem 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+#blazor-error-ui .reload {
+    color: white;
+    margin-left: 0.5rem;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+}
+
 /* Loading shell transitions */
 #loading-shell {
     transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
