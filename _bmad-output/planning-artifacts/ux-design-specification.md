@@ -1,5 +1,5 @@
 ---
-stepsCompleted: [1, 2, 3, 4, 5, 6, 7]
+stepsCompleted: [1, 2, 3, 4, 5, 6, 7, 8]
 inputDocuments:
   - "_bmad-output/planning-artifacts/product-brief-bhavan-portfolio-2026-01-04.md"
   - "_bmad-output/planning-artifacts/prd.md"
@@ -351,3 +351,93 @@ Rachel lands on the page, scans the hero (name, title), validates skills match, 
 - Success: Resume downloaded, positive impression
 - Deeper engagement (Marcus/Dev): Projects → GitHub links
 - Exit: Tab closed, but impression made
+
+## Visual Design Foundation
+
+### Color System
+
+**Constrained Palette:**
+
+| Color | Value | Usage |
+|-------|-------|-------|
+| `black` | #000000 | Text (dark mode), backgrounds (light mode CTAs) |
+| `white` | #FFFFFF | Backgrounds (light mode), text (dark mode) |
+| `gray-50` | #F9FAFB | Light mode background alternative |
+| `gray-200` | #E5E7EB | Borders (light mode), dividers |
+| `gray-300` | #D1D5DB | Muted elements (light mode) |
+| `gray-400` | #9CA3AF | Secondary text (light mode) |
+| `gray-600` | #4B5563 | Secondary text (dark mode) |
+| `gray-700` | #374151 | Borders (dark mode) |
+| `gray-800` | #1F2937 | Card backgrounds (dark mode) |
+| `gray-900` | #111827 | Page background (dark mode) |
+
+**Semantic Mapping:**
+
+| Semantic | Dark Mode | Light Mode |
+|----------|-----------|------------|
+| **Background** | gray-900 | white |
+| **Surface** (cards) | gray-800 | gray-50 |
+| **Text Primary** | white | black |
+| **Text Secondary** | gray-400 | gray-600 |
+| **Border** | gray-700 | gray-200 |
+| **Primary CTA** | white bg, black text | black bg, white text |
+| **Secondary CTA** | border-white, white text | border-black, black text |
+
+### Typography System
+
+**System Font Stack:**
+```css
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+```
+
+**Type Scale:**
+
+| Element | Size | Weight | Usage |
+|---------|------|--------|-------|
+| **Hero Name** | text-5xl (48px) / md:text-6xl (60px) | font-bold (700) | Name in hero |
+| **Hero Title** | text-xl (20px) / md:text-2xl (24px) | font-normal (400) | "Full Stack Developer" |
+| **Section Heading** | text-3xl (30px) / md:text-4xl (36px) | font-semibold (600) | About, Skills, Projects, etc. |
+| **Card Title** | text-xl (20px) | font-semibold (600) | Project names |
+| **Body Text** | text-base (16px) | font-normal (400) | Paragraphs, descriptions |
+| **Small Text** | text-sm (14px) | font-normal (400) | Badges, timestamps |
+| **Nav Links** | text-sm (14px) | font-medium (500) | Header navigation |
+
+**Line Heights:** Headings: `leading-tight` (1.25) | Body: `leading-relaxed` (1.625)
+
+### Spacing & Layout Foundation
+
+**Spacing Scale (4px base):**
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `space-1` | 4px | Tight gaps (badge padding) |
+| `space-2` | 8px | Small gaps (between badges) |
+| `space-4` | 16px | Medium gaps (card padding) |
+| `space-6` | 24px | Large gaps (between elements) |
+| `space-8` | 32px | Section internal spacing |
+| `space-20` | 80px | Section padding (py-20) |
+| `space-32` | 128px | Large section padding (py-32) |
+
+**Layout Grid:**
+
+| Breakpoint | Container | Columns |
+|------------|-----------|---------|
+| Default | `max-w-6xl` (1152px) | 1 column (stacked) |
+| `md:` (768px+) | `max-w-6xl` | 2 columns |
+| `lg:` (1024px+) | `max-w-6xl` | 3 columns |
+
+**Section Structure:**
+- All sections: `py-20 md:py-32` (80-128px vertical padding)
+- Container: `max-w-6xl mx-auto px-4 md:px-6`
+- Hero: Full viewport height (`min-h-screen`)
+
+### Accessibility Considerations
+
+| Requirement | Implementation |
+|-------------|----------------|
+| **Contrast Ratio** | All text meets WCAG AA (4.5:1 minimum) |
+| **Focus Indicators** | Visible focus rings on all interactive elements |
+| **Touch Targets** | Minimum 44x44px for mobile |
+| **Font Size** | Base 16px, scalable with user preferences |
+| **Color Independence** | No information conveyed by color alone |
+| **Reduced Motion** | Respect `prefers-reduced-motion` for animations |
