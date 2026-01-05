@@ -1,0 +1,114 @@
+@implements IDisposable
+@inject IThemeService ThemeService
+
+<nav role="navigation" aria-label="Main navigation"
+     class="fixed top-0 left-0 right-0 z-50 h-16 
+            bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm 
+            border-b border-gray-200 dark:border-gray-700">
+    <div class="max-w-6xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
+        @* Logo/Name - Left Side *@
+        <a href="#" class="text-lg font-semibold text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+            Bhavan
+        </a>
+
+        @* Navigation Links - Center (Desktop Only) *@
+        <div class="hidden md:flex items-center gap-6">
+            <a href="#about" class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium">
+                About
+            </a>
+            <a href="#skills" class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium">
+                Skills
+            </a>
+            <a href="#projects" class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium">
+                Projects
+            </a>
+            <a href="#experience" class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium">
+                Experience
+            </a>
+            <a href="#contact" class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium">
+                Contact
+            </a>
+        </div>
+
+        @* Right Section: Theme Toggle + Resume *@
+        <div class="flex items-center gap-3">
+            @* Theme Toggle Button *@
+            <button @onclick="ToggleTheme"
+                    class="w-10 h-10 flex items-center justify-center rounded-lg
+                           text-gray-600 dark:text-gray-400 
+                           hover:bg-gray-100 dark:hover:bg-gray-800
+                           hover:text-black dark:hover:text-white
+                           transition-colors focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
+                    aria-label="@(_currentTheme == "dark" ? "Switch to light mode" : "Switch to dark mode")"
+                    aria-pressed="@(_currentTheme == "dark" ? "true" : "false")">
+                @if (_currentTheme == "dark")
+                {
+                    @* Moon icon for dark mode *@
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                    </svg>
+                }
+                else
+                {
+                    @* Sun icon for light mode *@
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+                    </svg>
+                }
+            </button>
+
+            @* Mobile Menu Button (Placeholder for Story 2.5) *@
+            <button class="md:hidden w-10 h-10 flex items-center justify-center rounded-lg
+                          text-gray-600 dark:text-gray-400
+                          hover:bg-gray-100 dark:hover:bg-gray-800
+                          hover:text-black dark:hover:text-white
+                          transition-colors"
+                    aria-label="Open menu"
+                    aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            @* Resume Download Button *@
+            <a href="assets/resume.pdf" 
+               download="bhavan-resume.pdf"
+               class="hidden sm:inline-flex items-center gap-2 px-4 py-2 
+                      bg-black dark:bg-white text-white dark:text-black 
+                      rounded-lg font-medium text-sm
+                      hover:bg-gray-800 dark:hover:bg-gray-200
+                      transition-colors focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900">
+                Resume
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</nav>
+
+@code {
+    private string _currentTheme = "dark";
+
+    protected override void OnInitialized()
+    {
+        _currentTheme = ThemeService.CurrentTheme;
+        ThemeService.OnThemeChanged += HandleThemeChanged;
+    }
+
+    private void HandleThemeChanged()
+    {
+        _currentTheme = ThemeService.CurrentTheme;
+        StateHasChanged();
+    }
+
+    private async Task ToggleTheme()
+    {
+        await ThemeService.ToggleThemeAsync();
+    }
+
+    public void Dispose()
+    {
+        ThemeService.OnThemeChanged -= HandleThemeChanged;
+    }
+}

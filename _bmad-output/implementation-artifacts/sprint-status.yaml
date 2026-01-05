@@ -52,8 +52,8 @@ development_status:
   # Epic 2: Navigation & Theme System
   epic-2: in-progress
   2-1-create-mainlayout-with-theme-class-binding: done
-  2-2-implement-themeservice-with-js-interop: backlog
-  2-3-build-sticky-header-navigation: backlog
+  2-2-implement-themeservice-with-js-interop: done
+  2-3-build-sticky-header-navigation: done
   2-4-implement-themetoggle-component: backlog
   2-5-build-mobile-hamburger-menu: backlog
   2-6-implement-smooth-scroll-navigation: backlog

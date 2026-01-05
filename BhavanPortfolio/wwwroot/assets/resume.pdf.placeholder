@@ -1,0 +1,6 @@
+This is a placeholder for the resume PDF file.
+
+The actual resume.pdf file should be placed here at:
+  wwwroot/assets/resume.pdf
+
+The NavBar component links to this location for the Resume download button.
