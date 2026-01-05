@@ -1,6 +1,6 @@
 # Story 1.2: Create Loading Shell with Theme Resolution
 
-Status: review
+Status: done
 
 ## Story
 
@@ -226,3 +226,19 @@ Claude Opus 4.5 (claude-opus-4-5-20251101)
 **Modified Files:**
 - BhavanPortfolio/wwwroot/index.html - Added loading shell, theme script, Blazor integration
 - BhavanPortfolio/tailwind-input.css - Added loading transition CSS and light mode styles
+- BhavanPortfolio/wwwroot/css/app.css - Compiled Tailwind CSS output (auto-generated)
+
+## Senior Developer Review (AI)
+
+**Review Date:** 2026-01-05
+**Reviewer:** Claude Opus 4.5
+
+### Issues Found & Fixed:
+1. **[HIGH] Dead code in theme resolution** - Second `if (!theme)` was unreachable. Fixed with `theme = theme || 'dark'` pattern.
+2. **[MEDIUM] dark:/light: prefix misuse** - Removed non-functional `dark:bg-black dark:text-white light:bg-white light:text-black` classes from body. These respond to OS preference, not class-based theme.
+3. **[MEDIUM] Missing .catch() on Blazor.start()** - Added error handler to prevent unhandled promise rejection.
+
+### Verification:
+- Build succeeds with Tailwind v4.1.18
+- Theme resolution logic is correct
+- Light mode CSS properly targets `.light` class on `<html>`

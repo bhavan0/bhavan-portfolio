@@ -23,6 +23,8 @@
     --text-6xl: 3.75rem;
     --text-6xl--line-height: 1;
     --font-weight-bold: 700;
+    --default-transition-duration: 150ms;
+    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
   }
@@ -188,6 +190,9 @@
   .flex {
     display: flex;
   }
+  .hidden {
+    display: none;
+  }
   .min-h-screen {
     min-height: 100vh;
   }
@@ -237,6 +242,11 @@
   .text-white {
     color: var(--color-white);
   }
+  .transition {
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
   .md\:px-6 {
     @media (width >= 48rem) {
       padding-inline: calc(var(--spacing) * 6);
@@ -252,16 +262,6 @@
     @media (width >= 48rem) {
       font-size: var(--text-6xl);
       line-height: var(--tw-leading, var(--text-6xl--line-height));
-    }
-  }
-  .dark\:bg-black {
-    @media (prefers-color-scheme: dark) {
-      background-color: var(--color-black);
-    }
-  }
-  .dark\:text-white {
-    @media (prefers-color-scheme: dark) {
-      color: var(--color-white);
     }
   }
 }
@@ -285,6 +285,30 @@ body:not(.blazor-loading) #loading-shell {
   color: black;
 }
 .light #loading-shell p, html.light #loading-shell p {
+  color: #4b5563;
+}
+#wasm-fallback {
+  transition: opacity 0.3s ease-out;
+  opacity: 0;
+}
+.light #wasm-fallback p, html.light #wasm-fallback p {
+  color: #4b5563;
+}
+.light noscript div, html.light noscript div {
+  background-color: white;
+  color: black;
+}
+.light noscript p, html.light noscript p {
+  color: #4b5563;
+}
+.light .not-found-container, html.light .not-found-container {
+  background-color: white;
+  color: black;
+}
+.light .not-found-container h3, html.light .not-found-container h3 {
+  color: black;
+}
+.light .not-found-container p, html.light .not-found-container p {
   color: #4b5563;
 }
 @property --tw-font-weight {

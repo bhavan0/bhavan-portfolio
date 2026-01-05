@@ -32,3 +32,44 @@ html.light #loading-shell h1 {
 html.light #loading-shell p {
     color: #4b5563; /* gray-600 */
 }
+
+/* WASM Fallback transitions (AC6) */
+#wasm-fallback {
+    transition: opacity 0.3s ease-out;
+    opacity: 0;
+}
+
+/* Light mode styles for fallback */
+.light #wasm-fallback p,
+html.light #wasm-fallback p {
+    color: #4b5563; /* gray-600 */
+}
+
+/* Light mode styles for noscript */
+.light noscript div,
+html.light noscript div {
+    background-color: white;
+    color: black;
+}
+
+.light noscript p,
+html.light noscript p {
+    color: #4b5563; /* gray-600 */
+}
+
+/* Light mode styles for NotFound page */
+.light .not-found-container,
+html.light .not-found-container {
+    background-color: white;
+    color: black;
+}
+
+.light .not-found-container h3,
+html.light .not-found-container h3 {
+    color: black;
+}
+
+.light .not-found-container p,
+html.light .not-found-container p {
+    color: #4b5563; /* gray-600 */
+}
