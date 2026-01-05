@@ -34,7 +34,6 @@
     <base href="/" />
     <link rel="preload" id="webassembly" />
     <link rel="stylesheet" href="css/app.css" />
-    <link href="BhavanPortfolio.styles.css" rel="stylesheet" />
     <script type="importmap"></script>
 
     <!-- Theme Resolution Script - MUST execute before body renders to prevent FOUC -->
@@ -80,7 +79,7 @@
         <span class="dismiss">🗙</span>
     </div>
 
-    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_framework/blazor.webassembly#[.{fingerprint}].js" autostart="false"></script>
     <script>
         Blazor.start().then(function() {
             document.body.classList.remove('blazor-loading');
