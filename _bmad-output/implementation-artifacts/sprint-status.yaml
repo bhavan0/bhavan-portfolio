@@ -54,9 +54,9 @@ development_status:
   2-1-create-mainlayout-with-theme-class-binding: done
   2-2-implement-themeservice-with-js-interop: done
   2-3-build-sticky-header-navigation: done
-  2-4-implement-themetoggle-component: backlog
-  2-5-build-mobile-hamburger-menu: backlog
-  2-6-implement-smooth-scroll-navigation: backlog
+  2-4-implement-themetoggle-component: done
+  2-5-build-mobile-hamburger-menu: done
+  2-6-implement-smooth-scroll-navigation: done
   epic-2-retrospective: optional
 
   # Epic 3: Hero & Identity Section

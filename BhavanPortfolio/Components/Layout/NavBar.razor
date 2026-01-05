@@ -1,5 +1,7 @@
-@implements IDisposable
+@implements IAsyncDisposable
 @inject IThemeService ThemeService
+@inject IScrollService ScrollService
+@inject IJSRuntime JS
 
 <nav role="navigation" aria-label="Main navigation"
      class="fixed top-0 left-0 right-0 z-50 h-16 
@@ -7,70 +9,61 @@
             border-b border-gray-200 dark:border-gray-700">
     <div class="max-w-6xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
         @* Logo/Name - Left Side *@
-        <a href="#" class="text-lg font-semibold text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+        <button @onclick="ScrollToTop" 
+                class="text-lg font-semibold text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer bg-transparent border-none">
             Bhavan
-        </a>
+        </button>
 
         @* Navigation Links - Center (Desktop Only) *@
         <div class="hidden md:flex items-center gap-6">
-            <a href="#about" class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium">
+            <button @onclick="@(() => ScrollToSection("about"))" 
+                    class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium bg-transparent border-none cursor-pointer">
                 About
-            </a>
-            <a href="#skills" class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium">
+            </button>
+            <button @onclick="@(() => ScrollToSection("skills"))" 
+                    class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium bg-transparent border-none cursor-pointer">
                 Skills
-            </a>
-            <a href="#projects" class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium">
+            </button>
+            <button @onclick="@(() => ScrollToSection("projects"))" 
+                    class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium bg-transparent border-none cursor-pointer">
                 Projects
-            </a>
-            <a href="#experience" class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium">
+            </button>
+            <button @onclick="@(() => ScrollToSection("experience"))" 
+                    class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium bg-transparent border-none cursor-pointer">
                 Experience
-            </a>
-            <a href="#contact" class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium">
+            </button>
+            <button @onclick="@(() => ScrollToSection("contact"))" 
+                    class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium bg-transparent border-none cursor-pointer">
                 Contact
-            </a>
+            </button>
         </div>
 
-        @* Right Section: Theme Toggle + Resume *@
+        @* Right Section: Theme Toggle + Mobile Menu + Resume *@
         <div class="flex items-center gap-3">
-            @* Theme Toggle Button *@
-            <button @onclick="ToggleTheme"
-                    class="w-10 h-10 flex items-center justify-center rounded-lg
-                           text-gray-600 dark:text-gray-400 
+            @* Theme Toggle Button - Reusable Component (Hidden on mobile when in header, shown in menu) *@
+            <div class="hidden sm:block">
+                <ThemeToggle />
+            </div>
+
+            @* Mobile Menu Button *@
+            <button @onclick="OpenMenu"
+                    class="md:hidden w-11 h-11 flex items-center justify-center rounded-lg
+                           text-gray-600 dark:text-gray-400
                            hover:bg-gray-100 dark:hover:bg-gray-800
                            hover:text-black dark:hover:text-white
-                           transition-colors focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
-                    aria-label="@(_currentTheme == "dark" ? "Switch to light mode" : "Switch to dark mode")"
-                    aria-pressed="@(_currentTheme == "dark" ? "true" : "false")">
-                @if (_currentTheme == "dark")
-                {
-                    @* Moon icon for dark mode *@
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                    </svg>
-                }
-                else
-                {
-                    @* Sun icon for light mode *@
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
-                    </svg>
-                }
-            </button>
-
-            @* Mobile Menu Button (Placeholder for Story 2.5) *@
-            <button class="md:hidden w-10 h-10 flex items-center justify-center rounded-lg
-                          text-gray-600 dark:text-gray-400
-                          hover:bg-gray-100 dark:hover:bg-gray-800
-                          hover:text-black dark:hover:text-white
-                          transition-colors"
-                    aria-label="Open menu"
-                    aria-expanded="false">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           transition-colors
+                           focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white 
+                           focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
+                    aria-label="@(_isMenuOpen ? "Close menu" : "Open menu")"
+                    aria-expanded="@(_isMenuOpen ? "true" : "false")"
+                    aria-controls="mobile-menu">
+                @* Hamburger Icon *@
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
 
-            @* Resume Download Button *@
+            @* Resume Download Button (Desktop) *@
             <a href="assets/resume.pdf" 
                download="bhavan-resume.pdf"
                class="hidden sm:inline-flex items-center gap-2 px-4 py-2 
@@ -79,7 +72,7 @@
                       hover:bg-gray-800 dark:hover:bg-gray-200
                       transition-colors focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900">
                 Resume
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
             </a>
@@ -87,28 +80,220 @@
     </div>
 </nav>
 
+@* Mobile Menu Overlay *@
+@if (_isMenuOpen)
+{
+    @* Backdrop overlay - click to close *@
+    <div class="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm md:hidden"
+         @onclick="CloseMenu"
+         aria-hidden="true">
+    </div>
+}
+
+@* Mobile Menu Panel *@
+<div id="mobile-menu"
+     class="fixed top-0 right-0 bottom-0 w-full max-w-sm z-[70] md:hidden
+            bg-white dark:bg-gray-900 
+            shadow-2xl
+            transform transition-transform duration-300 ease-out
+            @(_isMenuOpen ? "translate-x-0" : "translate-x-full")"
+     role="dialog"
+     aria-modal="true"
+     aria-label="Mobile navigation menu"
+     @onkeydown="HandleKeyDown">
+    
+    @* Menu Header with Close Button *@
+    <div class="flex items-center justify-between h-16 px-4 border-b border-gray-200 dark:border-gray-700">
+        <span class="text-lg font-semibold text-black dark:text-white">Menu</span>
+        <button @onclick="CloseMenu"
+                id="mobile-menu-close-btn"
+                class="w-11 h-11 flex items-center justify-center rounded-lg
+                       text-gray-600 dark:text-gray-400
+                       hover:bg-gray-100 dark:hover:bg-gray-800
+                       hover:text-black dark:hover:text-white
+                       transition-colors
+                       focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white 
+                       focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
+                aria-label="Close menu">
+            @* X Close Icon *@
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    @* Menu Content *@
+    <div class="flex flex-col h-[calc(100%-4rem)] px-4 py-6">
+        @* Navigation Links *@
+        <nav class="flex flex-col gap-2" aria-label="Mobile navigation">
+            <button @onclick="@(() => ScrollToSectionAndClose("about"))"
+                    class="flex items-center px-4 py-3 rounded-lg
+                           text-gray-700 dark:text-gray-300 
+                           hover:bg-gray-100 dark:hover:bg-gray-800
+                           hover:text-black dark:hover:text-white
+                           transition-colors text-base font-medium text-left
+                           focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-inset
+                           bg-transparent border-none cursor-pointer w-full">
+                About
+            </button>
+            <button @onclick="@(() => ScrollToSectionAndClose("skills"))"
+                    class="flex items-center px-4 py-3 rounded-lg
+                           text-gray-700 dark:text-gray-300 
+                           hover:bg-gray-100 dark:hover:bg-gray-800
+                           hover:text-black dark:hover:text-white
+                           transition-colors text-base font-medium text-left
+                           focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-inset
+                           bg-transparent border-none cursor-pointer w-full">
+                Skills
+            </button>
+            <button @onclick="@(() => ScrollToSectionAndClose("projects"))"
+                    class="flex items-center px-4 py-3 rounded-lg
+                           text-gray-700 dark:text-gray-300 
+                           hover:bg-gray-100 dark:hover:bg-gray-800
+                           hover:text-black dark:hover:text-white
+                           transition-colors text-base font-medium text-left
+                           focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-inset
+                           bg-transparent border-none cursor-pointer w-full">
+                Projects
+            </button>
+            <button @onclick="@(() => ScrollToSectionAndClose("experience"))"
+                    class="flex items-center px-4 py-3 rounded-lg
+                           text-gray-700 dark:text-gray-300 
+                           hover:bg-gray-100 dark:hover:bg-gray-800
+                           hover:text-black dark:hover:text-white
+                           transition-colors text-base font-medium text-left
+                           focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-inset
+                           bg-transparent border-none cursor-pointer w-full">
+                Experience
+            </button>
+            <button @onclick="@(() => ScrollToSectionAndClose("contact"))"
+                    class="flex items-center px-4 py-3 rounded-lg
+                           text-gray-700 dark:text-gray-300 
+                           hover:bg-gray-100 dark:hover:bg-gray-800
+                           hover:text-black dark:hover:text-white
+                           transition-colors text-base font-medium text-left
+                           focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-inset
+                           bg-transparent border-none cursor-pointer w-full">
+                Contact
+            </button>
+        </nav>
+
+        @* Spacer *@
+        <div class="flex-1"></div>
+
+        @* Bottom Section: Theme Toggle + Resume *@
+        <div class="flex flex-col gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+            @* Theme Toggle Row *@
+            <div class="flex items-center justify-between px-4">
+                <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Theme</span>
+                <ThemeToggle />
+            </div>
+
+            @* Resume Download Button *@
+            <a href="assets/resume.pdf" 
+               download="bhavan-resume.pdf"
+               @onclick="CloseMenu"
+               class="flex items-center justify-center gap-2 px-4 py-3 
+                      bg-black dark:bg-white text-white dark:text-black 
+                      rounded-lg font-medium text-base
+                      hover:bg-gray-800 dark:hover:bg-gray-200
+                      transition-colors
+                      focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900">
+                Download Resume
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+
 @code {
-    private string _currentTheme = "dark";
+    private bool _isMenuOpen = false;
+    private IJSObjectReference? _scrollModule;
 
     protected override void OnInitialized()
     {
-        _currentTheme = ThemeService.CurrentTheme;
         ThemeService.OnThemeChanged += HandleThemeChanged;
     }
 
     private void HandleThemeChanged()
     {
-        _currentTheme = ThemeService.CurrentTheme;
         StateHasChanged();
     }
 
-    private async Task ToggleTheme()
+    /// <summary>
+    /// Scrolls to top of the page using scroll.js module.
+    /// </summary>
+    private async Task ScrollToTop()
     {
-        await ThemeService.ToggleThemeAsync();
+        try
+        {
+            _scrollModule ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/scroll.js");
+            await _scrollModule.InvokeVoidAsync("scrollToTop");
+        }
+        catch
+        {
+            // Fallback - ignore errors for non-critical scroll
+        }
     }
 
-    public void Dispose()
+    /// <summary>
+    /// Scrolls to the specified section using ScrollService.
+    /// </summary>
+    private async Task ScrollToSection(string sectionId)
+    {
+        await ScrollService.ScrollToSectionAsync(sectionId);
+    }
+
+    /// <summary>
+    /// Scrolls to section and closes mobile menu.
+    /// </summary>
+    private async Task ScrollToSectionAndClose(string sectionId)
+    {
+        CloseMenu();
+        // Small delay to let menu close animation start
+        await Task.Delay(100);
+        await ScrollService.ScrollToSectionAsync(sectionId);
+    }
+
+    private async Task OpenMenu()
+    {
+        _isMenuOpen = true;
+        StateHasChanged();
+        
+        // Focus the close button when menu opens for accessibility
+        await Task.Delay(50); // Small delay for DOM update
+        try
+        {
+            await JS.InvokeVoidAsync("eval", "document.getElementById('mobile-menu-close-btn')?.focus()");
+        }
+        catch
+        {
+            // Ignore focus errors - non-critical
+        }
+    }
+
+    private void CloseMenu()
+    {
+        _isMenuOpen = false;
+    }
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        // Close menu on Escape key
+        if (e.Key == "Escape" && _isMenuOpen)
+        {
+            CloseMenu();
+        }
+    }
+
+    public async ValueTask DisposeAsync()
     {
         ThemeService.OnThemeChanged -= HandleThemeChanged;
+        if (_scrollModule != null)
+        {
+            await _scrollModule.DisposeAsync();
+        }
     }
 }
