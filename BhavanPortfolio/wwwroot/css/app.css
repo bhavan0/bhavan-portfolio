@@ -11,8 +11,17 @@
     --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
+    --container-6xl: 72rem;
+    --text-xl: 1.25rem;
+    --text-xl--line-height: calc(1.75 / 1.25);
+    --text-2xl: 1.5rem;
+    --text-2xl--line-height: calc(2 / 1.5);
     --text-4xl: 2.25rem;
     --text-4xl--line-height: calc(2.5 / 2.25);
+    --text-5xl: 3rem;
+    --text-5xl--line-height: 1;
+    --text-6xl: 3.75rem;
+    --text-6xl--line-height: 1;
     --font-weight-bold: 700;
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
@@ -167,6 +176,9 @@
   }
 }
 @layer utilities {
+  .mx-auto {
+    margin-inline: auto;
+  }
   .mt-4 {
     margin-top: calc(var(--spacing) * 4);
   }
@@ -178,6 +190,9 @@
   }
   .min-h-screen {
     min-height: 100vh;
+  }
+  .max-w-6xl {
+    max-width: var(--container-6xl);
   }
   .flex-col {
     flex-direction: column;
@@ -191,6 +206,9 @@
   .bg-black {
     background-color: var(--color-black);
   }
+  .px-4 {
+    padding-inline: calc(var(--spacing) * 4);
+  }
   .py-20 {
     padding-block: calc(var(--spacing) * 20);
   }
@@ -200,6 +218,14 @@
   .text-4xl {
     font-size: var(--text-4xl);
     line-height: var(--tw-leading, var(--text-4xl--line-height));
+  }
+  .text-5xl {
+    font-size: var(--text-5xl);
+    line-height: var(--tw-leading, var(--text-5xl--line-height));
+  }
+  .text-xl {
+    font-size: var(--text-xl);
+    line-height: var(--tw-leading, var(--text-xl--line-height));
   }
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);
@@ -211,6 +237,55 @@
   .text-white {
     color: var(--color-white);
   }
+  .md\:px-6 {
+    @media (width >= 48rem) {
+      padding-inline: calc(var(--spacing) * 6);
+    }
+  }
+  .md\:text-2xl {
+    @media (width >= 48rem) {
+      font-size: var(--text-2xl);
+      line-height: var(--tw-leading, var(--text-2xl--line-height));
+    }
+  }
+  .md\:text-6xl {
+    @media (width >= 48rem) {
+      font-size: var(--text-6xl);
+      line-height: var(--tw-leading, var(--text-6xl--line-height));
+    }
+  }
+  .dark\:bg-black {
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--color-black);
+    }
+  }
+  .dark\:text-white {
+    @media (prefers-color-scheme: dark) {
+      color: var(--color-white);
+    }
+  }
+}
+#loading-shell {
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+}
+body.blazor-loading #loading-shell {
+  opacity: 1;
+  visibility: visible;
+}
+body:not(.blazor-loading) #loading-shell {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+}
+.light body, html.light body {
+  background-color: white;
+  color: black;
+}
+.light #loading-shell h1, html.light #loading-shell h1 {
+  color: black;
+}
+.light #loading-shell p, html.light #loading-shell p {
+  color: #4b5563;
 }
 @property --tw-font-weight {
   syntax: "*";

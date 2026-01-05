@@ -43,7 +43,7 @@ development_status:
   # Epic 1: Project Foundation & Loading Experience
   epic-1: in-progress
   1-1-initialize-blazor-wasm-project-with-tailwind-css: done
-  1-2-create-loading-shell-with-theme-resolution: backlog
+  1-2-create-loading-shell-with-theme-resolution: review
   1-3-implement-wasm-fallback-and-error-handling: backlog
   1-4-configure-seo-meta-tags-and-opengraph: backlog
   1-5-setup-github-actions-deployment-pipeline: backlog

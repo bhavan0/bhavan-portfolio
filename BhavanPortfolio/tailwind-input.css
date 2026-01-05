@@ -1,1 +1,34 @@
 @import "tailwindcss";
+
+/* Loading shell transitions */
+#loading-shell {
+    transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+}
+
+body.blazor-loading #loading-shell {
+    opacity: 1;
+    visibility: visible;
+}
+
+body:not(.blazor-loading) #loading-shell {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+/* Light mode styles when .light class is on html */
+.light body,
+html.light body {
+    background-color: white;
+    color: black;
+}
+
+.light #loading-shell h1,
+html.light #loading-shell h1 {
+    color: black;
+}
+
+.light #loading-shell p,
+html.light #loading-shell p {
+    color: #4b5563; /* gray-600 */
+}
