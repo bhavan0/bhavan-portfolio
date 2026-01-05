@@ -1,0 +1,70 @@
+@* TimelineSection Component - Career/Education Timeline *@
+<section id="experience"
+         class="py-20 md:py-32 bg-gray-50 dark:bg-gray-900"
+         aria-labelledby="experience-heading">
+    <div class="max-w-6xl mx-auto px-4 md:px-6">
+        <h2 id="experience-heading"
+            class="text-3xl md:text-4xl font-semibold text-black dark:text-white mb-12">
+            Experience
+        </h2>
+
+        <ul class="relative" aria-label="Work experience timeline">
+            @foreach (var experience in Experiences)
+            {
+                <TimelineItem Period="@experience.Period"
+                              DateTimeValue="@experience.DateTimeValue"
+                              Role="@experience.Role"
+                              Company="@experience.Company"
+                              Description="@experience.Description" />
+            }
+        </ul>
+    </div>
+</section>
+
+@code {
+    // Work experience entries in chronological order (most recent first)
+    private readonly List<ExperienceEntry> Experiences = new()
+    {
+        new ExperienceEntry
+        {
+            Period = "2023 - Present",
+            DateTimeValue = "2023-01",
+            Role = "Senior Full Stack Developer",
+            Company = "Tech Company",
+            Description = "Leading development of enterprise applications using .NET, Blazor, and Azure. Architecting scalable solutions and mentoring junior developers."
+        },
+        new ExperienceEntry
+        {
+            Period = "2021 - 2023",
+            DateTimeValue = "2021-01",
+            Role = "Full Stack Developer",
+            Company = "Software Solutions Inc.",
+            Description = "Built and maintained web applications using React, TypeScript, and .NET Core. Implemented CI/CD pipelines and improved deployment processes."
+        },
+        new ExperienceEntry
+        {
+            Period = "2019 - 2021",
+            DateTimeValue = "2019-01",
+            Role = "Software Developer",
+            Company = "Digital Agency",
+            Description = "Developed client-facing web applications and internal tools. Collaborated with cross-functional teams to deliver projects on time."
+        },
+        new ExperienceEntry
+        {
+            Period = "2017 - 2019",
+            DateTimeValue = "2017-01",
+            Role = "Junior Developer",
+            Company = "Startup Co.",
+            Description = "Started career building web applications with C# and JavaScript. Learned agile methodologies and best practices in software development."
+        }
+    };
+
+    private record ExperienceEntry
+    {
+        public required string Period { get; init; }
+        public required string DateTimeValue { get; init; }
+        public required string Role { get; init; }
+        public required string Company { get; init; }
+        public required string Description { get; init; }
+    }
+}

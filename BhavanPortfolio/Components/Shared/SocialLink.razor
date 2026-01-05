@@ -1,0 +1,76 @@
+@* SocialLink Component - Reusable social/contact link with icon *@
+<a href="@Url"
+   target="@(IsExternal ? "_blank" : null)"
+   rel="@(IsExternal ? "noopener noreferrer" : null)"
+   aria-label="@AriaLabel"
+   class="inline-flex items-center gap-3 px-4 py-3 min-h-[44px]
+          text-gray-700 dark:text-gray-300
+          hover:text-black dark:hover:text-white
+          focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white
+          focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900
+          rounded-lg transition-colors duration-200">
+    @* Icon *@
+    <span class="text-xl" aria-hidden="true">@GetIcon()</span>
+
+    @* Label *@
+    <span class="font-medium">@Label</span>
+</a>
+
+@code {
+    /// <summary>
+    /// Type of social link for icon display
+    /// </summary>
+    [Parameter, EditorRequired]
+    public SocialLinkType LinkType { get; set; }
+
+    /// <summary>
+    /// Display text for the link
+    /// </summary>
+    [Parameter, EditorRequired]
+    public string Label { get; set; } = "";
+
+    /// <summary>
+    /// URL/href for the link
+    /// </summary>
+    [Parameter, EditorRequired]
+    public string Url { get; set; } = "";
+
+    /// <summary>
+    /// Aria label for screen readers (optional, defaults to Label)
+    /// </summary>
+    [Parameter]
+    public string? AriaLabel { get; set; }
+
+    /// <summary>
+    /// Whether this is an external link (opens in new tab). Defaults to true for http/https links.
+    /// </summary>
+    [Parameter]
+    public bool IsExternal { get; set; } = true;
+
+    private string GetIcon() => LinkType switch
+    {
+        SocialLinkType.Email => "✉️",
+        SocialLinkType.LinkedIn => "💼",
+        SocialLinkType.GitHub => "💻",
+        _ => "→"
+    };
+
+    protected override void OnParametersSet()
+    {
+        // Default aria-label to the label if not provided
+        AriaLabel ??= Label;
+
+        // Mailto links should not open in new tab
+        if (Url.StartsWith("mailto:", StringComparison.OrdinalIgnoreCase))
+        {
+            IsExternal = false;
+        }
+    }
+
+    public enum SocialLinkType
+    {
+        Email,
+        LinkedIn,
+        GitHub
+    }
+}
