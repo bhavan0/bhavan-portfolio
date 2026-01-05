@@ -1,12 +1,13 @@
 ---
-stepsCompleted: [1, 2, 3, 4, 5, 6, 7, 8]
+stepsCompleted: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 inputDocuments:
   - "_bmad-output/planning-artifacts/product-brief-bhavan-portfolio-2026-01-04.md"
   - "_bmad-output/planning-artifacts/prd.md"
   - "_bmad-output/planning-artifacts/architecture.md"
   - "_bmad-output/project-context.md"
 workflowType: 'ux-design'
-lastStep: 1
+lastStep: 14
+status: 'complete'
 project_name: 'bhavan-portfolio'
 user_name: 'Bhavan'
 date: '2026-01-04'
@@ -441,3 +442,759 @@ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica N
 | **Font Size** | Base 16px, scalable with user preferences |
 | **Color Independence** | No information conveyed by color alone |
 | **Reduced Motion** | Respect `prefers-reduced-motion` for animations |
+
+## Design Direction Decision
+
+### Design Directions Explored
+
+Three primary layout directions were evaluated for the Bhavan Portfolio:
+
+| Direction | Approach | Key Characteristics | Verdict |
+|-----------|----------|---------------------|---------|
+| **A: Classic Hero** | Full-viewport centered hero with name, title, and dual CTAs | Strong first impression, clear hierarchy, immediate F-pattern scan | Excellent for 8-second test |
+| **B: Left-Aligned Editorial** | Editorial typography with left-aligned content and sidebar navigation | Professional, typography-driven, content-focused | Too text-heavy for recruiter scan |
+| **C: Minimal Grid** | Brutalist grid layout with maximum whitespace | Ultra-minimal, geometric, stark | Too sparse, lacks warmth |
+
+### Chosen Direction
+
+**"Hero-First with Editorial Polish"** - A hybrid approach combining:
+
+- **From Direction A:** Full-viewport hero with centered name/title, dual CTA placement (hero + sticky header)
+- **From Direction B:** Editorial typography treatment for section headings, generous line heights
+- **From Direction C:** Disciplined whitespace in skills badges and project cards
+
+**Interactive Mockup:** `_bmad-output/planning-artifacts/ux-design-directions.html`
+
+### Design Rationale
+
+| Decision | Rationale |
+|----------|-----------|
+| **Full-viewport hero** | Maximizes first impression, passes 8-second test, F-pattern delivers name → resume instantly |
+| **Sticky header with resume CTA** | Rachel never loses access to primary action regardless of scroll position |
+| **Badge-based skills** | Scannable in 3-5 seconds, matches recruiter mental model from LinkedIn |
+| **Card-based projects** | Familiar pattern, hover states add polish, GitHub links provide proof |
+| **Vertical timeline** | Professional history scannable, compact on mobile |
+| **Theme toggle in header** | Accessible from any section, instant feedback |
+
+### Implementation Approach
+
+**Header Structure:**
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ Bhavan Anand    About  Skills  Projects  Experience    🌙  [Resume] │
+└─────────────────────────────────────────────────────────────────┘
+```
+- Fixed position, backdrop blur, border-bottom
+- Resume button: primary CTA styling (filled)
+- Theme toggle: icon button (sun/moon)
+
+**Hero Section:**
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│                       Bhavan Anand                              │
+│                    Full Stack Developer                         │
+│                                                                 │
+│                [Download Resume]  [View Projects]               │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+- `min-h-screen`, centered content
+- Name: `text-5xl md:text-6xl font-bold`
+- Title: `text-xl md:text-2xl text-gray-400`
+- Dual CTAs: Primary (filled) + Secondary (outline)
+
+**Section Pattern:**
+- Consistent padding: `py-20 md:py-32`
+- Section heading: `text-3xl md:text-4xl font-semibold` + brief subtitle
+- Content: Cards, badges, or timeline based on section type
+
+**Responsive Behavior:**
+- Desktop (lg+): 3-column project grid, full nav visible
+- Tablet (md): 2-column grid, condensed nav
+- Mobile: Single column, hamburger menu, stacked CTAs
+
+## User Journey Flows
+
+### Rachel's 8-Second Decision Flow
+
+**Entry Point:** Click from LinkedIn, job application, or email link
+**Goal:** Download resume and move candidate to phone screen pile in <15 seconds
+
+```mermaid
+flowchart TD
+    A[Click Portfolio Link] --> B{Page Loads <2s?}
+    B -->|Yes| C[Loading Shell Renders]
+    B -->|No| X[Back Button - LOST]
+    C --> D[F-Pattern Scan Begins]
+    D --> E[Top-Left: Name + Title]
+    E --> F{Matches Job Req?}
+    F -->|No| X
+    F -->|Yes| G[Top-Right: Resume Button Noted]
+    G --> H[Scroll Down - Skills Scan]
+    H --> I{Skills Match?}
+    I -->|No| X
+    I -->|Yes| J[Click Resume Button]
+    J --> K{PDF Downloads?}
+    K -->|Yes| L[Tag Candidate in ATS]
+    K -->|No| X
+    L --> M[Move to Next Tab - SUCCESS]
+```
+
+**Critical Moments:**
+
+| Moment | Time | Success | Failure |
+|--------|------|---------|---------|
+| Page load | 0-2s | Shell renders, professional feel | Spinner or blank = back button |
+| Identity scan | 2-4s | Name + title visible top-left | Can't find who this is |
+| Skills validation | 4-8s | Relevant skills scannable | Too much text, skills buried |
+| Resume action | 8-15s | 1-click download works | Button missing, broken link |
+
+### Marcus's Technical Validation Flow
+
+**Entry Point:** Rachel's forwarded link with note "Skills match, worth a look"
+**Goal:** Decide if candidate warrants technical interview slot in <5 minutes
+
+```mermaid
+flowchart TD
+    A[Click Forwarded Link] --> B[Dark Mode Loads - Appreciated]
+    B --> C[Scroll Past Hero]
+    C --> D[Projects Section]
+    D --> E[Find Relevant Project]
+    E --> F[Click GitHub Link]
+    F --> G[New Tab: GitHub Repo]
+    G --> H{README Clear?}
+    H -->|No| X[Concern Noted]
+    H -->|Yes| I[Browse /src Folder]
+    I --> J{Code Quality Good?}
+    J -->|No| X
+    J -->|Yes| K[Return to Portfolio Tab]
+    K --> L[Skills Section Deep Scan]
+    L --> M{Tech Stack Aligns?}
+    M -->|No| X
+    M -->|Yes| N[Timeline Check]
+    N --> O{Experience Level OK?}
+    O -->|No| X
+    O -->|Yes| P[Reply to Rachel: Schedule Screen - SUCCESS]
+```
+
+**Validation Points:**
+
+| Check | Location | Pass | Fail |
+|-------|----------|------|------|
+| Code quality | GitHub repo | Clean patterns, organized | Messy, commented-out code |
+| Tech stack | Skills section | Aligns with team needs | Missing key technologies |
+| Experience | Timeline | Progressive responsibility | Gaps or stagnation |
+| Architecture | README | Clear explanation | Confusing or missing |
+
+### Dev's Peer Assessment Flow
+
+**Entry Point:** LinkedIn connection updated profile with portfolio link
+**Goal:** Assess if worth recommending for team opening
+
+```mermaid
+flowchart TD
+    A[Click LinkedIn Portfolio Link] --> B[Dark Mode Loads]
+    B --> C[Notice Footer: Built with Blazor]
+    C --> D[Open DevTools]
+    D --> E[Run Lighthouse Audit]
+    E --> F{Performance >85?}
+    F -->|No| G[Skeptical - Check Code]
+    F -->|Yes| H[Impressed - Check Code Anyway]
+    G --> I[GitHub Repo]
+    H --> I
+    I --> J[Browse Component Structure]
+    J --> K{Patterns Match Claims?}
+    K -->|No| L[Close Tab - No Recommendation]
+    K -->|Yes| M[Check Specific Implementation]
+    M --> N{Would I Write This?}
+    N -->|No| L
+    N -->|Yes| O[Screenshot Portfolio]
+    O --> P[Share in Team Slack - SUCCESS]
+```
+
+**Peer Signals:**
+
+| Signal | Source | Respect | Skepticism |
+|--------|--------|---------|------------|
+| Performance | Lighthouse | 85+ on WASM is solid | <70 = claims don't match |
+| Patterns | Code review | Consistent, recognizable | Inconsistent, hacky |
+| Architecture | File structure | Organized, logical | Flat or chaotic |
+| Decisions | README/comments | Explained, justified | Unexplained complexity |
+
+### Rachel Redux - Mobile Validation Flow
+
+**Entry Point:** Revisiting portfolio on phone for final review
+**Goal:** Confirm candidate looks good on mobile before final round
+
+```mermaid
+flowchart TD
+    A[Open Portfolio on Phone] --> B{Mobile Layout Renders?}
+    B -->|No| X[Concern - Not Mobile Ready]
+    B -->|Yes| C[Tap Hamburger Menu]
+    C --> D{Menu Opens Smoothly?}
+    D -->|No| X
+    D -->|Yes| E[Tap Projects]
+    E --> F{Smooth Scroll Works?}
+    F -->|No| X
+    F -->|Yes| G[View Project Cards]
+    G --> H{Cards Stack Nicely?}
+    H -->|No| X
+    H -->|Yes| I[Tap Resume Button]
+    I --> J{PDF Opens in Viewer?}
+    J -->|No| X
+    J -->|Yes| K[Text Marcus: Looks Good - SUCCESS]
+```
+
+**Mobile Checkpoints:**
+
+| Element | Test | Pass | Fail |
+|---------|------|------|------|
+| Layout | Content readable | Proper responsive stacking | Broken/overlapping |
+| Navigation | Hamburger menu | Smooth open/close | Janky or broken |
+| Touch targets | Buttons/links | 44px+ tap areas | Too small to hit |
+| Resume | Download action | Opens in phone viewer | Broken link |
+
+### Journey Patterns
+
+**Navigation Patterns:**
+- **Sticky Header:** Always visible, provides orientation and primary CTA access
+- **Smooth Scroll:** 400-500ms eased animation confirms navigation action
+- **Mobile Hamburger:** Full menu functionality in compact form
+
+**Decision Patterns:**
+- **F-Pattern Layout:** Top-left identity, top-right action, scroll for details
+- **Progressive Disclosure:** Hero → Skills → Projects → Timeline → Contact
+- **External Validation:** GitHub links for code proof, LinkedIn for social proof
+
+**Feedback Patterns:**
+- **Instant Response:** Theme toggle, button hover states
+- **Visual Confirmation:** Scroll animation, download initiation
+- **Error Recovery:** Fallback message if WASM fails to load
+
+### Flow Optimization Principles
+
+| Principle | Implementation |
+|-----------|----------------|
+| **Minimize Steps to Value** | Resume accessible in 1 click from any scroll position |
+| **Reduce Cognitive Load** | Scannable badges instead of paragraphs, clear visual hierarchy |
+| **Clear Progress Indicators** | Scroll position via nav highlighting, section headings |
+| **Graceful Error Handling** | 10-second WASM timeout with fallback message |
+| **Mobile Parity** | Every desktop action has mobile equivalent |
+
+## Component Strategy
+
+### Design System Components
+
+**Foundation: Tailwind CSS v4 Utilities**
+
+No pre-built component library - all components are custom Blazor `.razor` files styled with Tailwind utility classes. This provides:
+
+| Capability | Source |
+|------------|--------|
+| Layout utilities | Tailwind (flex, grid, spacing) |
+| Typography scale | Tailwind (text-sm through text-6xl) |
+| Color palette | Tailwind (gray-50 through gray-900, black, white) |
+| Responsive breakpoints | Tailwind (sm, md, lg, xl) |
+| Dark mode variants | Tailwind (`dark:` prefix) |
+| Transitions | Tailwind (transition-*, duration-*, ease-*) |
+
+### Custom Components
+
+#### StickyHeader
+
+**Purpose:** Persistent navigation and primary CTA access from any scroll position
+
+**Specification:**
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ [Name]     [About] [Skills] [Projects] [Experience]    [☀] [Resume] │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+| Attribute | Value |
+|-----------|-------|
+| Position | `fixed top-0 left-0 right-0 z-50` |
+| Background | `bg-gray-900/95 backdrop-blur-sm` |
+| Border | `border-b border-gray-700` |
+| Height | `h-16` (64px) |
+| Resume button | Primary CTA (filled) |
+
+**States:** Default, scrolled (with shadow), mobile (hamburger visible)
+
+**Accessibility:** `role="navigation"`, `aria-label="Main navigation"`, skip link, focus indicators
+
+#### MobileMenu
+
+**Purpose:** Full navigation on mobile devices
+
+| Attribute | Value |
+|-----------|-------|
+| Trigger | Hamburger icon (visible < md breakpoint) |
+| Panel | `fixed inset-0 z-50 bg-gray-900` |
+| Animation | `transition-transform duration-300 ease-out` |
+| Close | X button, tap outside, nav click, ESC key |
+
+**Accessibility:** `aria-expanded`, focus trap, `aria-hidden` on background
+
+#### HeroSection
+
+**Purpose:** Immediate identity and primary CTA delivery
+
+**Specification:**
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│                       Bhavan Anand                              │
+│                    Full Stack Developer                         │
+│                                                                 │
+│                [Download Resume]  [View Projects]               │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+| Element | Styling |
+|---------|---------|
+| Container | `min-h-screen flex items-center justify-center` |
+| Name | `text-5xl md:text-6xl font-bold` |
+| Title | `text-xl md:text-2xl text-gray-400` |
+| Primary CTA | Filled button (white bg, black text in dark mode) |
+| Secondary CTA | Outline button (border, transparent bg) |
+
+#### SkillBadge
+
+**Purpose:** Scannable skill display for recruiter validation
+
+| Attribute | Value |
+|-----------|-------|
+| Shape | `rounded-full` (pill) |
+| Padding | `px-3 py-1` (sm) or `px-4 py-2` (md) |
+| Background | `bg-gray-800` (dark) / `bg-gray-100` (light) |
+| Border | `border border-gray-700` |
+| Text | `text-sm font-medium` |
+| Hover | `hover:bg-gray-700` (subtle) |
+
+**Accessibility:** Semantic list (`<ul>` with `<li>` items)
+
+#### ProjectCard
+
+**Purpose:** Showcase project with visual and links to code
+
+**Specification:**
+```
+┌─────────────────────────────────────────┐
+│  [Screenshot/Preview Image]             │
+├─────────────────────────────────────────┤
+│  Project Title                          │
+│  Brief description of the project...    │
+│                                         │
+│  [Blazor] [.NET] [Tailwind]             │
+│                                         │
+│  [GitHub →]                             │
+└─────────────────────────────────────────┘
+```
+
+| Attribute | Value |
+|-----------|-------|
+| Container | `bg-gray-800 rounded-lg overflow-hidden` |
+| Hover | `hover:shadow-lg hover:-translate-y-1 transition-all duration-200` |
+| Image | `aspect-video object-cover` |
+| Content | `p-6` |
+| GitHub link | `inline-flex items-center gap-2 hover:underline` |
+
+**Accessibility:** `<article>` with heading, descriptive image `alt`
+
+#### TimelineItem
+
+**Purpose:** Display career/education history chronologically
+
+**Specification:**
+```
+●─── 2022 - Present
+│    Senior Developer
+│    Company Name
+│    Brief role description...
+```
+
+| Element | Styling |
+|---------|---------|
+| Line | `border-l-2 border-gray-700` |
+| Dot | `w-3 h-3 rounded-full bg-white` |
+| Date | `text-sm text-gray-400 font-medium` |
+| Title | `text-lg font-semibold` |
+| Company | `text-base text-gray-400` |
+
+**Accessibility:** Semantic list, `<time>` elements with `datetime`
+
+#### ThemeToggle
+
+**Purpose:** Switch between dark and light mode
+
+| Attribute | Value |
+|-----------|-------|
+| Icon | Sun (light mode) / Moon (dark mode) |
+| Size | `w-10 h-10` (44px touch target) |
+| Action | Toggle body class, persist to localStorage |
+| Transition | Icon swap with subtle animation |
+
+**Accessibility:** `aria-label`, `aria-pressed`, keyboard accessible
+
+#### ContactSection
+
+**Purpose:** Provide contact methods
+
+| Element | Implementation |
+|---------|----------------|
+| Email | `mailto:` link |
+| LinkedIn | External link with icon |
+| GitHub | External link with icon |
+| Links | `target="_blank" rel="noopener"` |
+
+#### FooterSection
+
+**Purpose:** Site attribution and secondary links
+
+| Element | Implementation |
+|---------|----------------|
+| "Built with Blazor" | Subtle badge/text |
+| Copyright | `text-sm text-gray-500` |
+| Layout | Centered, minimal |
+
+### Component Implementation Strategy
+
+**Build Order (by Journey Criticality):**
+
+| Priority | Component | Journey Support |
+|----------|-----------|-----------------|
+| P0 | StickyHeader | Rachel - always-visible resume |
+| P0 | HeroSection | Rachel - 8-second identity |
+| P0 | SkillBadge | Rachel - skills validation |
+| P0 | ProjectCard | Rachel, Marcus - credibility |
+| P1 | MobileMenu | Rachel Redux - mobile parity |
+| P1 | ThemeToggle | Marcus, Dev - preference |
+| P1 | TimelineItem | Marcus - experience validation |
+| P2 | ContactSection | All - contact action |
+| P2 | FooterSection | Dev - "Built with Blazor" |
+
+**Implementation Principles:**
+- All components use Tailwind utility classes exclusively
+- Dark mode via `dark:` variants (Tailwind `darkMode: 'class'`)
+- Responsive via `sm:`, `md:`, `lg:` breakpoint prefixes
+- Transitions: `transition-all duration-200 ease-out` standard
+- Focus states: `focus:ring-2 focus:ring-white focus:ring-offset-2`
+
+### Implementation Roadmap
+
+**Phase 1 - MVP Critical (Rachel's Journey):**
+- StickyHeader with resume button
+- HeroSection with name/title/CTAs
+- SkillBadge for skills display
+- ProjectCard for project showcase
+- Basic responsive layout
+
+**Phase 2 - Full Experience:**
+- MobileMenu with hamburger
+- ThemeToggle with persistence
+- TimelineItem for experience
+- ContactSection
+- FooterSection with Blazor badge
+
+**Phase 3 - Polish:**
+- Loading shell (static HTML matching Blazor components)
+- Smooth scroll behavior
+- Hover state refinements
+- Accessibility audit and fixes
+
+## UX Consistency Patterns
+
+### Button Hierarchy
+
+**Three-Tier System:**
+
+| Tier | Usage | Visual Treatment | Example |
+|------|-------|------------------|---------|
+| **Primary** | Most important action per context | Filled background, high contrast | Resume Download |
+| **Secondary** | Important but not primary | Outline/border, transparent bg | View Projects |
+| **Tertiary** | Navigation, minor actions | Text only, underline on hover | Nav links, GitHub links |
+
+**Primary Button:**
+- Dark Mode: `bg-white text-black hover:bg-gray-200`
+- Light Mode: `bg-black text-white hover:bg-gray-800`
+- Padding: `px-6 py-3`
+- Font: `font-medium`
+- Shape: `rounded-lg`
+
+**Secondary Button:**
+- Dark Mode: `border-white text-white hover:bg-white/10`
+- Light Mode: `border-black text-black hover:bg-black/10`
+- Border: `border-2`
+
+**Tertiary (Links):**
+- Dark Mode: `text-gray-400 hover:text-white`
+- Light Mode: `text-gray-600 hover:text-black`
+- Hover: `hover:underline`
+
+**Button States:**
+
+| State | Visual Change |
+|-------|---------------|
+| Default | Base styling |
+| Hover | Background/text color shift |
+| Focus | `ring-2 ring-offset-2` focus ring |
+| Active | Slight scale down `scale-95` |
+| Disabled | `opacity-50 cursor-not-allowed` |
+
+### Navigation Patterns
+
+**Sticky Header:**
+- Always visible regardless of scroll position
+- Contains: Name, nav links, theme toggle, resume CTA
+- Background: `bg-gray-900/95 backdrop-blur-sm`
+- Border: `border-b border-gray-700`
+
+**Smooth Scroll Anchors:**
+- Duration: 400-500ms
+- Easing: `ease-out` or CSS `scroll-behavior: smooth`
+- Offset: Account for sticky header height (64px)
+
+**Active Section Indication:**
+- Current section highlighted in nav via Intersection Observer
+- Visual: Text color change or underline
+
+**Mobile Navigation:**
+- Hamburger at `< md` breakpoint
+- Full-screen overlay menu
+- Close on: X button, tap outside, nav click, ESC key
+
+### Feedback Patterns
+
+**Hover States:**
+
+| Element | Hover Feedback |
+|---------|----------------|
+| Buttons | Color shift + cursor pointer |
+| Cards | Elevation (`-translate-y-1 shadow-lg`) |
+| Links | Underline or color shift |
+| Nav items | Text color brighten |
+
+**Click/Tap Feedback:**
+- Buttons: Brief `scale-95` on active
+- Links: Immediate navigation or scroll
+- Theme toggle: Instant icon swap
+
+**Theme Toggle Feedback:**
+- Icon change: Sun ↔ Moon
+- Smooth color transitions across page
+- localStorage persistence (no toast needed)
+
+**Error States:**
+
+| Error | Feedback |
+|-------|----------|
+| WASM timeout (10s) | Fallback message with refresh suggestion |
+
+### Loading States
+
+**WASM Loading Strategy:**
+- Static HTML shell renders instantly
+- Styled identically to Blazor output
+- No spinner or loading indicator
+- Fade transition when Blazor hydrates
+
+**Progressive Enhancement:**
+- Static content viewable immediately
+- Interactive features activate when WASM ready
+- Resume link works before WASM loads (direct `<a>` tag)
+
+### Link Patterns
+
+**Internal Links (Anchor Scroll):**
+- Smooth scroll to section
+- No underline default, underline on hover
+
+**External Links:**
+- `target="_blank" rel="noopener noreferrer"`
+- Arrow icon (`→`) indicator
+- GitHub repo links, LinkedIn
+
+**Download Links:**
+- Direct browser download
+- `download="bhavan-anand-resume.pdf"`
+- Primary CTA styling
+
+### Spacing Patterns
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `gap-2` | 8px | Between badges, inline elements |
+| `gap-4` | 16px | Between card elements |
+| `gap-6` | 24px | Between components |
+| `gap-8` | 32px | Section internal spacing |
+| `py-20` | 80px | Section padding (mobile) |
+| `py-32` | 128px | Section padding (desktop) |
+
+### Animation Patterns
+
+**Default Transition:**
+```css
+transition: all 200ms ease-out;
+```
+
+**Specific Animations:**
+
+| Element | Animation |
+|---------|-----------|
+| Buttons | `transition-colors duration-200` |
+| Cards | `transition-all duration-200` |
+| Theme | `transition-colors duration-300` |
+| Menu | `transition-transform duration-300 ease-out` |
+| Scroll | `scroll-behavior: smooth` |
+
+**Reduced Motion:**
+```css
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0.01ms !important; }
+}
+```
+
+## Responsive Design & Accessibility
+
+### Responsive Strategy
+
+**Mobile-First Approach**
+
+Build mobile layout first, enhance for larger screens.
+
+| Platform | Priority | Strategy |
+|----------|----------|----------|
+| **Mobile** (< 768px) | Equal | Single column, hamburger menu, stacked elements, full touch optimization |
+| **Tablet** (768px - 1023px) | Adaptive | 2-column grids, condensed nav, touch-friendly |
+| **Desktop** (1024px+) | Primary | 3-column grids, full nav visible, hover interactions |
+
+**Device-Specific Adaptations:**
+
+| Element | Mobile | Tablet | Desktop |
+|---------|--------|--------|---------|
+| **Header** | Hamburger menu | Condensed nav | Full nav visible |
+| **Hero CTAs** | Stacked vertically | Side-by-side | Side-by-side |
+| **Skills** | 2-column badge grid | 3-column | 4-column |
+| **Projects** | Single column cards | 2-column grid | 3-column grid |
+| **Timeline** | Left-aligned | Left-aligned | Left-aligned |
+
+### Breakpoint Strategy
+
+**Tailwind Default Breakpoints (Mobile-First):**
+
+| Breakpoint | Width | Usage |
+|------------|-------|-------|
+| Default | < 640px | Mobile phones (base styles) |
+| `sm:` | 640px+ | Large phones, small tablets |
+| `md:` | 768px+ | Tablets, small laptops |
+| `lg:` | 1024px+ | Laptops, desktops |
+| `xl:` | 1280px+ | Large desktops |
+
+**Key Breakpoint Decisions:**
+
+| Transition | Breakpoint | What Changes |
+|------------|------------|--------------|
+| Nav collapse | `< md` (768px) | Full nav → Hamburger menu |
+| Grid columns | `md:` / `lg:` | 1 → 2 → 3 columns |
+| Section padding | `md:` | `py-20` → `py-32` |
+| Typography scale | `md:` | Mobile → Desktop sizes |
+
+**Container Strategy:**
+- Max width: `max-w-6xl` (1152px)
+- Horizontal padding: `px-4` (mobile) → `px-6` (desktop)
+- Centered: `mx-auto`
+
+### Accessibility Strategy
+
+**WCAG Compliance Level: AA**
+
+| Requirement | Implementation |
+|-------------|----------------|
+| **Color Contrast** | 4.5:1 minimum for body text, 3:1 for large text |
+| **Keyboard Navigation** | Full tab order, Enter/Space activation, ESC closes modals |
+| **Focus Indicators** | `focus:ring-2 focus:ring-white focus:ring-offset-2` |
+| **Screen Reader** | Semantic HTML, ARIA labels, landmark roles |
+| **Touch Targets** | Minimum 44x44px on all interactive elements |
+| **Reduced Motion** | `prefers-reduced-motion` media query support |
+
+**Keyboard Navigation:**
+
+| Key | Action |
+|-----|--------|
+| Tab | Move to next interactive element |
+| Shift+Tab | Move to previous interactive element |
+| Enter/Space | Activate buttons and links |
+| Escape | Close mobile menu |
+
+**Screen Reader Support:**
+
+| Element | ARIA Implementation |
+|---------|---------------------|
+| Header | `role="navigation"` `aria-label="Main navigation"` |
+| Mobile menu | `aria-expanded`, `aria-hidden` |
+| Theme toggle | `aria-label` `aria-pressed` |
+| Sections | Semantic headings, landmark roles |
+| External links | Descriptive text |
+
+### Testing Strategy
+
+**Responsive Testing:**
+
+| Test | Tools |
+|------|-------|
+| Browser DevTools | Chrome/Firefox responsive mode |
+| Real devices | iPhone, Android, iPad |
+| Cross-browser | Chrome, Firefox, Safari, Edge |
+
+**Accessibility Testing:**
+
+| Test | Tools |
+|------|-------|
+| Automated | Lighthouse, axe DevTools |
+| Keyboard | Manual tab-through |
+| Screen reader | VoiceOver, NVDA |
+| Color contrast | WebAIM Contrast Checker |
+
+**Pre-Launch Checklist:**
+- [ ] Lighthouse Accessibility score > 90
+- [ ] All elements keyboard accessible
+- [ ] Screen reader announces correctly
+- [ ] Mobile tested on real devices
+- [ ] Touch targets verified at 44px
+- [ ] Reduced motion respected
+- [ ] Skip link functional
+
+### Implementation Guidelines
+
+**Responsive Pattern:**
+```html
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+```
+
+**Semantic Structure:**
+```html
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <header role="navigation">...</header>
+  <main id="main">
+    <section id="hero" aria-labelledby="hero-heading">...</section>
+  </main>
+  <footer>...</footer>
+</body>
+```
+
+**Focus Management:**
+```css
+:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+```
+
+**Touch Target Sizing:**
+```html
+<button class="min-w-[44px] min-h-[44px] p-3">...</button>
+```
