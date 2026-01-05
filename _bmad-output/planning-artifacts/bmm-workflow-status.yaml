@@ -61,9 +61,10 @@ workflow_status:
   # Phase 3: Solutioning
   phase_3_solutioning:
     architecture:
-      status: "required"
+      status: "_bmad-output/planning-artifacts/architecture.md"
       agent: "architect"
       command: "/bmad:bmm:workflows:create-architecture"
+      completed: "2026-01-04"
     epics_and_stories:
       status: "required"
       agent: "pm"
