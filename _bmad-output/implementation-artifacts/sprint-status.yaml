@@ -60,11 +60,11 @@ development_status:
   epic-2-retrospective: done
 
   # Epic 3: Hero & Identity Section
-  epic-3: backlog
-  3-1-create-herosection-component: backlog
-  3-2-add-hero-call-to-action-buttons: backlog
-  3-3-integrate-resume-pdf-download: backlog
-  epic-3-retrospective: optional
+  epic-3: done
+  3-1-create-herosection-component: done
+  3-2-add-hero-call-to-action-buttons: done
+  3-3-integrate-resume-pdf-download: done
+  epic-3-retrospective: done
 
   # Epic 4: About & Skills Sections
   epic-4: backlog
