@@ -67,11 +67,11 @@ development_status:
   epic-3-retrospective: done
 
   # Epic 4: About & Skills Sections
-  epic-4: backlog
-  4-1-create-aboutsection-component: backlog
-  4-2-create-skillssection-with-skillbadge-components: backlog
-  4-3-populate-skills-content: backlog
-  epic-4-retrospective: optional
+  epic-4: done
+  4-1-create-aboutsection-component: done
+  4-2-create-skillssection-with-skillbadge-components: done
+  4-3-populate-skills-content: done
+  epic-4-retrospective: done
 
   # Epic 5: Projects Showcase
   epic-5: backlog

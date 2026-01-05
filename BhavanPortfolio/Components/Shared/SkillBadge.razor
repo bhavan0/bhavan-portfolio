@@ -1,0 +1,15 @@
+<li class="inline-block">
+    <span class="inline-block rounded-full px-3 py-1 text-sm font-medium 
+                 bg-gray-100 dark:bg-gray-800 
+                 text-gray-800 dark:text-gray-200
+                 border border-gray-200 dark:border-gray-700
+                 hover:bg-gray-200 dark:hover:bg-gray-700
+                 transition-colors duration-200">
+        @SkillName
+    </span>
+</li>
+
+@code {
+    [Parameter, EditorRequired]
+    public string SkillName { get; set; } = "";
+}

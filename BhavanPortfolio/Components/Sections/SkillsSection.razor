@@ -1,0 +1,45 @@
+<section id="skills" 
+         class="py-20 md:py-32 bg-white dark:bg-black"
+         aria-labelledby="skills-heading">
+    <div class="max-w-6xl mx-auto px-4 md:px-6">
+        <h2 id="skills-heading" class="text-3xl md:text-4xl font-semibold text-black dark:text-white mb-8">
+            Skills
+        </h2>
+        
+        <ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
+            aria-label="Technical skills">
+            @foreach (var skill in Skills)
+            {
+                <SkillBadge SkillName="@skill" />
+            }
+        </ul>
+    </div>
+</section>
+
+@code {
+    // Skills organized by priority/relevance for recruiter scanning
+    // Primary skills first, then secondary skills
+    // Total: 16 skills (within 15-20 range for scannability)
+    private readonly List<string> Skills = new()
+    {
+        // Primary skills (core technologies)
+        "Blazor",
+        ".NET",
+        "C#",
+        "Azure",
+        "React",
+        "TypeScript",
+        "SQL",
+        "AI/ML",
+        
+        // Secondary skills (supporting technologies)
+        "Docker",
+        "Git",
+        "REST APIs",
+        "Entity Framework",
+        "JavaScript",
+        "HTML/CSS",
+        "Tailwind CSS",
+        "CI/CD"
+    };
+}
