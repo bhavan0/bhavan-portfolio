@@ -1,0 +1,17 @@
+# Tailwind standalone CLI binary
+*/tailwindcss.exe
+*/tailwindcss
+
+# Build output
+*/bin/
+*/obj/
+
+# IDE
+*/.vs/
+*/.vscode/
+*.user
+
+# NuGet
+*.nupkg
+*/packages/
+*/BhavanPortfolio.sln
