@@ -53,10 +53,11 @@ workflow_status:
       command: "/bmad:bmm:workflows:create-prd"
       completed: "2026-01-04"
     ux_design:
-      status: "conditional"
+      status: "_bmad-output/planning-artifacts/ux-design-specification.md"
       condition: "if_has_ui"
       agent: "ux-designer"
       command: "/bmad:bmm:workflows:create-ux-design"
+      completed: "2026-01-04"
 
   # Phase 3: Solutioning
   phase_3_solutioning:
