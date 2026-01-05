@@ -1,0 +1,97 @@
+# generated: 2026-01-04
+# project: bhavan-portfolio
+# project_key: bhavan-portfolio
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog → in-progress: Automatically when first story is created (via create-story)
+#   - in-progress → done: Manually when all stories reach 'done' status
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - SM typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+
+generated: 2026-01-04
+project: bhavan-portfolio
+project_key: bhavan-portfolio
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+
+development_status:
+  # Epic 1: Project Foundation & Loading Experience
+  epic-1: backlog
+  1-1-initialize-blazor-wasm-project-with-tailwind-css: backlog
+  1-2-create-loading-shell-with-theme-resolution: backlog
+  1-3-implement-wasm-fallback-and-error-handling: backlog
+  1-4-configure-seo-meta-tags-and-opengraph: backlog
+  1-5-setup-github-actions-deployment-pipeline: backlog
+  epic-1-retrospective: optional
+
+  # Epic 2: Navigation & Theme System
+  epic-2: backlog
+  2-1-create-mainlayout-with-theme-class-binding: backlog
+  2-2-implement-themeservice-with-js-interop: backlog
+  2-3-build-sticky-header-navigation: backlog
+  2-4-implement-themetoggle-component: backlog
+  2-5-build-mobile-hamburger-menu: backlog
+  2-6-implement-smooth-scroll-navigation: backlog
+  epic-2-retrospective: optional
+
+  # Epic 3: Hero & Identity Section
+  epic-3: backlog
+  3-1-create-herosection-component: backlog
+  3-2-add-hero-call-to-action-buttons: backlog
+  3-3-integrate-resume-pdf-download: backlog
+  epic-3-retrospective: optional
+
+  # Epic 4: About & Skills Sections
+  epic-4: backlog
+  4-1-create-aboutsection-component: backlog
+  4-2-create-skillssection-with-skillbadge-components: backlog
+  4-3-populate-skills-content: backlog
+  epic-4-retrospective: optional
+
+  # Epic 5: Projects Showcase
+  epic-5: backlog
+  5-1-create-projectssection-component: backlog
+  5-2-create-projectcard-component: backlog
+  5-3-populate-project-content: backlog
+  epic-5-retrospective: optional
+
+  # Epic 6: Timeline & Contact Sections
+  epic-6: backlog
+  6-1-create-timelinesection-component: backlog
+  6-2-create-timelineitem-component: backlog
+  6-3-create-contactsection-component: backlog
+  6-4-create-sociallink-component: backlog
+  epic-6-retrospective: optional
+
+  # Epic 7: Footer & Mobile Polish
+  epic-7: backlog
+  7-1-create-footer-component: backlog
+  7-2-validate-mobile-responsive-layout: backlog
+  7-3-validate-tablet-responsive-layout: backlog
+  7-4-cross-browser-testing-and-final-polish: backlog
+  epic-7-retrospective: optional
