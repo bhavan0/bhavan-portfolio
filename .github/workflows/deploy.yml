@@ -44,6 +44,8 @@ jobs:
       - name: Publish Blazor WASM
         working-directory: ./BhavanPortfolio
         run: dotnet publish -c Release -o publish
+        env:
+          CI: true
 
       - name: Copy 404.html for SPA routing
         run: cp ./BhavanPortfolio/publish/wwwroot/index.html ./BhavanPortfolio/publish/wwwroot/404.html
