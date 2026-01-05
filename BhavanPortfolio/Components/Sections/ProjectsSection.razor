@@ -1,0 +1,69 @@
+<section id="projects" 
+         class="py-20 md:py-32 bg-gray-50 dark:bg-gray-900"
+         aria-labelledby="projects-heading">
+    <div class="max-w-6xl mx-auto px-4 md:px-6">
+        <h2 id="projects-heading" class="text-3xl md:text-4xl font-semibold text-black dark:text-white mb-12 text-center">
+            Projects
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach (var project in _projects)
+            {
+                <ProjectCard Title="@project.Title"
+                             Description="@project.Description"
+                             ImageUrl="@project.ImageUrl"
+                             ImageAlt="@project.ImageAlt"
+                             GitHubUrl="@project.GitHubUrl"
+                             DemoUrl="@project.DemoUrl"
+                             Technologies="@project.Technologies" />
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    // Project data showcasing variety in technologies and domains
+    private readonly List<ProjectData> _projects = new()
+    {
+        new ProjectData
+        {
+            Title = "Bhavan Portfolio",
+            Description = "Modern developer portfolio built with Blazor WebAssembly and Tailwind CSS. Features dark/light theme switching, smooth scroll navigation, and a responsive design optimized for mobile and desktop viewing.",
+            ImageUrl = "assets/images/projects/placeholder.svg",
+            ImageAlt = "Screenshot of Bhavan Portfolio website showing the hero section with dark theme",
+            GitHubUrl = "https://github.com/bananand/bhavan",
+            DemoUrl = "https://bananand.github.io/bhavan",
+            Technologies = new[] { "Blazor", ".NET", "Tailwind CSS", "GitHub Pages" }
+        },
+        new ProjectData
+        {
+            Title = "Enterprise API Gateway",
+            Description = "High-performance REST API gateway built with .NET 8 and Azure Functions. Implements authentication, rate limiting, request validation, and comprehensive logging with Application Insights integration.",
+            ImageUrl = "assets/images/projects/placeholder.svg",
+            ImageAlt = "Architecture diagram showing API Gateway components and data flow",
+            GitHubUrl = "https://github.com/bananand/api-gateway",
+            Technologies = new[] { "C#", ".NET 8", "Azure Functions", "Redis", "SQL Server" }
+        },
+        new ProjectData
+        {
+            Title = "ML Document Classifier",
+            Description = "Machine learning pipeline for automatic document classification using natural language processing. Achieves 95%+ accuracy on enterprise document categorization with support for multiple languages.",
+            ImageUrl = "assets/images/projects/placeholder.svg",
+            ImageAlt = "Dashboard showing document classification results and accuracy metrics",
+            GitHubUrl = "https://github.com/bananand/doc-classifier",
+            DemoUrl = "https://doc-classifier-demo.azurewebsites.net",
+            Technologies = new[] { "Python", "scikit-learn", "Azure ML", "FastAPI", "Docker" }
+        }
+    };
+
+    private class ProjectData
+    {
+        public string Title { get; set; } = "";
+        public string Description { get; set; } = "";
+        public string ImageUrl { get; set; } = "";
+        public string ImageAlt { get; set; } = "";
+        public string GitHubUrl { get; set; } = "";
+        public string? DemoUrl { get; set; }
+        public string[] Technologies { get; set; } = Array.Empty<string>();
+    }
+}
