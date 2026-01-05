@@ -15,3 +15,4 @@
 *.nupkg
 */packages/
 */BhavanPortfolio.sln
+.claude/settings.local.json
