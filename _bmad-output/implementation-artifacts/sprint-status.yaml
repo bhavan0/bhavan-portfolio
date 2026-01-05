@@ -50,14 +50,14 @@ development_status:
   epic-1-retrospective: done
 
   # Epic 2: Navigation & Theme System
-  epic-2: in-progress
+  epic-2: done
   2-1-create-mainlayout-with-theme-class-binding: done
   2-2-implement-themeservice-with-js-interop: done
   2-3-build-sticky-header-navigation: done
   2-4-implement-themetoggle-component: done
   2-5-build-mobile-hamburger-menu: done
   2-6-implement-smooth-scroll-navigation: done
-  epic-2-retrospective: optional
+  epic-2-retrospective: done
 
   # Epic 3: Hero & Identity Section
   epic-3: backlog
