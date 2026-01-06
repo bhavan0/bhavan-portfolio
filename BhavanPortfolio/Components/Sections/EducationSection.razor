@@ -1,0 +1,126 @@
+@* EducationSection Component - Academic Background *@
+
+<section id="education"
+         class="py-20 md:py-32 bg-gray-50 dark:bg-gray-900"
+         aria-labelledby="education-heading">
+    <div class="max-w-4xl mx-auto px-4 md:px-6">
+        @* Section Header *@
+        <div class="text-center mb-16">
+            <h2 id="education-heading"
+                class="text-3xl md:text-4xl font-bold text-black dark:text-white mb-4">
+                Education
+            </h2>
+            <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Academic foundation in Computer Science from top institutions.
+            </p>
+        </div>
+
+        @* Education Cards Grid *@
+        <div class="grid md:grid-cols-2 gap-6">
+            @foreach (var edu in EducationEntries)
+            {
+                <article class="group relative bg-white dark:bg-gray-800 
+                               rounded-2xl p-6 border border-gray-200 dark:border-gray-700
+                               hover:shadow-lg hover:border-gray-300 dark:hover:border-gray-600
+                               transition-all duration-300">
+                    @* Graduation Cap Icon *@
+                    <div class="absolute -top-4 -right-4 w-14 h-14 bg-black dark:bg-white 
+                                rounded-full flex items-center justify-center shadow-lg
+                                group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-7 h-7 text-white dark:text-black" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0z"/>
+                        </svg>
+                    </div>
+
+                    @* Degree & Field *@
+                    <div class="mb-4">
+                        <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full 
+                                    bg-gray-100 dark:bg-gray-700 
+                                    text-gray-700 dark:text-gray-300 mb-3">
+                            @edu.DegreeType
+                        </span>
+                        <h3 class="text-xl font-bold text-black dark:text-white">
+                            @edu.Field
+                        </h3>
+                    </div>
+
+                    @* Institution *@
+                    <div class="flex items-start gap-2 mb-3">
+                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                        <span class="text-gray-700 dark:text-gray-300 font-medium">
+                            @edu.Institution
+                        </span>
+                    </div>
+
+                    @* Location *@
+                    <div class="flex items-center gap-2 mb-3">
+                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">
+                            @edu.Location
+                        </span>
+                    </div>
+
+                    @* Period *@
+                    <div class="flex items-center gap-2 mb-4">
+                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <time datetime="@edu.DateTimeValue" class="text-gray-600 dark:text-gray-400 font-medium">
+                            @edu.Period
+                        </time>
+                    </div>
+
+                    @* Description *@
+                    @if (!string.IsNullOrEmpty(edu.Description))
+                    {
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed border-t border-gray-200 dark:border-gray-700 pt-4">
+                            @edu.Description
+                        </p>
+                    }
+                </article>
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    private readonly List<EducationEntry> EducationEntries = new()
+    {
+        new EducationEntry
+        {
+            DegreeType = "Master's Degree",
+            Field = "Computer Science",
+            Institution = "University at Buffalo, SUNY",
+            Location = "New York, USA",
+            Period = "Aug 2021 - Dec 2022",
+            DateTimeValue = "2021-08",
+            Description = "Graduate studies focusing on distributed systems, machine learning, and software engineering. Completed coursework in advanced algorithms, cloud computing, and AI/ML."
+        },
+        new EducationEntry
+        {
+            DegreeType = "Bachelor's Degree",
+            Field = "Computer Science",
+            Institution = "New Horizon College of Engineering",
+            Location = "Bangalore, India",
+            Period = "2014 - 2018",
+            DateTimeValue = "2014-08",
+            Description = "Undergraduate degree with focus on software development, data structures, algorithms, and computer networks. Foundation in object-oriented programming and database systems."
+        }
+    };
+
+    private record EducationEntry
+    {
+        public required string DegreeType { get; init; }
+        public required string Field { get; init; }
+        public required string Institution { get; init; }
+        public required string Location { get; init; }
+        public required string Period { get; init; }
+        public required string DateTimeValue { get; init; }
+        public string Description { get; init; } = "";
+    }
+}

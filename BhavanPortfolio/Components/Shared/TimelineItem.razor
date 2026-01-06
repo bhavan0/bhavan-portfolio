@@ -1,67 +1,139 @@
-@* TimelineItem Component - Single timeline entry for work experience *@
-<li class="relative pl-8 pb-8 last:pb-0">
-    @* Vertical line connecting entries (AC1: border-l-2 border-gray-700) *@
-    <div class="absolute left-0 top-0 bottom-0 border-l-2 border-gray-300 dark:border-gray-700"
+@* TimelineItem Component - Single timeline entry for work/education *@
+<li class="relative pl-10 pb-10 last:pb-0 group">
+    @* Vertical line connecting entries *@
+    <div class="absolute left-[11px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-gray-300 via-gray-300 to-transparent dark:from-gray-600 dark:via-gray-600"
          aria-hidden="true"></div>
 
-    @* Dot marker *@
-    <div class="absolute left-0 top-1.5 w-3 h-3 -translate-x-1/2 rounded-full
-                bg-black dark:bg-white border-2 border-white dark:border-gray-900"
-         aria-hidden="true"></div>
+    @* Dot marker with type-based styling *@
+    <div class="absolute left-0 top-1 w-6 h-6 -translate-x-0 rounded-full flex items-center justify-center
+                @(EntryType == TimelineEntryType.Education 
+                    ? "bg-emerald-500 dark:bg-emerald-400" 
+                    : "bg-black dark:bg-white")
+                shadow-lg ring-4 ring-gray-50 dark:ring-gray-900 
+                group-hover:scale-110 transition-transform duration-200"
+         aria-hidden="true">
+        @if (EntryType == TimelineEntryType.Education)
+        {
+            <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0z"/>
+            </svg>
+        }
+        else
+        {
+            <svg class="w-3 h-3 text-white dark:text-black" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"/>
+            </svg>
+        }
+    </div>
 
-    @* Content *@
-    <div class="space-y-1">
-        @* Period/Date *@
-        <time datetime="@DateTimeValue"
-              class="text-sm text-gray-600 dark:text-gray-400 font-medium">
-            @Period
-        </time>
+    @* Content Card *@
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700
+                hover:shadow-md hover:border-gray-200 dark:hover:border-gray-600 transition-all duration-200">
+        @* Header row with period and location badge *@
+        <div class="flex flex-wrap items-center gap-2 mb-2">
+            <time datetime="@DateTimeValue"
+                  class="text-sm font-semibold @(EntryType == TimelineEntryType.Education 
+                      ? "text-emerald-600 dark:text-emerald-400" 
+                      : "text-gray-900 dark:text-gray-100")">
+                @Period
+            </time>
+            @if (!string.IsNullOrEmpty(Location))
+            {
+                <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">
+                    📍 @Location
+                </span>
+            }
+            @if (EntryType == TimelineEntryType.Education)
+            {
+                <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">
+                    🎓 Education
+                </span>
+            }
+        </div>
 
         @* Role Title *@
-        <h3 class="text-lg font-semibold text-black dark:text-white">
+        <h3 class="text-lg font-bold text-black dark:text-white">
             @Role
         </h3>
 
-        @* Company Name *@
-        <p class="text-base text-gray-600 dark:text-gray-400">
+        @* Company/Institution Name *@
+        <p class="text-base font-medium text-gray-600 dark:text-gray-400 mt-0.5">
             @Company
         </p>
 
         @* Description *@
-        <p class="text-gray-700 dark:text-gray-300 mt-2 leading-relaxed">
-            @Description
-        </p>
+        @if (!string.IsNullOrEmpty(Description))
+        {
+            <p class="text-gray-700 dark:text-gray-300 mt-3 leading-relaxed">
+                @Description
+            </p>
+        }
+
+        @* Highlights/Achievements *@
+        @if (Highlights?.Any() == true)
+        {
+            <ul class="mt-3 space-y-1.5">
+                @foreach (var highlight in Highlights)
+                {
+                    <li class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
+                        <span class="text-emerald-500 dark:text-emerald-400 mt-0.5 flex-shrink-0">▸</span>
+                        <span>@highlight</span>
+                    </li>
+                }
+            </ul>
+        }
     </div>
 </li>
 
 @code {
+    public enum TimelineEntryType { Work, Education }
+
     /// <summary>
-    /// Time period display text (e.g., "2022 - Present")
+    /// Time period display text (e.g., "Nov 2024 - Present")
     /// </summary>
     [Parameter, EditorRequired]
     public string Period { get; set; } = "";
 
     /// <summary>
-    /// ISO date format for datetime attribute (e.g., "2022-01")
+    /// ISO date format for datetime attribute (e.g., "2024-11")
     /// </summary>
     [Parameter, EditorRequired]
     public string DateTimeValue { get; set; } = "";
 
     /// <summary>
-    /// Job title/role name
+    /// Job title/role name or degree
     /// </summary>
     [Parameter, EditorRequired]
     public string Role { get; set; } = "";
 
     /// <summary>
-    /// Company/organization name
+    /// Company/organization/university name
     /// </summary>
     [Parameter, EditorRequired]
     public string Company { get; set; } = "";
 
     /// <summary>
-    /// Brief description of responsibilities/achievements
+    /// Brief description (optional for education)
     /// </summary>
-    [Parameter, EditorRequired]
+    [Parameter]
     public string Description { get; set; } = "";
+
+    /// <summary>
+    /// Location (e.g., "PA, USA" or "Bangalore, India")
+    /// </summary>
+    [Parameter]
+    public string Location { get; set; } = "";
+
+    /// <summary>
+    /// Key achievements or highlights (displayed as bullet points)
+    /// </summary>
+    [Parameter]
+    public List<string>? Highlights { get; set; }
+
+    /// <summary>
+    /// Type of entry - Work or Education
+    /// </summary>
+    [Parameter]
+    public TimelineEntryType EntryType { get; set; } = TimelineEntryType.Work;
 }

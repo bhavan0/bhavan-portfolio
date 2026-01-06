@@ -1,21 +1,32 @@
-@* TimelineSection Component - Career/Education Timeline *@
-<section id="experience"
-         class="py-20 md:py-32 bg-gray-50 dark:bg-gray-900"
-         aria-labelledby="experience-heading">
-    <div class="max-w-6xl mx-auto px-4 md:px-6">
-        <h2 id="experience-heading"
-            class="text-3xl md:text-4xl font-semibold text-black dark:text-white mb-12">
-            Experience
-        </h2>
+@* TimelineSection Component - Work Experience Timeline *@
+@using static BhavanPortfolio.Components.Shared.TimelineItem
 
+<section id="experience"
+         class="py-20 md:py-32 bg-white dark:bg-black"
+         aria-labelledby="experience-heading">
+    <div class="max-w-4xl mx-auto px-4 md:px-6">
+        @* Section Header *@
+        <div class="text-center mb-16">
+            <h2 id="experience-heading"
+                class="text-3xl md:text-4xl font-bold text-black dark:text-white mb-4">
+                Work Experience
+            </h2>
+            <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                6+ years of building scalable enterprise applications across fintech, healthcare, and startup environments.
+            </p>
+        </div>
+
+        @* Timeline *@
         <ul class="relative" aria-label="Work experience timeline">
-            @foreach (var experience in Experiences)
+            @foreach (var entry in WorkExperience)
             {
-                <TimelineItem Period="@experience.Period"
-                              DateTimeValue="@experience.DateTimeValue"
-                              Role="@experience.Role"
-                              Company="@experience.Company"
-                              Description="@experience.Description" />
+                <TimelineItem Period="@entry.Period"
+                              DateTimeValue="@entry.DateTimeValue"
+                              Role="@entry.Role"
+                              Company="@entry.Company"
+                              Location="@entry.Location"
+                              Highlights="@entry.Highlights"
+                              EntryType="TimelineEntryType.Work" />
             }
         </ul>
     </div>
@@ -23,48 +34,90 @@
 
 @code {
     // Work experience entries in chronological order (most recent first)
-    private readonly List<ExperienceEntry> Experiences = new()
+    private readonly List<WorkEntry> WorkExperience = new()
     {
-        new ExperienceEntry
+        new WorkEntry
         {
-            Period = "2023 - Present",
-            DateTimeValue = "2023-01",
-            Role = "Senior Full Stack Developer",
-            Company = "Tech Company",
-            Description = "Leading development of enterprise applications using .NET, Blazor, and Azure. Architecting scalable solutions and mentoring junior developers."
+            Period = "Nov 2024 - Present",
+            DateTimeValue = "2024-11",
+            Role = "Lead Engineer",
+            Company = "Chatham Financial Corp.",
+            Location = "PA, USA",
+            Highlights = new()
+            {
+                "Leading engineering team and driving technical strategy for enterprise financial applications",
+                "Delivered AI-powered platform features improving client workflows and decision-making",
+                "Established cross-functional AI working group to explore innovative solutions",
+                "Active member of hiring committee, shaping team growth and culture"
+            }
         },
-        new ExperienceEntry
+        new WorkEntry
         {
-            Period = "2021 - 2023",
-            DateTimeValue = "2021-01",
-            Role = "Full Stack Developer",
-            Company = "Software Solutions Inc.",
-            Description = "Built and maintained web applications using React, TypeScript, and .NET Core. Implemented CI/CD pipelines and improved deployment processes."
+            Period = "Feb 2023 - Nov 2024",
+            DateTimeValue = "2023-02",
+            Role = "Full Stack Software Developer",
+            Company = "Chatham Financial Corp.",
+            Location = "PA, USA",
+            Highlights = new()
+            {
+                "Modernized legacy applications to .NET Core and Angular, improving performance and maintainability",
+                "Increased test coverage from 40% to 85% through comprehensive unit and integration testing",
+                "Built end-to-end automation framework using Playwright, reducing manual QA time by 60%",
+                "Designed and implemented event-driven systems using NServiceBus for async processing"
+            }
         },
-        new ExperienceEntry
+        new WorkEntry
         {
-            Period = "2019 - 2021",
-            DateTimeValue = "2019-01",
-            Role = "Software Developer",
-            Company = "Digital Agency",
-            Description = "Developed client-facing web applications and internal tools. Collaborated with cross-functional teams to deliver projects on time."
+            Period = "Jun 2022 - Aug 2022",
+            DateTimeValue = "2022-06",
+            Role = "Full Stack Intern",
+            Company = "My Money Karma Inc.",
+            Location = "CA, USA",
+            Highlights = new()
+            {
+                "Developed critical features serving thousands of users in personal finance platform",
+                "Built reusable React component library improving development velocity",
+                "Implemented automated E2E testing pipeline using Cypress"
+            }
         },
-        new ExperienceEntry
+        new WorkEntry
         {
-            Period = "2017 - 2019",
-            DateTimeValue = "2017-01",
-            Role = "Junior Developer",
-            Company = "Startup Co.",
-            Description = "Started career building web applications with C# and JavaScript. Learned agile methodologies and best practices in software development."
+            Period = "Apr 2020 - Jul 2021",
+            DateTimeValue = "2020-04",
+            Role = "Software Engineer",
+            Company = "Eurofins IT Solutions Pvt Ltd",
+            Location = "Bangalore, India",
+            Highlights = new()
+            {
+                "Designed microservices architecture for laboratory information management systems",
+                "Led migration from .NET Framework to .NET Core, reducing hosting costs by 40%",
+                "Developed Angular UI components used across multiple product lines",
+                "Created comprehensive test suites achieving 80%+ code coverage"
+            }
+        },
+        new WorkEntry
+        {
+            Period = "Aug 2018 - Apr 2020",
+            DateTimeValue = "2018-08",
+            Role = "Associate Software Engineer",
+            Company = "Eurofins IT Solutions Pvt Ltd",
+            Location = "Bangalore, India",
+            Highlights = new()
+            {
+                "Built web applications using C#, ASP.NET MVC, and SQL Server",
+                "Collaborated with business analysts to translate requirements into technical solutions",
+                "Optimized database queries improving application response times by 50%"
+            }
         }
     };
 
-    private record ExperienceEntry
+    private record WorkEntry
     {
         public required string Period { get; init; }
         public required string DateTimeValue { get; init; }
         public required string Role { get; init; }
         public required string Company { get; init; }
-        public required string Description { get; init; }
+        public string Location { get; init; } = "";
+        public List<string>? Highlights { get; init; }
     }
 }

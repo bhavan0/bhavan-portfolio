@@ -104,7 +104,7 @@ development_status:
   epic-8-retrospective: done
 
   # Epic 9: Update Career History & Education (Phase 2 Epic 2)
-  epic-9: backlog
-  9-1-update-timeline-with-actual-work-experience: backlog
-  9-2-add-education-entries-to-timeline: backlog
+  epic-9: done
+  9-1-update-timeline-with-actual-work-experience: done
+  9-2-add-education-entries-to-timeline: done
   epic-9-retrospective: optional
