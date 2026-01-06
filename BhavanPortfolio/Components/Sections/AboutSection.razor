@@ -1,20 +1,59 @@
-<section id="about" 
-         class="py-20 md:py-32 bg-gray-50 dark:bg-gray-900"
+<section id="about"
+         class="py-24 md:py-32 relative overflow-hidden bg-gray-50 dark:bg-neutral-950"
          aria-labelledby="about-heading">
-    <div class="max-w-6xl mx-auto px-4 md:px-6">
-        <h2 id="about-heading" class="text-3xl md:text-4xl font-semibold text-black dark:text-white mb-8">
-            About
-        </h2>
-        
-        <div class="max-w-3xl">
-            <p class="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Full-stack Lead Engineer with 6+ years of experience building scalable enterprise applications. 
-                Proven track record of leading engineering teams and developing AI-powered solutions.
+    @* Subtle Background *@
+    <div class="absolute inset-0 bg-dots opacity-30 dark:opacity-50" aria-hidden="true"></div>
+
+    <div class="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
+        @* Section Header *@
+        <div class="mb-16 reveal">
+            <p class="text-sm font-medium tracking-widest uppercase text-indigo-500 dark:text-indigo-400 mb-3">
+                Get to know me
             </p>
-            
-            <p class="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Combines technical depth with strong leadership to deliver products that drive real business outcomes.
-            </p>
+            <h2 id="about-heading" class="text-4xl md:text-5xl font-bold text-black dark:text-white">
+                About <span class="gradient-text-static">Me</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            @* Text Content *@
+            <div class="space-y-6 reveal-left">
+                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+                    Full-stack <span class="text-indigo-500 dark:text-indigo-400 font-medium">Lead Engineer</span> with
+                    6+ years of experience building scalable enterprise applications.
+                </p>
+
+                <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                    I specialize in crafting elegant solutions using modern technologies,
+                    with a proven track record of leading engineering teams and developing
+                    AI-powered solutions that drive real business outcomes.
+                </p>
+
+                <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                    When I'm not coding, I'm exploring new technologies, contributing to open-source,
+                    and mentoring the next generation of developers.
+                </p>
+            </div>
+
+            @* Stats/Highlights *@
+            <div class="grid grid-cols-2 gap-4 reveal-right">
+                <div class="card-modern p-6 text-center">
+                    <div class="text-4xl font-bold gradient-text mb-2">6+</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Years Experience</div>
+                </div>
+                <div class="card-modern p-6 text-center">
+                    <div class="text-4xl font-bold gradient-text mb-2">50+</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Projects Delivered</div>
+                </div>
+                <div class="card-modern p-6 text-center">
+                    <div class="text-4xl font-bold gradient-text mb-2">10+</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Team Members Led</div>
+                </div>
+                <div class="card-modern p-6 text-center">
+                    <div class="text-4xl font-bold gradient-text mb-2">3</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Companies Impacted</div>
+                </div>
+            </div>
         </div>
     </div>
 </section>

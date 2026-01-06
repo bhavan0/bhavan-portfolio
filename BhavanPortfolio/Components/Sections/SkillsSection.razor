@@ -1,65 +1,134 @@
-<section id="skills" 
-         class="py-20 md:py-32 bg-white dark:bg-black"
+<section id="skills"
+         class="py-24 md:py-32 relative overflow-hidden bg-white dark:bg-black"
          aria-labelledby="skills-heading">
-    <div class="max-w-6xl mx-auto px-4 md:px-6">
-        <h2 id="skills-heading" class="text-3xl md:text-4xl font-semibold text-black dark:text-white mb-8">
-            Skills
-        </h2>
-        
-        <ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
-            aria-label="Technical skills">
-            @foreach (var skill in Skills)
-            {
-                <SkillBadge SkillName="@skill" />
-            }
-        </ul>
+    @* Background Effects *@
+    <div class="absolute inset-0 bg-grid opacity-30 dark:opacity-50" aria-hidden="true"></div>
+    <div class="orb orb-blue w-72 h-72 -bottom-36 -right-36 opacity-20" aria-hidden="true"></div>
+
+    <div class="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
+        @* Section Header *@
+        <div class="text-center mb-16 reveal">
+            <p class="text-sm font-medium tracking-widest uppercase text-indigo-500 dark:text-indigo-400 mb-3">
+                What I work with
+            </p>
+            <h2 id="skills-heading" class="text-4xl md:text-5xl font-bold text-black dark:text-white">
+                Technical <span class="gradient-text-static">Skills</span>
+            </h2>
+        </div>
+
+        @* Skills by Category *@
+        <div class="space-y-12">
+            @* Languages *@
+            <div class="reveal" style="animation-delay: 0.1s;">
+                <h3 class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
+                    Languages
+                </h3>
+                <div class="flex flex-wrap gap-3">
+                    @foreach (var skill in Languages)
+                    {
+                        <SkillBadge SkillName="@skill" />
+                    }
+                </div>
+            </div>
+
+            @* Frameworks & Libraries *@
+            <div class="reveal" style="animation-delay: 0.2s;">
+                <h3 class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
+                    Frameworks & Libraries
+                </h3>
+                <div class="flex flex-wrap gap-3">
+                    @foreach (var skill in Frameworks)
+                    {
+                        <SkillBadge SkillName="@skill" />
+                    }
+                </div>
+            </div>
+
+            @* Architecture & Patterns *@
+            <div class="reveal" style="animation-delay: 0.3s;">
+                <h3 class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
+                    Architecture & Patterns
+                </h3>
+                <div class="flex flex-wrap gap-3">
+                    @foreach (var skill in Architecture)
+                    {
+                        <SkillBadge SkillName="@skill" />
+                    }
+                </div>
+            </div>
+
+            @* Testing *@
+            <div class="reveal" style="animation-delay: 0.4s;">
+                <h3 class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
+                    Testing
+                </h3>
+                <div class="flex flex-wrap gap-3">
+                    @foreach (var skill in Testing)
+                    {
+                        <SkillBadge SkillName="@skill" />
+                    }
+                </div>
+            </div>
+
+            @* Databases & AI Tools *@
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="reveal" style="animation-delay: 0.5s;">
+                    <h3 class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
+                        Databases
+                    </h3>
+                    <div class="flex flex-wrap gap-3">
+                        @foreach (var skill in Databases)
+                        {
+                            <SkillBadge SkillName="@skill" />
+                        }
+                    </div>
+                </div>
+
+                <div class="reveal" style="animation-delay: 0.6s;">
+                    <h3 class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
+                        AI & Tools
+                    </h3>
+                    <div class="flex flex-wrap gap-3">
+                        @foreach (var skill in AITools)
+                        {
+                            <SkillBadge SkillName="@skill" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
 @code {
-    // Skills from resume organized by category and priority
-    // Total: 29 skills (comprehensive skill visibility)
-    private readonly List<string> Skills = new()
+    // Skills organized by category
+    private readonly List<string> Languages = new()
     {
-        // Languages (6)
-        "C#",
-        "Python",
-        "TypeScript",
-        "JavaScript",
-        "HTML",
-        "CSS",
-        
-        // Frameworks (8)
-        ".NET Core",
-        "Angular",
-        "React",
-        "Node.js",
-        "Entity Framework",
-        "Dapper",
-        "NServiceBus",
-        "ServiceStack",
-        
-        // Architecture (4)
-        "Microservices",
-        "Domain Driven Design",
-        "Event Driven Architecture",
-        "RESTful APIs",
-        
-        // Testing (4)
-        "Playwright",
-        "Cypress",
-        "SpecFlow",
-        "xUnit",
-        
-        // Databases (3)
-        "MS SQL",
-        "MongoDB",
-        "PostgreSQL",
-        
-        // AI Tools (4)
-        "Claude",
-        "GitHub Copilot",
-        "Cursor",
-        "OpenAI Codex"
+        "C#", "Python", "TypeScript", "JavaScript", "HTML", "CSS"
+    };
+
+    private readonly List<string> Frameworks = new()
+    {
+        ".NET Core", "Angular", "React", "Node.js", "Entity Framework", "Dapper", "NServiceBus", "ServiceStack"
+    };
+
+    private readonly List<string> Architecture = new()
+    {
+        "Microservices", "Domain Driven Design", "Event Driven Architecture", "RESTful APIs"
+    };
+
+    private readonly List<string> Testing = new()
+    {
+        "Playwright", "Cypress", "SpecFlow", "xUnit"
+    };
+
+    private readonly List<string> Databases = new()
+    {
+        "MS SQL", "MongoDB", "PostgreSQL"
+    };
+
+    private readonly List<string> AITools = new()
+    {
+        "Claude", "GitHub Copilot", "Cursor", "OpenAI Codex"
     };
 }

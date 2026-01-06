@@ -1,10 +1,11 @@
 @inherits LayoutComponentBase
-@implements IDisposable
+@implements IAsyncDisposable
 @inject IThemeService ThemeService
+@inject IJSRuntime JS
 
 @* Skip-to-content link for accessibility - first focusable element *@
-<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 
-   focus:z-[60] focus:px-4 focus:py-2 focus:bg-white focus:text-black 
+<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4
+   focus:z-[60] focus:px-4 focus:py-2 focus:bg-white focus:text-black
    focus:rounded focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black">
     Skip to main content
 </a>
@@ -21,13 +22,32 @@
 <Footer />
 
 @code {
+    private IJSObjectReference? _animationsModule;
+
     protected override async Task OnInitializedAsync()
     {
         // Initialize theme service to sync with index.html applied theme
         await ThemeService.InitializeAsync();
-        
+
         // Subscribe to theme changes for re-rendering
         ThemeService.OnThemeChanged += HandleThemeChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try
+            {
+                // Initialize scroll reveal animations
+                _animationsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./js/animations.js");
+                await _animationsModule.InvokeVoidAsync("initScrollAnimations");
+            }
+            catch
+            {
+                // Animations are non-critical, fail silently
+            }
+        }
     }
 
     private void HandleThemeChanged()
@@ -36,9 +56,14 @@
         StateHasChanged();
     }
 
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
         // Unsubscribe from theme changes to prevent memory leaks
         ThemeService.OnThemeChanged -= HandleThemeChanged;
+
+        if (_animationsModule != null)
+        {
+            await _animationsModule.DisposeAsync();
+        }
     }
 }

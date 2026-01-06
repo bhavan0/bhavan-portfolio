@@ -4,40 +4,40 @@
 @inject IJSRuntime JS
 
 <nav role="navigation" aria-label="Main navigation"
-     class="fixed top-0 left-0 right-0 z-50 h-16 
-            bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm 
-            border-b border-gray-200 dark:border-gray-700">
+     class="fixed top-0 left-0 right-0 z-50 h-16
+            glass dark:glass-dark
+            border-b border-gray-200/20 dark:border-white/5">
     <div class="max-w-6xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
         @* Logo/Name - Left Side *@
-        <button @onclick="ScrollToTop" 
-                class="text-lg font-semibold text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer bg-transparent border-none">
+        <button @onclick="ScrollToTop"
+                class="text-lg font-bold gradient-text-static hover:opacity-80 transition-opacity cursor-pointer bg-transparent border-none">
             Bhavan
         </button>
 
         @* Navigation Links - Center (Desktop Only) *@
-        <div class="hidden md:flex items-center gap-6">
-            <button @onclick="@(() => ScrollToSection("about"))" 
-                    class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium bg-transparent border-none cursor-pointer">
+        <div class="hidden md:flex items-center gap-1">
+            <button @onclick="@(() => ScrollToSection("about"))"
+                    class="px-4 py-2 rounded-full text-gray-600 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-indigo-500/10 transition-all text-sm font-medium bg-transparent border-none cursor-pointer">
                 About
             </button>
-            <button @onclick="@(() => ScrollToSection("skills"))" 
-                    class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium bg-transparent border-none cursor-pointer">
+            <button @onclick="@(() => ScrollToSection("skills"))"
+                    class="px-4 py-2 rounded-full text-gray-600 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-indigo-500/10 transition-all text-sm font-medium bg-transparent border-none cursor-pointer">
                 Skills
             </button>
-            <button @onclick="@(() => ScrollToSection("projects"))" 
-                    class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium bg-transparent border-none cursor-pointer">
+            <button @onclick="@(() => ScrollToSection("projects"))"
+                    class="px-4 py-2 rounded-full text-gray-600 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-indigo-500/10 transition-all text-sm font-medium bg-transparent border-none cursor-pointer">
                 Projects
             </button>
-            <button @onclick="@(() => ScrollToSection("experience"))" 
-                    class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium bg-transparent border-none cursor-pointer">
+            <button @onclick="@(() => ScrollToSection("experience"))"
+                    class="px-4 py-2 rounded-full text-gray-600 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-indigo-500/10 transition-all text-sm font-medium bg-transparent border-none cursor-pointer">
                 Experience
             </button>
-            <button @onclick="@(() => ScrollToSection("education"))" 
-                    class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium bg-transparent border-none cursor-pointer">
+            <button @onclick="@(() => ScrollToSection("education"))"
+                    class="px-4 py-2 rounded-full text-gray-600 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-indigo-500/10 transition-all text-sm font-medium bg-transparent border-none cursor-pointer">
                 Education
             </button>
-            <button @onclick="@(() => ScrollToSection("contact"))" 
-                    class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors text-sm font-medium bg-transparent border-none cursor-pointer">
+            <button @onclick="@(() => ScrollToSection("contact"))"
+                    class="px-4 py-2 rounded-full text-gray-600 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-indigo-500/10 transition-all text-sm font-medium bg-transparent border-none cursor-pointer">
                 Contact
             </button>
         </div>
@@ -68,14 +68,12 @@
             </button>
 
             @* Resume Download Button (Desktop) *@
-            <a href="/assets/Bhavan_Anand_Resume.pdf" 
+            <a href="/assets/Bhavan_Anand_Resume.pdf"
                download="Bhavan_Anand_Resume.pdf"
-               class="hidden sm:inline-flex items-center gap-2 px-4 py-2 
-                      bg-black dark:bg-white text-white dark:text-black 
-                      rounded-lg font-medium text-sm
-                      hover:bg-gray-800 dark:hover:bg-gray-200
-                      transition-colors focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900">
-                Resume
+               class="hidden sm:inline-flex items-center gap-2 px-4 py-2
+                      btn-primary rounded-full font-medium text-sm text-white
+                      focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-black">
+                <span>Resume</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>

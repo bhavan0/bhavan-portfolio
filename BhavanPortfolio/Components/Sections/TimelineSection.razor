@@ -2,14 +2,21 @@
 @using static BhavanPortfolio.Components.Shared.TimelineItem
 
 <section id="experience"
-         class="py-20 md:py-32 bg-white dark:bg-black"
+         class="py-24 md:py-32 relative overflow-hidden bg-white dark:bg-black"
          aria-labelledby="experience-heading">
-    <div class="max-w-4xl mx-auto px-4 md:px-6">
+    @* Background Effects *@
+    <div class="absolute inset-0 bg-grid opacity-30 dark:opacity-50" aria-hidden="true"></div>
+    <div class="orb orb-purple w-72 h-72 top-20 -right-36 opacity-20" aria-hidden="true"></div>
+
+    <div class="max-w-4xl mx-auto px-4 md:px-6 relative z-10">
         @* Section Header *@
-        <div class="text-center mb-16">
+        <div class="text-center mb-16 reveal">
+            <p class="text-sm font-medium tracking-widest uppercase text-indigo-500 dark:text-indigo-400 mb-3">
+                My journey
+            </p>
             <h2 id="experience-heading"
-                class="text-3xl md:text-4xl font-bold text-black dark:text-white mb-4">
-                Work Experience
+                class="text-4xl md:text-5xl font-bold text-black dark:text-white mb-4">
+                Work <span class="gradient-text-static">Experience</span>
             </h2>
             <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                 6+ years of building scalable enterprise applications across fintech, healthcare, and startup environments.
@@ -18,15 +25,19 @@
 
         @* Timeline *@
         <ul class="relative" aria-label="Work experience timeline">
+            @{ var index = 0; }
             @foreach (var entry in WorkExperience)
             {
-                <TimelineItem Period="@entry.Period"
-                              DateTimeValue="@entry.DateTimeValue"
-                              Role="@entry.Role"
-                              Company="@entry.Company"
-                              Location="@entry.Location"
-                              Highlights="@entry.Highlights"
-                              EntryType="TimelineEntryType.Work" />
+                <div class="reveal" style="animation-delay: @(0.1 * index)s;">
+                    <TimelineItem Period="@entry.Period"
+                                  DateTimeValue="@entry.DateTimeValue"
+                                  Role="@entry.Role"
+                                  Company="@entry.Company"
+                                  Location="@entry.Location"
+                                  Highlights="@entry.Highlights"
+                                  EntryType="TimelineEntryType.Work" />
+                </div>
+                index++;
             }
         </ul>
     </div>
