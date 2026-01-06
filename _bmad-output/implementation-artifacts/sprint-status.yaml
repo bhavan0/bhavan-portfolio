@@ -89,9 +89,9 @@ development_status:
   epic-6-retrospective: done
 
   # Epic 7: Footer & Mobile Polish
-  epic-7: backlog
-  7-1-create-footer-component: backlog
-  7-2-validate-mobile-responsive-layout: backlog
-  7-3-validate-tablet-responsive-layout: backlog
-  7-4-cross-browser-testing-and-final-polish: backlog
-  epic-7-retrospective: optional
+  epic-7: done
+  7-1-create-footer-component: done
+  7-2-validate-mobile-responsive-layout: done
+  7-3-validate-tablet-responsive-layout: done
+  7-4-cross-browser-testing-and-final-polish: done
+  epic-7-retrospective: done

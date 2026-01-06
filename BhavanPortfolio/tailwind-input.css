@@ -89,3 +89,15 @@ html.light .not-found-container h3 {
 html.light .not-found-container p {
     color: #4b5563; /* gray-600 */
 }
+
+/* Accessibility: Respect user's motion preferences (NFR - prefers-reduced-motion) */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
