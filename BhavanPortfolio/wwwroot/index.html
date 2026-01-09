@@ -62,12 +62,40 @@
         </div>
     </noscript>
 
-    <!-- Loading Shell - Static hero content matching HeroSection component -->
-    <div id="loading-shell" class="min-h-screen flex items-center justify-center relative overflow-hidden">
-        <div class="text-center max-w-6xl mx-auto px-4 md:px-6 relative z-10">
-            <p class="text-sm md:text-base font-medium tracking-widest uppercase text-indigo-400 mb-4">Hello, I'm</p>
-            <h1 class="text-6xl md:text-8xl font-bold gradient-text mb-6">Bhavan</h1>
-            <p class="text-xl md:text-2xl font-light tracking-wide text-gray-300">Full Stack Developer</p>
+    <!-- Loading Shell - Exactly matches HeroSection component structure -->
+    <div id="loading-shell" class="min-h-screen flex items-center justify-center relative overflow-hidden bg-white dark:bg-black">
+        <!-- Background Effects (matching HeroSection) -->
+        <div class="absolute inset-0 bg-grid opacity-50 dark:opacity-100" aria-hidden="true"></div>
+
+        <!-- Content (matching HeroSection exactly) -->
+        <div class="max-w-6xl mx-auto px-4 md:px-6 text-center relative z-10">
+            <p class="text-sm md:text-base font-medium tracking-widest uppercase text-indigo-400 mb-4">
+                Hello, I'm
+            </p>
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-bold gradient-text mb-6">
+                Bhavan
+            </h1>
+            <div class="flex items-center justify-center gap-3 mb-8">
+                <span class="h-px w-8 bg-gradient-to-r from-transparent to-indigo-500"></span>
+                <p class="text-xl md:text-2xl lg:text-3xl font-light tracking-wide text-gray-600 dark:text-gray-300">
+                    Full Stack Developer
+                </p>
+                <span class="h-px w-8 bg-gradient-to-l from-transparent to-indigo-500"></span>
+            </div>
+            <p class="text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
+                Building elegant solutions with modern technologies.
+                <span class="text-indigo-500 dark:text-indigo-400 font-medium">6+ years</span> of crafting
+                scalable enterprise applications and leading engineering teams.
+            </p>
+            <!-- Placeholder for buttons (same height to prevent layout shift) -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <span class="inline-flex items-center justify-center min-h-[48px] px-8 py-3 rounded-full font-medium bg-indigo-500/20 text-transparent">
+                    Download Resume
+                </span>
+                <span class="inline-flex items-center justify-center min-h-[48px] px-8 py-3 rounded-full font-medium border border-indigo-500/20 text-transparent">
+                    View Projects
+                </span>
+            </div>
         </div>
     </div>
 

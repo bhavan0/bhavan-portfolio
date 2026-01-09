@@ -314,18 +314,27 @@
 
 /* === Loading shell transitions === */
 #loading-shell {
-    transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+    transition: opacity 0.5s ease-out;
+    pointer-events: none;
 }
 
 body.blazor-loading #loading-shell {
     opacity: 1;
-    visibility: visible;
+    pointer-events: auto;
 }
 
 body:not(.blazor-loading) #loading-shell {
     opacity: 0;
-    visibility: hidden;
     position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+/* Hide reveal animations until Blazor is loaded to prevent double animation */
+body.blazor-loading .reveal {
+    opacity: 1;
+    transform: none;
 }
 
 /* === Light mode styles when .light class is on html === */

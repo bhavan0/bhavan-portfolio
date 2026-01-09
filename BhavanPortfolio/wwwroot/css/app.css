@@ -742,6 +742,12 @@
       background-color: color-mix(in oklab, var(--color-indigo-500) 10%, transparent);
     }
   }
+  .bg-indigo-500\/20 {
+    background-color: color-mix(in srgb, oklch(58.5% 0.233 277.117) 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-indigo-500) 20%, transparent);
+    }
+  }
   .bg-neutral-100 {
     background-color: var(--color-neutral-100);
   }
@@ -951,9 +957,6 @@
   .text-emerald-700 {
     color: var(--color-emerald-700);
   }
-  .text-gray-300 {
-    color: var(--color-gray-300);
-  }
   .text-gray-400 {
     color: var(--color-gray-400);
   }
@@ -977,6 +980,9 @@
   }
   .text-indigo-600 {
     color: var(--color-indigo-600);
+  }
+  .text-transparent {
+    color: transparent;
   }
   .text-white {
     color: var(--color-white);
@@ -1977,16 +1983,23 @@
   right: 1rem;
 }
 #loading-shell {
-  transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+  transition: opacity 0.5s ease-out;
+  pointer-events: none;
 }
 body.blazor-loading #loading-shell {
   opacity: 1;
-  visibility: visible;
+  pointer-events: auto;
 }
 body:not(.blazor-loading) #loading-shell {
   opacity: 0;
-  visibility: hidden;
   position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+body.blazor-loading .reveal {
+  opacity: 1;
+  transform: none;
 }
 .light body, html.light body {
   background-color: #fafafa;
