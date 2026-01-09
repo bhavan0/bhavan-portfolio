@@ -1,5 +1,5 @@
-@* TimelineSection Component - Work Experience Timeline *@
-@using static BhavanPortfolio.Components.Shared.TimelineItem
+@* TimelineSection Component - Work Experience Timeline with Grouped Companies *@
+@using BhavanPortfolio.Components.Shared
 
 <section id="experience"
          class="py-24 md:py-32 relative overflow-hidden bg-white dark:bg-black"
@@ -23,112 +23,73 @@
             </p>
         </div>
 
-        @* Timeline *@
-        <ul class="relative" aria-label="Work experience timeline">
-            @{ var index = 0; }
-            @foreach (var entry in WorkExperience)
-            {
-                <div class="reveal" style="animation-delay: @(0.1 * index)s;">
-                    <TimelineItem Period="@entry.Period"
-                                  DateTimeValue="@entry.DateTimeValue"
-                                  Role="@entry.Role"
-                                  Company="@entry.Company"
-                                  Location="@entry.Location"
-                                  Highlights="@entry.Highlights"
-                                  EntryType="TimelineEntryType.Work" />
-                </div>
-                index++;
-            }
+        @* Timeline with Grouped Companies *@
+        <ul class="relative space-y-8" aria-label="Work experience timeline">
+            @* Chatham Financial - Multiple Roles *@
+            <div class="reveal">
+                <CompanyGroup CompanyName="Chatham Financial Corp.">
+                    <RoleItem Role="Lead Engineer"
+                              Period="Nov 2024 - Present"
+                              DateTimeValue="2024-11"
+                              Location="Remote"
+                              Highlights="@(new List<string> {
+                                  "Leading engineering team and driving technical strategy for enterprise financial applications",
+                                  "Delivered AI-powered platform features improving client workflows and decision-making",
+                                  "Established cross-functional AI working group to explore innovative solutions",
+                                  "Active member of hiring committee, shaping team growth and culture"
+                              })" />
+                    <RoleItem Role="Full Stack Software Developer"
+                              Period="Feb 2023 - Nov 2024"
+                              DateTimeValue="2023-02"
+                              Location="PA, USA"
+                              Highlights="@(new List<string> {
+                                  "Modernized legacy applications to .NET Core and Angular, improving performance and maintainability",
+                                  "Increased test coverage from 40% to 85% through comprehensive unit and integration testing",
+                                  "Built end-to-end automation framework using Playwright, reducing manual QA time by 60%",
+                                  "Designed and implemented event-driven systems using NServiceBus for async processing"
+                              })" />
+                </CompanyGroup>
+            </div>
+
+            @* My Money Karma - Single Role *@
+            <div class="reveal" style="animation-delay: 0.1s;">
+                <CompanyGroup CompanyName="My Money Karma Inc.">
+                    <RoleItem Role="Full Stack Intern"
+                              Period="Jun 2022 - Aug 2022"
+                              DateTimeValue="2022-06"
+                              Location="CA, USA"
+                              Highlights="@(new List<string> {
+                                  "Developed critical features serving thousands of users in personal finance platform",
+                                  "Built reusable React component library improving development velocity",
+                                  "Implemented automated E2E testing pipeline using Cypress"
+                              })" />
+                </CompanyGroup>
+            </div>
+
+            @* Eurofins IT Solutions - Multiple Roles *@
+            <div class="reveal" style="animation-delay: 0.2s;">
+                <CompanyGroup CompanyName="Eurofins IT Solutions Pvt Ltd">
+                    <RoleItem Role="Software Engineer"
+                              Period="Apr 2020 - Jul 2021"
+                              DateTimeValue="2020-04"
+                              Location="Bangalore, India"
+                              Highlights="@(new List<string> {
+                                  "Designed microservices architecture for laboratory information management systems",
+                                  "Led migration from .NET Framework to .NET Core, reducing hosting costs by 40%",
+                                  "Developed Angular UI components used across multiple product lines",
+                                  "Created comprehensive test suites achieving 80%+ code coverage"
+                              })" />
+                    <RoleItem Role="Associate Software Engineer"
+                              Period="Aug 2018 - Apr 2020"
+                              DateTimeValue="2018-08"
+                              Location="Bangalore, India"
+                              Highlights="@(new List<string> {
+                                  "Built web applications using C#, ASP.NET MVC, and SQL Server",
+                                  "Collaborated with business analysts to translate requirements into technical solutions",
+                                  "Optimized database queries improving application response times by 50%"
+                              })" />
+                </CompanyGroup>
+            </div>
         </ul>
     </div>
 </section>
-
-@code {
-    // Work experience entries in chronological order (most recent first)
-    private readonly List<WorkEntry> WorkExperience = new()
-    {
-        new WorkEntry
-        {
-            Period = "Nov 2024 - Present",
-            DateTimeValue = "2024-11",
-            Role = "Lead Engineer",
-            Company = "Chatham Financial Corp.",
-            Location = "PA, USA",
-            Highlights = new()
-            {
-                "Leading engineering team and driving technical strategy for enterprise financial applications",
-                "Delivered AI-powered platform features improving client workflows and decision-making",
-                "Established cross-functional AI working group to explore innovative solutions",
-                "Active member of hiring committee, shaping team growth and culture"
-            }
-        },
-        new WorkEntry
-        {
-            Period = "Feb 2023 - Nov 2024",
-            DateTimeValue = "2023-02",
-            Role = "Full Stack Software Developer",
-            Company = "Chatham Financial Corp.",
-            Location = "PA, USA",
-            Highlights = new()
-            {
-                "Modernized legacy applications to .NET Core and Angular, improving performance and maintainability",
-                "Increased test coverage from 40% to 85% through comprehensive unit and integration testing",
-                "Built end-to-end automation framework using Playwright, reducing manual QA time by 60%",
-                "Designed and implemented event-driven systems using NServiceBus for async processing"
-            }
-        },
-        new WorkEntry
-        {
-            Period = "Jun 2022 - Aug 2022",
-            DateTimeValue = "2022-06",
-            Role = "Full Stack Intern",
-            Company = "My Money Karma Inc.",
-            Location = "CA, USA",
-            Highlights = new()
-            {
-                "Developed critical features serving thousands of users in personal finance platform",
-                "Built reusable React component library improving development velocity",
-                "Implemented automated E2E testing pipeline using Cypress"
-            }
-        },
-        new WorkEntry
-        {
-            Period = "Apr 2020 - Jul 2021",
-            DateTimeValue = "2020-04",
-            Role = "Software Engineer",
-            Company = "Eurofins IT Solutions Pvt Ltd",
-            Location = "Bangalore, India",
-            Highlights = new()
-            {
-                "Designed microservices architecture for laboratory information management systems",
-                "Led migration from .NET Framework to .NET Core, reducing hosting costs by 40%",
-                "Developed Angular UI components used across multiple product lines",
-                "Created comprehensive test suites achieving 80%+ code coverage"
-            }
-        },
-        new WorkEntry
-        {
-            Period = "Aug 2018 - Apr 2020",
-            DateTimeValue = "2018-08",
-            Role = "Associate Software Engineer",
-            Company = "Eurofins IT Solutions Pvt Ltd",
-            Location = "Bangalore, India",
-            Highlights = new()
-            {
-                "Built web applications using C#, ASP.NET MVC, and SQL Server",
-                "Collaborated with business analysts to translate requirements into technical solutions",
-                "Optimized database queries improving application response times by 50%"
-            }
-        }
-    };
-
-    private record WorkEntry
-    {
-        public required string Period { get; init; }
-        public required string DateTimeValue { get; init; }
-        public required string Role { get; init; }
-        public required string Company { get; init; }
-        public string Location { get; init; } = "";
-        public List<string>? Highlights { get; init; }
-    }
-}

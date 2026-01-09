@@ -1,0 +1,70 @@
+@* RoleItem Component - Individual role within a company group *@
+
+<div class="relative">
+    @* Role Content Card *@
+    <div class="bg-white dark:bg-gray-800/50 rounded-lg p-4 border border-gray-100 dark:border-gray-700/50
+                hover:border-gray-200 dark:hover:border-gray-600 hover:shadow-sm transition-all duration-200">
+        @* Header row with role and period *@
+        <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
+            <h4 class="text-base font-semibold text-black dark:text-white">
+                @Role
+            </h4>
+            <time datetime="@DateTimeValue"
+                  class="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                @Period
+            </time>
+        </div>
+        @if (!string.IsNullOrEmpty(Location))
+        {
+            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 inline-block mb-2">
+                📍 @Location
+            </span>
+        }
+
+        @* Highlights/Achievements *@
+        @if (Highlights?.Any() == true)
+        {
+            <ul class="space-y-1.5 mt-2">
+                @foreach (var highlight in Highlights)
+                {
+                    <li class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
+                        <span class="text-emerald-500 dark:text-emerald-400 mt-0.5 flex-shrink-0">▸</span>
+                        <span>@highlight</span>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@code {
+    /// <summary>
+    /// Job title/role name
+    /// </summary>
+    [Parameter, EditorRequired]
+    public string Role { get; set; } = "";
+
+    /// <summary>
+    /// Time period display text (e.g., "Nov 2024 - Present")
+    /// </summary>
+    [Parameter, EditorRequired]
+    public string Period { get; set; } = "";
+
+    /// <summary>
+    /// ISO date format for datetime attribute (e.g., "2024-11")
+    /// </summary>
+    [Parameter]
+    public string DateTimeValue { get; set; } = "";
+
+    /// <summary>
+    /// Location (e.g., "PA, USA" or "Remote")
+    /// </summary>
+    [Parameter]
+    public string Location { get; set; } = "";
+
+    /// <summary>
+    /// Key achievements or highlights (displayed as bullet points)
+    /// </summary>
+    [Parameter]
+    public List<string>? Highlights { get; set; }
+}
