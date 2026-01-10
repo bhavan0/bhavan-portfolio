@@ -223,6 +223,7 @@
 @code {
     private bool _isMenuOpen = false;
     private IJSObjectReference? _scrollModule;
+    private IJSObjectReference? _focusTrapModule;
 
     protected override void OnInitialized()
     {
@@ -263,7 +264,7 @@
     /// </summary>
     private async Task ScrollToSectionAndClose(string sectionId)
     {
-        CloseMenu();
+        await CloseMenu();
         // Small delay to let menu close animation start
         await Task.Delay(100);
         await ScrollService.ScrollToSectionAsync(sectionId);
@@ -273,12 +274,14 @@
     {
         _isMenuOpen = true;
         StateHasChanged();
-        
-        // Focus the close button when menu opens for accessibility
-        await Task.Delay(50); // Small delay for DOM update
+
+        // Small delay for DOM update, then activate focus trap and focus close button
+        await Task.Delay(50);
         try
         {
-            await JS.InvokeVoidAsync("eval", "document.getElementById('mobile-menu-close-btn')?.focus()");
+            _focusTrapModule ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/focus-trap.js");
+            await _focusTrapModule.InvokeVoidAsync("activateTrap", "mobile-menu");
+            await _focusTrapModule.InvokeVoidAsync("focusElement", "mobile-menu-close-btn");
         }
         catch
         {
@@ -286,17 +289,30 @@
         }
     }
 
-    private void CloseMenu()
+    private async Task CloseMenu()
     {
         _isMenuOpen = false;
+
+        // Deactivate focus trap when menu closes
+        try
+        {
+            if (_focusTrapModule != null)
+            {
+                await _focusTrapModule.InvokeVoidAsync("deactivateTrap", "mobile-menu");
+            }
+        }
+        catch
+        {
+            // Ignore errors - non-critical
+        }
     }
 
-    private void HandleKeyDown(KeyboardEventArgs e)
+    private async Task HandleKeyDown(KeyboardEventArgs e)
     {
-        // Close menu on Escape key
+        // Close menu on Escape key (Tab focus trapping is handled by JS module)
         if (e.Key == "Escape" && _isMenuOpen)
         {
-            CloseMenu();
+            await CloseMenu();
         }
     }
 
@@ -306,6 +322,16 @@
         if (_scrollModule != null)
         {
             await _scrollModule.DisposeAsync();
+        }
+        if (_focusTrapModule != null)
+        {
+            // Deactivate any active trap before disposing
+            try
+            {
+                await _focusTrapModule.InvokeVoidAsync("deactivateTrap", "mobile-menu");
+            }
+            catch { }
+            await _focusTrapModule.DisposeAsync();
         }
     }
 }

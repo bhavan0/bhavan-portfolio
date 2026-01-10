@@ -20,10 +20,10 @@
         <div class="space-y-12">
             @* Languages *@
             <div class="reveal" style="animation-delay: 0.1s;">
-                <h3 class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
+                <h3 id="skills-languages" class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
                     Languages
                 </h3>
-                <div class="flex flex-wrap gap-3">
+                <div role="list" aria-labelledby="skills-languages" class="flex flex-wrap gap-3">
                     @foreach (var skill in Languages)
                     {
                         <SkillBadge SkillName="@skill" />
@@ -33,10 +33,10 @@
 
             @* Frameworks & Libraries *@
             <div class="reveal" style="animation-delay: 0.2s;">
-                <h3 class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
+                <h3 id="skills-frameworks" class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
                     Frameworks & Libraries
                 </h3>
-                <div class="flex flex-wrap gap-3">
+                <div role="list" aria-labelledby="skills-frameworks" class="flex flex-wrap gap-3">
                     @foreach (var skill in Frameworks)
                     {
                         <SkillBadge SkillName="@skill" />
@@ -46,10 +46,10 @@
 
             @* Architecture & Patterns *@
             <div class="reveal" style="animation-delay: 0.3s;">
-                <h3 class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
+                <h3 id="skills-architecture" class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
                     Architecture & Patterns
                 </h3>
-                <div class="flex flex-wrap gap-3">
+                <div role="list" aria-labelledby="skills-architecture" class="flex flex-wrap gap-3">
                     @foreach (var skill in Architecture)
                     {
                         <SkillBadge SkillName="@skill" />
@@ -59,10 +59,10 @@
 
             @* Testing *@
             <div class="reveal" style="animation-delay: 0.4s;">
-                <h3 class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
+                <h3 id="skills-testing" class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
                     Testing
                 </h3>
-                <div class="flex flex-wrap gap-3">
+                <div role="list" aria-labelledby="skills-testing" class="flex flex-wrap gap-3">
                     @foreach (var skill in Testing)
                     {
                         <SkillBadge SkillName="@skill" />
@@ -72,10 +72,10 @@
 
             @* Databases *@
             <div class="reveal" style="animation-delay: 0.5s;">
-                <h3 class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
+                <h3 id="skills-databases" class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
                     Databases
                 </h3>
-                <div class="flex flex-wrap gap-3">
+                <div role="list" aria-labelledby="skills-databases" class="flex flex-wrap gap-3">
                     @foreach (var skill in Databases)
                     {
                         <SkillBadge SkillName="@skill" />
@@ -85,10 +85,10 @@
 
             @* AI & Tools *@
             <div class="reveal" style="animation-delay: 0.6s;">
-                <h3 class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
+                <h3 id="skills-aitools" class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
                     AI & Tools
                 </h3>
-                <div class="flex flex-wrap gap-3">
+                <div role="list" aria-labelledby="skills-aitools" class="flex flex-wrap gap-3">
                     @foreach (var skill in AITools)
                     {
                         <SkillBadge SkillName="@skill" />

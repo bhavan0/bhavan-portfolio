@@ -1,14 +1,17 @@
 @implements IDisposable
 @inject IThemeService ThemeService
 
+@* Live region for screen reader announcements *@
+<span aria-live="polite" aria-atomic="true" class="sr-only">@_announcement</span>
+
 <button @onclick="HandleToggle"
         type="button"
         class="w-11 h-11 flex items-center justify-center rounded-lg
-               text-gray-600 dark:text-gray-400 
+               text-gray-600 dark:text-gray-400
                hover:bg-gray-100 dark:hover:bg-gray-800
                hover:text-black dark:hover:text-white
                transition-all duration-200
-               focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white 
+               focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white
                focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
         aria-label="@AriaLabel"
         aria-pressed="@(_currentTheme == "dark" ? "true" : "false")"
@@ -35,9 +38,10 @@
 
 @code {
     private string _currentTheme = "dark";
+    private string _announcement = "";
 
-    private string AriaLabel => _currentTheme == "dark" 
-        ? "Switch to light mode" 
+    private string AriaLabel => _currentTheme == "dark"
+        ? "Switch to light mode"
         : "Switch to dark mode";
 
     protected override void OnInitialized()
@@ -49,6 +53,10 @@
     private void HandleThemeChanged()
     {
         _currentTheme = ThemeService.CurrentTheme;
+        // Announce theme change to screen readers
+        _announcement = _currentTheme == "dark"
+            ? "Dark mode enabled"
+            : "Light mode enabled";
         StateHasChanged();
     }
 
