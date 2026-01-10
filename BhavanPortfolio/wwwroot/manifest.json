@@ -1,0 +1,28 @@
+{
+    "name": "Bhavan - Full Stack Developer | Expert in .NET, Angular, React & AI",
+    "short_name": "Bhavan",
+    "description": "Full Stack Developer expert in .NET, Angular, React, and AI development with 6+ years building scalable enterprise applications.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#6366f1",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "assets/images/profile-pic.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "assets/images/profile-pic.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ],
+    "categories": ["portfolio", "developer", "technology"],
+    "lang": "en-US",
+    "dir": "ltr"
+}

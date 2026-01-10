@@ -1,0 +1,12 @@
+# robots.txt for Bhavan Portfolio
+# https://www.robotstxt.org/
+
+# Allow all search engines to crawl everything
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://bhavananand.com/sitemap.xml
+
+# Crawl-delay for politeness (optional)
+# Crawl-delay: 10
