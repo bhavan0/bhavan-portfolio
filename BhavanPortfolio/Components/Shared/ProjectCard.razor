@@ -1,4 +1,4 @@
-<article class="card-modern overflow-hidden group h-full flex flex-col">
+<article class="card-modern overflow-hidden group h-full flex flex-col cursor-pointer" @onclick="HandleLearnMoreClick">
     @* Project Image *@
     <div class="aspect-video overflow-hidden bg-neutral-800 relative">
         <img src="@ImageUrl"
@@ -34,6 +34,7 @@
             <a href="@GitHubUrl"
                target="_blank"
                rel="noopener noreferrer"
+               @onclick:stopPropagation="true"
                class="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400
                       transition-colors text-sm font-medium
                       focus:outline-none focus:ring-2 focus:ring-indigo-500
@@ -49,6 +50,7 @@
                 <a href="@DemoUrl"
                    target="_blank"
                    rel="noopener noreferrer"
+                   @onclick:stopPropagation="true"
                    class="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400
                           transition-colors text-sm font-medium
                           focus:outline-none focus:ring-2 focus:ring-indigo-500
@@ -60,6 +62,12 @@
                     Live Demo
                 </a>
             }
+            <span class="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors text-sm font-medium ml-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Learn More
+            </span>
         </div>
     </div>
 </article>
@@ -106,4 +114,16 @@
     /// </summary>
     [Parameter, EditorRequired]
     public IEnumerable<string> Technologies { get; set; } = Array.Empty<string>();
+
+    /// <summary>
+    /// Event callback when Learn More button is clicked.
+    /// </summary>
+    [Parameter]
+    public EventCallback OnLearnMoreClick { get; set; }
+
+    private async Task HandleLearnMoreClick()
+    {
+        await OnLearnMoreClick.InvokeAsync();
+    }
 }
+

@@ -21,6 +21,7 @@
             @{ var index = 0; }
             @foreach (var project in _projects)
             {
+                var currentProject = project;
                 <div role="listitem" class="reveal-scale" style="animation-delay: @(0.1 * index)s;">
                     <ProjectCard Title="@project.Title"
                                  Description="@project.Description"
@@ -28,7 +29,8 @@
                                  ImageAlt="@project.ImageAlt"
                                  GitHubUrl="@project.GitHubUrl"
                                  DemoUrl="@project.DemoUrl"
-                                 Technologies="@project.Technologies" />
+                                 Technologies="@project.Technologies"
+                                 OnLearnMoreClick="@(() => OpenModal(currentProject))" />
                 </div>
                 index++;
             }
@@ -36,7 +38,39 @@
     </div>
 </section>
 
+@* Modal rendered outside the section for proper fixed positioning *@
+@if (_selectedProject != null)
+{
+    <ProjectModal IsOpen="@_isModalOpen"
+                  OnClose="CloseModal"
+                  Title="@_selectedProject.Title"
+                  Description="@_selectedProject.Description"
+                  ImageUrl="@_selectedProject.ImageUrl"
+                  ImageAlt="@_selectedProject.ImageAlt"
+                  GitHubUrl="@_selectedProject.GitHubUrl"
+                  DemoUrl="@_selectedProject.DemoUrl"
+                  Technologies="@_selectedProject.Technologies" />
+}
+
+@inject IJSRuntime JS
+
 @code {
+    private bool _isModalOpen = false;
+    private ProjectData? _selectedProject = null;
+
+    private async Task OpenModal(ProjectData project)
+    {
+        _selectedProject = project;
+        _isModalOpen = true;
+        await JS.InvokeVoidAsync("eval", "document.body.style.overflow = 'hidden'");
+    }
+
+    private async Task CloseModal()
+    {
+        _isModalOpen = false;
+        await JS.InvokeVoidAsync("eval", "document.body.style.overflow = ''");
+    }
+
     // Project data showcasing variety in technologies and domains
     private readonly List<ProjectData> _projects = new()
     {
@@ -118,3 +152,4 @@
         public string[] Technologies { get; set; } = Array.Empty<string>();
     }
 }
+
