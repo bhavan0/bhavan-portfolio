@@ -14,8 +14,8 @@
 
   <!-- Tailwind CSS Build Target (skipped in CI - handled by workflow) -->
   <Target Name="BuildTailwind" BeforeTargets="Build" Condition="'$(CI)' != 'true'">
-    <Exec Command=".\tailwindcss.exe -i .\tailwind-input.css -o .\wwwroot\css\app.css" Condition="'$(Configuration)' == 'Debug'" />
-    <Exec Command=".\tailwindcss.exe -i .\tailwind-input.css -o .\wwwroot\css\app.css --minify" Condition="'$(Configuration)' == 'Release'" />
+    <Exec Command="./tailwindcss -i ./tailwind-input.css -o ./wwwroot/css/app.css" Condition="'$(Configuration)' == 'Debug'" />
+    <Exec Command="./tailwindcss -i ./tailwind-input.css -o ./wwwroot/css/app.css --minify" Condition="'$(Configuration)' == 'Release'" />
   </Target>
 
 </Project>

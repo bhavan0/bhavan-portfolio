@@ -31,24 +31,67 @@
                     <p class="modal-description">@Description</p>
                 </div>
 
-                @* Placeholder Content *@
+                @* Key Features Section *@
                 <div class="modal-section">
                     <h3 class="modal-section-title">Key Features</h3>
                     <ul class="modal-features-list">
-                        <li>Feature placeholder - coming soon</li>
-                        <li>Feature placeholder - coming soon</li>
-                        <li>Feature placeholder - coming soon</li>
+                        @if (Features != null && Features.Any())
+                        {
+                            @foreach (var feature in Features)
+                            {
+                                <li>@feature</li>
+                            }
+                        }
+                        else
+                        {
+                            <li>Feature placeholder - coming soon</li>
+                            <li>Feature placeholder - coming soon</li>
+                            <li>Feature placeholder - coming soon</li>
+                        }
                     </ul>
                 </div>
 
+                @if (!string.IsNullOrEmpty(BmadBrief))
+                {
+                    <div class="modal-section">
+                        <h3 class="modal-section-title">Built with BMAD</h3>
+                        <p class="modal-description">@BmadBrief</p>
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(WhyThisStack))
+                {
+                    <div class="modal-section">
+                        <h3 class="modal-section-title">Why this Tech Stack?</h3>
+                        <p class="modal-description">@WhyThisStack</p>
+                    </div>
+                }
+
                 <div class="modal-section">
                     <h3 class="modal-section-title">Technical Highlights</h3>
-                    <p class="modal-placeholder-text">
-                        Technical details and architecture information will be added here. 
-                        This section will showcase the key technical decisions, challenges overcome, 
-                        and lessons learned during development.
-                    </p>
+                    @if (!string.IsNullOrEmpty(TechnicalHighlights))
+                    {
+                        <div class="modal-description prose dark:prose-invert max-w-none">
+                            @((MarkupString)TechnicalHighlights)
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="modal-placeholder-text">
+                            Technical details and architecture information will be added here. 
+                            This section will showcase the key technical decisions, challenges overcome, 
+                            and lessons learned during development.
+                        </p>
+                    }
                 </div>
+
+                @if (!string.IsNullOrEmpty(ArchitectureDiagramUrl))
+                {
+                    <div class="modal-section">
+                        <h3 class="modal-section-title">Architecture</h3>
+                        <img src="@ArchitectureDiagramUrl" alt="System Architecture Diagram" class="w-full rounded-lg border border-gray-200 dark:border-gray-700 mt-2" />
+                    </div>
+                }
 
                 @* Technologies *@
                 <div class="modal-section">
@@ -60,6 +103,25 @@
                         }
                     </div>
                 </div>
+
+                @if (AdditionalLinks != null && AdditionalLinks.Any())
+                {
+                    <div class="modal-section">
+                        <h3 class="modal-section-title">Additional Resources</h3>
+                        <div class="flex flex-wrap gap-3">
+                            @foreach (var link in AdditionalLinks)
+                            {
+                                <a href="@link.Value" target="_blank" rel="noopener noreferrer" 
+                                   class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 hover:underline inline-flex items-center gap-1">
+                                    @link.Key
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    </svg>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                }
             </div>
 
             @* Modal Footer *@
@@ -117,6 +179,24 @@
 
     [Parameter]
     public IEnumerable<string> Technologies { get; set; } = Array.Empty<string>();
+
+    [Parameter]
+    public IEnumerable<string> Features { get; set; } = Array.Empty<string>();
+
+    [Parameter]
+    public string? TechnicalHighlights { get; set; }
+
+    [Parameter]
+    public string? BmadBrief { get; set; }
+
+    [Parameter]
+    public string? WhyThisStack { get; set; }
+
+    [Parameter]
+    public Dictionary<string, string> AdditionalLinks { get; set; } = new();
+
+    [Parameter]
+    public string? ArchitectureDiagramUrl { get; set; }
 
     private async Task Close()
     {

@@ -49,7 +49,13 @@
                   ImageAlt="@_selectedProject.ImageAlt"
                   GitHubUrl="@_selectedProject.GitHubUrl"
                   DemoUrl="@_selectedProject.DemoUrl"
-                  Technologies="@_selectedProject.Technologies" />
+                  Technologies="@_selectedProject.Technologies"
+                  Features="@_selectedProject.Features"
+                  TechnicalHighlights="@_selectedProject.TechnicalHighlights"
+                  BmadBrief="@_selectedProject.BmadBrief"
+                  WhyThisStack="@_selectedProject.WhyThisStack"
+                  AdditionalLinks="@_selectedProject.AdditionalLinks"
+                  ArchitectureDiagramUrl="@_selectedProject.ArchitectureDiagramUrl" />
 }
 
 @inject IJSRuntime JS
@@ -78,66 +84,192 @@
         {
             Title = "Bhavan Portfolio",
             Description = "Modern developer portfolio built with Blazor WebAssembly and Tailwind CSS. Features dark/light themes, smooth navigation, and responsive design.",
-            ImageUrl = "assets/images/projects/portfolio.png",
+            ImageUrl = "assets/images/projects/portfolio/portfolio.png",
             ImageAlt = "Screenshot of Bhavan Portfolio website showing the hero section with dark theme",
             GitHubUrl = "https://github.com/bhavan0/bhavan-portfolio",
             DemoUrl = "https://bhavananand.com",
-            Technologies = new[] { "Blazor", ".NET", "Tailwind CSS", "GitHub Pages" }
+            Technologies = new[] { "Blazor", ".NET", "Tailwind CSS", "GitHub Pages" },
+            Features = new List<string> 
+            { 
+                "Dark/Light theme with system preference detection",
+                "Responsive design (mobile, tablet, desktop)",
+                "SEO optimized with meta tags and OpenGraph",
+                "Fast loading with static HTML shell",
+                "Smooth scroll navigation"
+            },
+            BmadBrief = "This project was built using the BMAD Method - an AI-assisted development approach where specialized agents handled analysis, planning, design, architecture, and implementation phases.",
+            TechnicalHighlights = @"
+                <div class=""space-y-2"">
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Blazor WebAssembly Architecture:</strong> Component-based structure utilizing a clean separation of concerns (Layout → Sections → Shared). Implements services for global state like theme management and scroll handling. The static HTML shell ensures instant initial paint while the WASM runtime loads in the background.</p>
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">GitHub Actions CI/CD:</strong> A robust pipeline that handles automatic Tailwind CSS compilation with minification and orchestrates the Blazor WASM publish process, directly deploying artifacts to GitHub Pages on every push to main.</p>
+                </div>",
+            WhyThisStack = "I chose Blazor WebAssembly to explore the capabilities of running C# in the browser for a static site, pairing it with Tailwind CSS v4 to leverage the latest utility-first styling features. GitHub Pages provides specific advantages of free, reliable hosting with seamless GitHub Actions integration for this type of static deployment.",
+            AdditionalLinks = new Dictionary<string, string>
+            {
+                { "BMAD Artifacts", "https://github.com/bhavan0/bhavan-portfolio/tree/main/_bmad-output" } // Pointing to the main repo as requested in plan discussion or similar
+            },
+            ArchitectureDiagramUrl = "assets/images/projects/portfolio/architecture.png"
         },
         new ProjectData
         {
             Title = "Budget App",
             Description = "Full-stack budgeting PWA with AI-powered financial insights. Features smart transaction tracking, interactive visualizations, month-over-month trends, and a sleek dark mode UI.",
-            ImageUrl = "assets/images/projects/budgeting.png",
+            ImageUrl = "assets/images/projects/budgeting/budgeting.png",
             ImageAlt = "BudgetApp dashboard showing transaction tracking and financial visualizations",
             GitHubUrl = "https://github.com/bhavan0/budgeting",
             DemoUrl = "https://polite-island-04cc6960f.4.azurestaticapps.net",
-            Technologies = new[] { ".NET", "React", "PostgreSQL", "Azure", "AI", "PWA" }
+            Technologies = new[] { ".NET", "React", "PostgreSQL", "Azure", "AI", "PWA" },
+            Features = new List<string>
+            {
+                "AI Financial Assistant - Chat with your data for spending advice",
+                "Smart Transaction Tracking - Automatic category mapping",
+                "Interactive Visualizations - Recharts-powered trend analysis",
+                "Mobile-First PWA - Installable with offline support via Workbox",
+                "Google OAuth 2.0 - Secure dual authentication system",
+                "Dynamic Statistics - Real-time month-over-month trend calculations"
+            },
+            TechnicalHighlights = @"
+                <div class=""space-y-2"">
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Robust Full-Stack Architecture:</strong> Built with a .NET 10 Minimal API backend and a React 19 frontend. Utilizes Entity Framework Core for data access and Neon Serverless PostgreSQL for a scalable, cloud-native database layer.</p>
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">AI Integration:</strong> Implements an LLM-powered financial assistant using OpenRouter, allowing users to query their transaction history and receive personalized financial insights.</p>
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Azure Cloud Ecosystem:</strong> Orchestrated deployment using Azure Container Apps for the backend and Azure Static Web Apps for the frontend, managed through automated GitHub Actions CI/CD pipelines.</p>
+                </div>",
+            WhyThisStack = "I chose React 19 and .NET 10 to utilize the latest features in both ecosystems, such as improved hook performance and Minimal API optimizations. Neon was selected for its serverless PostgreSQL capabilities, perfect for a modern cloud-native application, while Azure Container Apps provides a scalable serverless environment for the backend.",
+            AdditionalLinks = new Dictionary<string, string>
+            {
+                { "API Documentation", "https://ca-budgeting-be.politemushroom-e27ed289.eastus.azurecontainerapps.io/scalar/v1" }
+            },
+            ArchitectureDiagramUrl = "assets/images/projects/budgeting/architecture.png"
         },
         new ProjectData
         {
             Title = "Create Fullstack App",
             Description = "CLI tool to scaffold production-ready .NET 10 + Angular 21 / React 19 apps. Includes Docker, PostgreSQL, clean architecture, and interactive setup.",
-            ImageUrl = "assets/images/projects/create-fullstack-app.png",
+            ImageUrl = "assets/images/projects/create-fullstack-app/create-fullstack-app.png",
             ImageAlt = "Create Fullstack App CLI interface showing interactive setup",
             GitHubUrl = "https://github.com/bhavan0/create-fullstack-app",
-            Technologies = new[] { "Node.js", ".NET", "Angular", "React", "Docker", "PostgreSQL" }
+            Technologies = new[] { "Node.js", ".NET", "Angular", "React", "Docker", "PostgreSQL" },
+            Features = new List<string>
+            {
+                "Interactive CLI - Smart prompts to configure your stack preference",
+                "Frontend Versatility - Choice between Angular 21 or React 19 with Tailwind CSS v4",
+                "Clean Architecture - 3-layer backend structure (API, Domain, Infrastructure)",
+                "Containerized - Ready-to-run Docker setup with PostgreSQL and Docker Compose",
+                "Modern .NET - Uses .NET 10 with Minimal APIs and Entity Framework Core",
+                "Testing Ready - Pre-configured xUnit (Backend) and Vitest (Frontend)"
+            },
+            TechnicalHighlights = @"
+                <div class=""space-y-2"">
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Scaffolding Engine:</strong> Node.js-based CLI that dynamically generates project structures based on user input, ensuring a tailored starting point for every project.</p>
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Backend Architecture:</strong> Implements a strict Clean Architecture pattern. The <strong>Domain</strong> layer defines entities and interfaces, the <strong>Infrastructure</strong> layer handles data access (EF Core), and the <strong>API</strong> layer manages HTTP endpoints (Choice of Controllers or Minimal APIs).</p>
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Modern Frontend:</strong> Delivers optimized builds using Vite (React) or Angular CLI, both integrated with Tailwind CSS v4 for utility-first styling.</p>
+                </div>",
+            WhyThisStack = "I built this tool to solve the 'blank slate' problem. Node.js was the natural choice for the CLI due to its rich ecosystem of interactive tools (Inquirer.js). For the generated stack, I combined the robustness of .NET with the flexibility of modern JS frameworks to create an enterprise-grade foundation that developers can build upon immediately.",
+            ArchitectureDiagramUrl = "assets/images/projects/create-fullstack-app/architecture.png"
         },
         new ProjectData
         {
             Title = "Architect for Men - Hair Design",
-            Description = "Full-stack web app for a mobile barbershop featuring real-time GPS tracking, push notifications, customer scheduling, and an admin dashboard for content management and marketing.",
-            ImageUrl = "assets/images/projects/placeholder.svg",
-            ImageAlt = "AFM Hair Design web application interface showing scheduling and location features",
+            Description = "Full-stack mobile barbershop platform featuring real-time scheduling, GPS tracking, and automated customer engagement. Enables seamless booking for clients and powerful management tools for admins.",
+            ImageUrl = "assets/images/projects/afm/architecture.png", // Using architecture as main image
+            ImageAlt = "AFM Hair Design system architecture and notification flow",
             GitHubUrl = "https://github.com/bhavan0/afm",
-            Technologies = new[] { "Angular", "Python", "MySQL", "AWS" }
+            Technologies = new[] { "Angular", "Python", "MySQL", "AWS", "Twilio" },
+             Features = new List<string>
+            {
+                "Real-time Scheduling - automated booking system for mobile appointments",
+                "GPS Tracking - Location services to track the mobile barbershop unit",
+                "Automated Notifications - SMS confirms and reminders via Twilio",
+                "Marketing Automation - Twitter integration for automated social engagement",
+                "Admin Dashboard - Comprehensive CMS for managing services and content",
+                "Cloud Storage - AWS S3 integration for scalable image hosting"
+            },
+            TechnicalHighlights = @"
+                <div class=""space-y-2"">
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">scalable Backend:</strong> Python Flask API handling complex business logic, integrating with <strong>MySQL</strong> for relational data and <strong>AWS S3</strong> for asset storage.</p>
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">User Engagement Engine:</strong> Implements a multi-channel notification system using <strong>Twilio</strong> for SMS and <strong>Tweepy</strong> for social media automation, ensuring high customer retention.</p>
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Admin Powerhouse:</strong> Angular-based admin panel providing real-time oversight of bookings, locations, and content content, secured via JWT authentication.</p>
+                </div>",
+            WhyThisStack = "The project required a robust, highly extensible backend to handle diverse integrations (SMS, GPS, Social). Python Flask was the ideal choice for its ecosystem of libraries (boto3, tweepy, twilio), while Angular provided a structured, component-based frontend for the complex admin dashboard interface.",
+            ArchitectureDiagramUrl = "assets/images/projects/afm/architecture.png"
         },
         new ProjectData
         {
             Title = "Pharma Supply Chain",
-            Description = "Blockchain DApp for pharmaceutical supply chain management on Ethereum. Tracks drug authenticity and ensures regulatory compliance.",
-            ImageUrl = "assets/images/projects/pharma-supply-chain.png",
-            ImageAlt = "Pharmaceutical supply chain blockchain application dashboard",
+            Description = "Blockchain-based tracking system securing the pharmaceutical supply chain. Ensures authenticity, prevents counterfeiting, and enables rapid recalls using Ethereum smart contracts.",
+            ImageUrl = "assets/images/projects/pharma-supply-chain/pharma-supply-chain.png",
+            ImageAlt = "Pharma Supply Chain DApp dashboard showing medicine tracking",
             GitHubUrl = "https://github.com/bhavan0/pharma-supply-chain",
-            Technologies = new[] { "Blockchain", "Ethereum", "Python", "MongoDB", "Angular" }
+            Technologies = new[] { "Angular", "Solidity", "Truffle", "Flask", "MongoDB" },
+            Features = new List<string>
+            {
+                "Role-Based Access - Distinct flows for Owners, Distributors, Retailers, and Customers",
+                "Immutable Tracking - Complete transaction history recorded on Ethereum Blockchain",
+                "Automated Recalls - Smart contract-enforced medicine recalls and refunds",
+                "Hybrid Architecture - Combines Blockchain (Trust) with MongoDB (Efficiency)",
+                "Visual Traceability - End-to-end supply chain visibility for all medicines",
+                "Secure Payments - Transactions executed directly via smart contract logic"
+            },
+            TechnicalHighlights = @"
+                <div class=""space-y-2"">
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Hybrid DApp Architecture:</strong> Integrates a <strong>Solidity Smart Contract</strong> for critical, trustless operations (ownership, payments) with a <strong>Python Flask</strong> backend and <strong>MongoDB</strong> for managing user profiles and non-critical metadata efficiently.</p>
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Smart Contract Logic:</strong> The Ethereum contract utilizes event emission to trigger UI updates and enforces business rules like 'only current owner can transfer' and 'distributor pays retailer on recall'.</p>
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Web3 Integration:</strong> The Angular frontend employs Web3.js to act as a bridge, signing transactions with the user's wallet (Metamask) while simultaneously syncing with the off-chain database.</p>
+                </div>",
+            WhyThisStack = "The critical requirement was to eliminate counterfeit drugs, making Blockchain the only viable solution for an immutable, tamper-proof ledger. I chose Ethereum for its robust smart contract capabilities and paired it with a traditional Flask/MongoDB backend to prevent 'blockchain bloat'—storing only essential proofs on-chain while keeping metadata off-chain for performance and cost efficiency.",
+            ArchitectureDiagramUrl = "assets/images/projects/pharma-supply-chain/architecture.png"
         },
         new ProjectData
         {
             Title = "Eco Voice Assistant",
-            Description = "AI-powered voice assistant for order placement and tracking, built as a hackathon POC. Enables hands-free interaction through NLP for seamless application workflows.",
-            ImageUrl = "assets/images/projects/placeholder.svg",
-            ImageAlt = "Eco voice assistant interface demonstrating order tracking conversation",
+            Description = "AI-powered voice voice assistant for seamless order placement and tracking. Built with Dialogflow and Firebase, it enables natural language interactions for complex e-commerce workflows.",
+            ImageUrl = "assets/images/projects/eco/architecture.png", // Using architecture as main image for now as it's technical
+            ImageAlt = "Eco voice assistant architecture and conversational flow",
             GitHubUrl = "https://github.com/bhavan0/Eco",
-            Technologies = new[] { "Dialogflow", "Firebase", "Google Cloud", "NLP" }
+            Technologies = new[] { "Dialogflow", "Firebase", "TypeScript", "Google Assistant", "SendGrid" },
+            Features = new List<string>
+            {
+                "Voice-First Ordering - Complete order placement through natural conversational flow",
+                "Contextual Intelligence - Remembers user preferences and 'Favorite' orders",
+                "Rich Visual Responses - Displays interactive lists, tables, and maps on screen-enabled devices",
+                "Location Services - Integrates with device location to find nearest drop-off points",
+                "Multi-Modal Interaction - Supports both voice-only (phone) and visual-voice (smart displays) experiences",
+                "Real-time Notifications - Automated email confirmations via SendGrid integration"
+            },
+            TechnicalHighlights = @"
+                <div class=""space-y-2"">
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Serverless Fulfillment:</strong> Logic is handled by <strong>Firebase Cloud Functions</strong> (TypeScript), acting as a webhook for Dialogflow. This ensures high scalability and zero infrastructure management.</p>
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Enterprise Integration:</strong> The fulfillment layer acts as an orchestration hub, making REST calls to an existing <strong>Azure-hosted backend</strong> to fetch real-time product data, order history, and user profiles.</p>
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Conversational Design:</strong> Utilizes Dialogflow's rigorous intent mapping and context management to handle complex multi-turn conversations, including error handling and fallbacks.</p>
+                </div>",
+            WhyThisStack = "Voice interfaces require extremely low latency. I chose Firebase Cloud Functions for its cold-start performance and seamless integration with Dialogflow. TypeScript provided type safety for the complex JSON payloads exchanged between the Assistant and the backend API, while the Azure integration demonstrated how modern voice AI can layer on top of legacy enterprise systems.",
+            ArchitectureDiagramUrl = "assets/images/projects/eco/architecture.png"
         },
         new ProjectData
         {
             Title = "Events NFT Marketplace",
-            Description = "Web3 DApp for NFT-based event ticketing on Ethereum. Enables organizers to mint tickets and provides a marketplace for attendees to purchase and verify authenticity.",
-            ImageUrl = "assets/images/projects/placeholder.svg",
-            ImageAlt = "NFT event ticketing marketplace showing available events and ticket purchases",
+            Description = "Decentralized event ticketing platform where tickets are minted as ERC721 NFTs. Eliminates scalping and fraud by validating ownership on the Ethereum blockchain.",
+            ImageUrl = "assets/images/projects/event-ticket-nft/architecture.png",
+            ImageAlt = "NFT Event Marketplace architecture showing Wallet and Smart Contract flow",
             GitHubUrl = "https://github.com/bhavan0/event-ticket-nft",
-            Technologies = new[] { "Angular", "Ethereum", "Solidity", "Web3.js" }
+            Technologies = new[] { "Angular", "Ethereum", "Solidity", "Truffle", "Web3.js" },
+            Features = new List<string>
+            {
+                "Smart Minting - Tickets are minted as unique ERC721 tokens upon purchase",
+                "Fraud Prevention - Immutable ownership history prevents fake tickets",
+                "Dynamic Pricing - Smart contracts manage ticket counters and pricing logic",
+                "Wallet Integration - Seamless Metamask connection for signing transactions",
+                "Metadata API - Node.js middleware for efficient efficient off-chain data querying",
+                "Automated Refunds - Smart contracts handle overpayments instantly"
+            },
+            TechnicalHighlights = @"
+                <div class=""space-y-2"">
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">ERC721 Standard:</strong> Implements the industry-standard NFT protocol to ensure interoperability with wallets and marketplaces. Each ticket is a unique asset with its own metadata URI.</p>
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">State Scalability:</strong> Uses a lightweight Node.js/Express middleware layer to cache and query contract state (like 'tickets remaining') without spamming the blockchain provider, ensuring a responsive UI.</p>
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Trustless Commerce:</strong> The <strong>EventNFT.sol</strong> contract holds funds in escrow and only transfers them to the organizer when the minting is successful, guaranteeing atomic transactions.</p>
+                </div>",
+            WhyThisStack = "Traditional ticketing systems suffer from black markets and lack of transparency. I chose Ethereum/Solidity to enforce rule-based ownership. Angular was selected for the frontend to create a robust SPA that could handle the asynchronous nature of Web3 state changes, while Truffle provided the necessary development suite for testing smart contracts before deployment.",
+            ArchitectureDiagramUrl = "assets/images/projects/event-ticket-nft/architecture.png"
         }
     };
 
@@ -150,6 +282,14 @@
         public string GitHubUrl { get; set; } = "";
         public string? DemoUrl { get; set; }
         public string[] Technologies { get; set; } = Array.Empty<string>();
+        
+        // Extended Details
+        public List<string> Features { get; set; } = new();
+        public string? TechnicalHighlights { get; set; }
+        public string? BmadBrief { get; set; }
+        public string? WhyThisStack { get; set; }
+        public Dictionary<string, string> AdditionalLinks { get; set; } = new();
+        public string? ArchitectureDiagramUrl { get; set; }
     }
 }
 
