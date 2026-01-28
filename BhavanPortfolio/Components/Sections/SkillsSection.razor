@@ -5,7 +5,7 @@
     <div class="absolute inset-0 bg-grid opacity-30 dark:opacity-50" aria-hidden="true"></div>
     <div class="orb orb-blue w-72 h-72 -bottom-36 -right-36 opacity-20" aria-hidden="true"></div>
 
-    <div class="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
         @* Section Header *@
         <div class="text-center mb-16 reveal">
             <p class="text-sm font-medium tracking-widest uppercase text-indigo-500 dark:text-indigo-400 mb-3">
@@ -16,118 +16,39 @@
             </h2>
         </div>
 
-        @* Skills by Category *@
-        <div class="space-y-12">
-            @* Languages *@
-            <div class="reveal" style="animation-delay: 0.1s;">
-                <h3 id="skills-languages" class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
-                    Languages
-                </h3>
-                <div role="list" aria-labelledby="skills-languages" class="flex flex-wrap gap-3">
-                    @foreach (var skill in Languages)
-                    {
-                        <SkillBadge SkillName="@skill" />
-                    }
+        @* Skills Grid *@
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach (var category in SkillCategories)
+            {
+                <div class="reveal group p-6 rounded-2xl bg-gray-50/50 dark:bg-zinc-900/50 border border-gray-100 dark:border-zinc-800 hover:border-indigo-500/30 dark:hover:border-indigo-400/30 hover:bg-white dark:hover:bg-zinc-900 transition-all duration-300 backdrop-blur-sm">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-2xl filter grayscale group-hover:grayscale-0 transition-all duration-300">@category.Icon</span>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                            @category.Name
+                        </h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        @foreach (var skill in category.Skills)
+                        {
+                            <SkillBadge SkillName="@skill" />
+                        }
+                    </div>
                 </div>
-            </div>
-
-            @* Frameworks & Libraries *@
-            <div class="reveal" style="animation-delay: 0.2s;">
-                <h3 id="skills-frameworks" class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
-                    Frameworks & Libraries
-                </h3>
-                <div role="list" aria-labelledby="skills-frameworks" class="flex flex-wrap gap-3">
-                    @foreach (var skill in Frameworks)
-                    {
-                        <SkillBadge SkillName="@skill" />
-                    }
-                </div>
-            </div>
-
-            @* Architecture & Patterns *@
-            <div class="reveal" style="animation-delay: 0.3s;">
-                <h3 id="skills-architecture" class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
-                    Architecture & Patterns
-                </h3>
-                <div role="list" aria-labelledby="skills-architecture" class="flex flex-wrap gap-3">
-                    @foreach (var skill in Architecture)
-                    {
-                        <SkillBadge SkillName="@skill" />
-                    }
-                </div>
-            </div>
-
-            @* Testing *@
-            <div class="reveal" style="animation-delay: 0.4s;">
-                <h3 id="skills-testing" class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
-                    Testing
-                </h3>
-                <div role="list" aria-labelledby="skills-testing" class="flex flex-wrap gap-3">
-                    @foreach (var skill in Testing)
-                    {
-                        <SkillBadge SkillName="@skill" />
-                    }
-                </div>
-            </div>
-
-            @* Databases *@
-            <div class="reveal" style="animation-delay: 0.5s;">
-                <h3 id="skills-databases" class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
-                    Databases
-                </h3>
-                <div role="list" aria-labelledby="skills-databases" class="flex flex-wrap gap-3">
-                    @foreach (var skill in Databases)
-                    {
-                        <SkillBadge SkillName="@skill" />
-                    }
-                </div>
-            </div>
-
-            @* AI & Tools *@
-            <div class="reveal" style="animation-delay: 0.6s;">
-                <h3 id="skills-aitools" class="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-4">
-                    AI & Tools
-                </h3>
-                <div role="list" aria-labelledby="skills-aitools" class="flex flex-wrap gap-3">
-                    @foreach (var skill in AITools)
-                    {
-                        <SkillBadge SkillName="@skill" />
-                    }
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>
 
 @code {
-    // Skills organized by category
-    private readonly List<string> Languages = new()
-    {
-        "C#", "Python", "TypeScript", "JavaScript", "HTML", "CSS"
-    };
+    private record SkillCategory(string Name, string Icon, List<string> Skills);
 
-    private readonly List<string> Frameworks = new()
+    private readonly List<SkillCategory> SkillCategories = new()
     {
-        ".NET Core", "Angular", "React", "Node.js", "Entity Framework", "Dapper", "NServiceBus", "ServiceStack"
-    };
-
-    private readonly List<string> Architecture = new()
-    {
-        "Microservices", "Domain Driven Design", "Event Driven Architecture", "RESTful APIs"
-    };
-
-    private readonly List<string> Testing = new()
-    {
-        "Playwright", "Cypress", "SpecFlow", "xUnit"
-    };
-
-    private readonly List<string> Databases = new()
-    {
-        "MS SQL", "MongoDB", "PostgreSQL"
-    };
-
-    private readonly List<string> AITools = new()
-    {
-        "Claude", "GitHub Copilot", "Cursor", "OpenAI Codex"
+        new("Languages", "💻", new() { "C#", "Python", "TypeScript", "JavaScript", "HTML", "CSS" }),
+        new("Frameworks & Libraries", "🛠️", new() { ".NET Core", "Angular", "React", "Node.js", "Entity Framework", "Dapper", "NServiceBus", "ServiceStack" }),
+        new("Architecture", "🏗️", new() { "Microservices", "Domain Driven Design", "Event Driven Architecture", "RESTful APIs" }),
+        new("Testing", "🧪", new() { "Playwright", "Cypress", "SpecFlow", "xUnit" }),
+        new("Databases", "💾", new() { "MS SQL", "MongoDB", "PostgreSQL" }),
+        new("AI & Tools", "🤖", new() { "Claude", "GitHub Copilot", "Cursor", "OpenAI Codex" })
     };
 }
