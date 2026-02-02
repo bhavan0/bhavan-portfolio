@@ -86,6 +86,23 @@ _bmad-output/
 - SEO optimized with meta tags and OpenGraph
 - Fast loading with static HTML shell
 - Smooth scroll navigation
+- **Google Analytics Integration** for traffic insights
+- **Interactive Project Modals** for detailed case studies
+- **Rich Technical Skills Display** with categorized visual breakdowns
+
+## Featured Projects
+
+This portfolio demonstrates engineering capabilities across multiple domains. Explore the interactive "Projects" section in the app for full details, architecture diagrams, and case studies.
+
+| Project | Domain | Key Tech Stack |
+|---------|--------|----------------|
+| **Budget App** | Full Stack / AI | .NET 10, React 19, Azure, PostgreSQL, OpenAI |
+| **Pharma Supply Chain** | Blockchain | Ethereum, Solidity, Angular, MongoDB |
+| **Architect for Men** | Mobile / Full Stack | Angular, Python Flask, AWS, Twilio |
+| **Eco Voice Assistant** | Voice AI | Dialogflow, Firebase, TypeScript, Google Assistant |
+| **Events NFT Marketplace** | Web3 / NFT | Angular, Solidity, Truffle, Web3.js |
+| **Create Fullstack App** | Dev Tools / CLI | Node.js, Docker, .NET, Angular/React |
+| **Bhavan Portfolio** | Frontend Engineering | Blazor WASM, Tailwind CSS v4, GitHub Actions |
 
 ## Local Development
 
