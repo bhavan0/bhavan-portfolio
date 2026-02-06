@@ -31,6 +31,17 @@ jobs:
       - name: Publish Blazor Client
         run: dotnet publish BhavanPortfolio/BhavanPortfolio.csproj -c Release -o BhavanPortfolio/published
 
+      - name: Fix Blazor WASM script reference
+        run: |
+          # Find the fingerprinted blazor.webassembly.*.js file and copy it to the expected name
+          cd BhavanPortfolio/published/wwwroot/_framework
+          for f in blazor.webassembly.*.js; do
+            if [ "$f" != "blazor.webassembly.*.js" ]; then
+              cp "$f" blazor.webassembly.js
+              echo "Copied $f to blazor.webassembly.js"
+            fi
+          done
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
