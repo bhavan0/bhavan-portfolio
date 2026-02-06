@@ -20,3 +20,4 @@
 
 # Azure Functions local settings (contains secrets)
 **/local.settings.json
+**/published/
