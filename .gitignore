@@ -17,3 +17,6 @@
 */BhavanPortfolio.sln
 .claude/settings.local.json
 */publish/*
+
+# Azure Functions local settings (contains secrets)
+**/local.settings.json

@@ -207,6 +207,11 @@
 
     <script src="_framework/blazor.webassembly#[.{fingerprint}].js" autostart="false"></script>
     <script>
+        window.scrollToBottom = (element) => {
+            if (element) {
+                element.scrollTop = element.scrollHeight;
+            }
+        };
         Blazor.start().then(function () {
             document.body.classList.remove('blazor-loading');
         });

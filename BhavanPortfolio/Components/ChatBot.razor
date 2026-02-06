@@ -1,0 +1,339 @@
+@using System.Net.Http.Json
+@using System.Text.Json
+@using Markdig
+@inject HttpClient Http
+@inject IConfiguration Configuration
+@inject IJSRuntime JS
+
+<!-- Fixed Chat Widget Container -->
+<div class="fixed bottom-6 right-6 z-[100] font-sans">
+    @if (!_isOpen)
+    {
+        <!-- Floating Action Button -->
+        <button @onclick="ToggleChat"
+                class="group relative flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full 
+                       bg-gradient-to-br from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/40 
+                       hover:scale-110 hover:-translate-y-1 transition-all duration-300 ease-out z-50 overflow-hidden"
+                aria-label="Open chat">
+            <!-- Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 md:h-8 md:w-8 transition-transform duration-300 group-hover:rotate-12 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+            
+            <!-- Glow Effect -->
+            <span class="absolute inset-0 bg-gradient-to-br from-indigo-400 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            
+            <!-- Pulse Ring -->
+            <span class="absolute inset-0 rounded-full border-2 border-white/30 animate-ping opacity-0 group-hover:opacity-100" style="animation-duration: 2s;"></span>
+        </button>
+    }
+    else
+    {
+        <!-- Main Chat Window -->
+        <div class="flex flex-col w-[350px] md:w-[380px] h-[550px] max-h-[80vh] rounded-2xl shadow-2xl overflow-hidden
+                    bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl border border-neutral-200/50 dark:border-white/10
+                    origin-bottom-right animate-enter will-change-transform transform-gpu">
+            
+            <!-- Header -->
+            <div class="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-fuchsia-600 shadow-lg relative overflow-hidden z-20">
+                <!-- Background Decoration -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"></div>
+                
+                <div class="flex items-center gap-3 relative z-10">
+                    <!-- Bot Avatar -->
+                    <div class="relative group">
+                        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center border border-white/30 backdrop-blur-md shadow-inner">
+                            <span class="text-lg">🤖</span>
+                        </div>
+                        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-indigo-600 rounded-full animate-pulse"></span>
+                    </div>
+                    
+                    <!-- Title info -->
+                    <div>
+                        <h3 class="font-bold text-white text-[15px] leading-tight tracking-wide">Bhavan Bot</h3>
+                        <div class="flex items-center gap-1.5 mt-0.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <p class="text-indigo-100/90 text-[11px] font-medium uppercase tracking-wider">Online</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Close Button -->
+                <button @onclick="ToggleChat" 
+                        class="p-1.5 text-white/80 hover:text-white hover:bg-white/20 rounded-full transition-all duration-200 active:scale-95 relative z-10"
+                        aria-label="Close chat">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Messages Container -->
+            <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-neutral-50/50 dark:bg-black/40 scroll-smooth relative" @ref="_messagesContainer">
+                
+                <!-- Background Pattern -->
+                <div class="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9IiMwMDAiLz48L3N2Zz4=')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')]"></div>
+
+                @if (_messages.Count == 0)
+                {
+                    <div class="flex flex-col items-center justify-center p-4 mt-8 animate-fade-in relative z-10">
+                        <div class="w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/40 dark:to-purple-900/40 rounded-2xl rotate-3 flex items-center justify-center mb-6 shadow-lg border border-indigo-200/50 dark:border-indigo-700/30">
+                            <span class="text-3xl -rotate-3">👋</span>
+                        </div>
+                        <h4 class="text-neutral-900 dark:text-white font-bold text-lg mb-2">Hello there!</h4>
+                        <p class="text-sm text-neutral-500 dark:text-neutral-400 text-center max-w-[240px] leading-relaxed mb-6">
+                            I'm Bhavan's AI assistant. Ask me anything about his work!
+                        </p>
+                        
+                        <!-- Quick Prompts Chips -->
+                        <div class="flex flex-wrap justify-center gap-2 max-w-[280px]">
+                            <button @onclick='() => SendQuickPrompt("Tell me about your skills")' 
+                                    class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-full text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-neutral-700 hover:border-indigo-200 transition-colors shadow-sm">
+                                🛠️ Skills
+                            </button>
+                            <button @onclick='() => SendQuickPrompt("Show me recent projects")' 
+                                    class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-full text-xs font-medium text-pink-600 dark:text-pink-400 hover:bg-pink-50 dark:hover:bg-neutral-700 hover:border-pink-200 transition-colors shadow-sm">
+                                🚀 Projects
+                            </button>
+                            <button @onclick='() => SendQuickPrompt("How can I contact you?")' 
+                                    class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-full text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-neutral-700 hover:border-emerald-200 transition-colors shadow-sm">
+                                📧 Contact
+                            </button>
+                            <button @onclick='() => SendQuickPrompt("Download resume")' 
+                                    class="px-3 py-1.5 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-full text-xs font-medium text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-neutral-700 hover:border-amber-200 transition-colors shadow-sm">
+                                📄 Resume
+                            </button>
+                        </div>
+                    </div>
+                }
+
+                @foreach (var message in _messages)
+                {
+                    <div class="flex w-full @(message.IsUser ? "justify-end" : "justify-start") animate-slide-in relative z-10 group">
+                        <div class="flex flex-col max-w-[85%]">
+                            <div class="px-4 py-2.5 rounded-2xl text-[13.5px] leading-relaxed shadow-sm break-words markdown-content
+                                      @(message.IsUser 
+                                          ? "bg-gradient-to-br from-indigo-600 to-purple-600 text-white rounded-br-sm" 
+                                          : "bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 rounded-bl-sm")">
+                                @if (message.IsUser)
+                                {
+                                    @message.Content
+                                }
+                                else
+                                {
+                                    @((MarkupString)Markdown.ToHtml(message.Content))
+                                }
+                            </div>
+                            <span class="text-[10px] text-neutral-400 mt-1 px-1 opacity-0 group-hover:opacity-100 transition-opacity select-none @(message.IsUser ? "text-right" : "text-left")">
+                                @(message.IsUser ? "You • just now" : "Bhavan Bot • just now")
+                            </span>
+                        </div>
+                    </div>
+                }
+
+                @if (_isLoading)
+                {
+                    <div class="flex w-full justify-start animate-slide-in relative z-10">
+                        <div class="flex max-w-[85%]">
+                            <div class="px-4 py-3 rounded-2xl rounded-bl-sm bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                                <span class="w-1.5 h-1.5 bg-purple-500 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                                <span class="w-1.5 h-1.5 bg-pink-500 rounded-full animate-bounce"></span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-3 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border-t border-neutral-200 dark:border-neutral-800 z-20">
+                <form @onsubmit="SendMessage" class="relative flex items-center gap-2">
+                    <div class="relative flex-1 group">
+                        <input type="text"
+                               @bind="_userInput"
+                               @bind:event="oninput"
+                               placeholder="Type your message..."
+                               disabled="@_isLoading"
+                               class="w-full pl-4 pr-10 py-3 rounded-xl bg-neutral-100 dark:bg-neutral-800 
+                                      border border-transparent focus:border-indigo-500/50 focus:bg-white dark:focus:bg-neutral-900 
+                                      focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200
+                                      text-neutral-900 dark:text-white placeholder-neutral-400 text-sm outline-none" />
+                        
+                        <!-- Send Button (Inside Input) -->
+                        <button type="submit"
+                                disabled="@(_isLoading || string.IsNullOrWhiteSpace(_userInput))"
+                                class="absolute right-1.5 top-1.5 p-1.5 rounded-lg 
+                                       text-indigo-600 dark:text-indigo-400 bg-transparent
+                                       disabled:text-neutral-300 dark:disabled:text-neutral-600 disabled:cursor-not-allowed
+                                       hover:bg-indigo-50 dark:hover:bg-white/10 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform rotate-90" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+                <div class="mt-2 text-center">
+                    <p class="text-[10px] bg-gradient-to-r from-neutral-400 to-neutral-500 bg-clip-text text-transparent font-medium">
+                        Powered by AI • Ask accurately
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .animate-enter {
+        animation: enter-chat 0.35s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    }
+    .animate-fade-in {
+        animation: fade-in 0.5s ease-out forwards;
+    }
+    .animate-slide-in {
+        animation: slide-in 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    @@keyframes enter-chat {
+        from { opacity: 0; transform: translateY(20px) scale(0.96); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @@keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @@keyframes slide-in {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: rgba(156, 163, 175, 0.3);
+        border-radius: 20px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(156, 163, 175, 0.6);
+    }
+
+    /* Markdown Content Styles */
+    .markdown-content p { margin-bottom: 0.5em; }
+    .markdown-content p:last-child { margin-bottom: 0; }
+    .markdown-content ul { list-style-type: disc; margin-left: 1.2em; margin-bottom: 0.5em; }
+    .markdown-content ol { list-style-type: decimal; margin-left: 1.2em; margin-bottom: 0.5em; }
+    .markdown-content li { margin-bottom: 0.25em; }
+    .markdown-content strong { font-weight: 600; }
+    .markdown-content h1, .markdown-content h2, .markdown-content h3 { 
+        font-weight: 700; 
+        margin-top: 0.75em; 
+        margin-bottom: 0.25em; 
+        font-size: 1.1em;
+    }
+    .markdown-content blockquote {
+        border-left: 3px solid rgba(99, 102, 241, 0.5);
+        padding-left: 0.75em;
+        margin-left: 0;
+        font-style: italic;
+    }
+    .markdown-content a {
+        color: #6366f1;
+        text-decoration: underline;
+    }
+    .dark .markdown-content a {
+        color: #818cf8;
+    }
+</style>
+
+@code {
+    private bool _isOpen = false;
+    private bool _isLoading = false;
+    private string _userInput = "";
+    private List<ChatMessage> _messages = new();
+    private ElementReference _messagesContainer;
+
+    private async Task ToggleChat()
+    {
+        _isOpen = !_isOpen;
+        if (_isOpen)
+        {
+            await Task.Delay(50); // Small delay for render
+            await ScrollToBottom();
+        }
+    }
+
+    private async Task SendQuickPrompt(string prompt)
+    {
+        _userInput = prompt;
+        await SendMessage();
+    }
+
+    private async Task SendMessage()
+    {
+        if (string.IsNullOrWhiteSpace(_userInput) || _isLoading)
+            return;
+
+        var userMessage = _userInput.Trim();
+        _userInput = "";
+
+        // Add user message
+        _messages.Add(new ChatMessage { Content = userMessage, IsUser = true });
+        _isLoading = true;
+        StateHasChanged();
+        
+        await ScrollToBottom();
+
+        try
+        {
+            // Determine API URL based on environment
+            var apiBaseUrl = Configuration["ApiBaseUrl"] ?? "";
+            var apiUrl = string.IsNullOrEmpty(apiBaseUrl) ? "/api/chat" : $"{apiBaseUrl}/api/chat";
+
+            var response = await Http.PostAsJsonAsync(apiUrl, new { message = userMessage });
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<ChatResponse>();
+                _messages.Add(new ChatMessage { Content = result?.Reply ?? "I couldn't process that request.", IsUser = false });
+            }
+            else
+            {
+                _messages.Add(new ChatMessage { Content = "Sorry, I'm having trouble connecting. Please try again later.", IsUser = false });
+            }
+        }
+        catch (Exception)
+        {
+            _messages.Add(new ChatMessage { Content = "Sorry, something went wrong. Please try again.", IsUser = false });
+        }
+        finally
+        {
+            _isLoading = false;
+            StateHasChanged();
+            await ScrollToBottom();
+        }
+    }
+    
+    private async Task ScrollToBottom()
+    {
+        try 
+        {
+            await JS.InvokeVoidAsync("window.scrollToBottom", _messagesContainer);
+        }
+        catch { /* Ignore if JS fails (e.g. element not visible) */ }
+    }
+
+    private class ChatMessage
+    {
+        public string Content { get; set; } = "";
+        public bool IsUser { get; set; }
+    }
+
+    private class ChatResponse
+    {
+        public string? Reply { get; set; }
+    }
+}
