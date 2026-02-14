@@ -44,7 +44,7 @@ Outside of work, you'll find him on the badminton court or spending quality time
 - Solidity (Smart Contracts), Ethereum, Truffle, Web3.js, NFT Development (ERC721)
 
 ## AI & Integrations
-- OpenAI API, OpenRouter, Google Dialogflow, Twilio, SendGrid, Voice Assistants (Google Assistant)
+- Antigravity, OpenAI API, OpenRouter, Google Dialogflow, Twilio, SendGrid, Voice Assistants (Google Assistant)
 
 ---
 
