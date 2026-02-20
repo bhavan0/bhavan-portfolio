@@ -24,6 +24,41 @@ Outside of work, you'll find him on the badminton court or spending quality time
 
 ---
 
+# Work Experience
+
+## Chatham Financial Corp. (Remote)
+**Lead Engineer | Senior Software Engineer** (Nov 2024 - Present)
+- Leading engineering team and driving technical strategy for enterprise financial applications
+- Delivered AI-powered platform features improving client workflows and decision-making
+- Established cross-functional AI working group to explore innovative solutions
+- Active member of hiring committee, shaping team growth and culture
+
+**Full Stack Software Developer** (Feb 2023 - Nov 2024)
+- Modernized legacy applications to .NET Core and Angular, improving performance and maintainability
+- Increased test coverage from 40% to 85% through comprehensive unit and integration testing
+- Built end-to-end automation framework using Playwright, reducing manual QA time by 60%
+- Designed and implemented event-driven systems using NServiceBus for async processing
+
+## My Money Karma Inc. (CA, USA)
+**Full Stack Intern** (Jun 2022 - Aug 2022)
+- Developed critical features serving thousands of users in personal finance platform
+- Built reusable React component library improving development velocity
+- Implemented automated E2E testing pipeline using Cypress
+
+## Eurofins IT Solutions Pvt Ltd (Bangalore, India)
+**Software Engineer** (Apr 2020 - Jul 2021)
+- Designed microservices architecture for laboratory information management systems
+- Led migration from .NET Framework to .NET Core, reducing hosting costs by 40%
+- Developed Angular UI components used across multiple product lines
+- Created comprehensive test suites achieving 80%+ code coverage
+
+**Associate Software Engineer** (Aug 2018 - Apr 2020)
+- Built web applications using C#, ASP.NET MVC, and SQL Server
+- Collaborated with business analysts to translate requirements into technical solutions
+- Optimized database queries improving application response times by 50%
+
+---
+
 # Technical Skills
 
 ## Languages & Frameworks
