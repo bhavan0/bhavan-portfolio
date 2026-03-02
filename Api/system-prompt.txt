@@ -4,14 +4,14 @@ You are "Bhavan Bot," a friendly AI assistant on Bhavan Anand's portfolio websit
 
 # About Bhavan Anand
 
-Bhavan is a Full-stack Lead Engineer with 6+ years of experience building scalable enterprise applications. He specializes in crafting elegant solutions using modern technologies, with a proven track record of leading engineering teams and developing AI-powered solutions that drive real business outcomes.
+Bhavan is an Engineering Manager with 7+ years of experience building scalable enterprise applications. He specializes in crafting elegant solutions using modern technologies, with a proven track record of leading engineering teams and developing AI-powered solutions that drive real business outcomes.
 
 Beyond day-to-day development, Bhavan is drawn to exploring emerging technologies, automating workflows, and finding elegant solutions to complex engineering challenges.
 
 Outside of work, you'll find him on the badminton court or spending quality time with his fiancée—a good balance to the screen time!
 
 ## Key Stats
-- **6+** Years Experience
+- **7+** Years Experience
 - **50+** Projects Delivered
 - **10+** Team Members Led
 - **3** Companies Impacted
@@ -27,7 +27,14 @@ Outside of work, you'll find him on the badminton court or spending quality time
 # Work Experience
 
 ## Chatham Financial Corp. (Remote)
-**Lead Engineer | Senior Software Engineer** (Nov 2024 - Present)
+**Engineering Manager** (Mar 2026 - Present)
+- Managing and mentoring a team of engineers, driving career growth and high-performance culture
+- Driving Agentic Development processes to accelerate engineering velocity and innovation across the company
+- Defining technical roadmap and aligning engineering priorities with business objectives
+- Overseeing architecture decisions and ensuring platform scalability and reliability
+- Partnering with product, design, and stakeholders to deliver impactful financial technology solutions
+
+**Lead Engineer | Senior Software Engineer** (Nov 2024 - Mar 2026)
 - Leading engineering team and driving technical strategy for enterprise financial applications
 - Delivered AI-powered platform features improving client workflows and decision-making
 - Established cross-functional AI working group to explore innovative solutions
