@@ -1,6 +1,6 @@
 # Bhavan Portfolio
 
-A modern developer portfolio built with Blazor WebAssembly and Tailwind CSS v4, deployed to GitHub Pages. This project serves as both a personal portfolio and a demonstration of AI-assisted development using the BMAD Method.
+A modern developer portfolio built with Blazor WebAssembly and Tailwind CSS v4, deployed to Azure Static Web Apps. This project serves as both a personal portfolio and a demonstration of AI-assisted development — initially built with the BMAD Method, now maintained using Spec-Driven Development with Antigravity.
 
 ## 🎯 Project Goal
 
@@ -70,25 +70,54 @@ _bmad-output/
 
 > Learn more about BMAD at the [BMAD Method repository](https://github.com/bmadcode/bmad-agent)
 
+### Reflections: From BMAD to Spec-Driven Development
+
+While the BMAD Method provided excellent structure for this project, a key finding emerged through the process:
+
+> **BMAD is a powerful but heavy framework** — its multi-agent, multi-phase approach (analyst → PM → UX designer → architect → dev → SM) is well-suited for large, complex projects with cross-functional teams. However, for smaller projects like a personal portfolio, the overhead of maintaining multiple agent personas, lengthy artifact chains, and formal phase gates introduced more friction than value.
+
+#### The Shift: Spec-Driven Development with Antigravity
+
+After the initial build, ongoing feature work and iterations shifted to a leaner approach — **Spec-Driven Development (SDD)** powered by [Antigravity](https://github.com/chromaorg/antigravity):
+
+| Aspect | BMAD | Spec-Driven Development |
+|--------|------|------------------------|
+| **Best for** | Large, multi-team projects | Small–medium projects, solo/small teams |
+| **Process** | 6 specialized agents, formal phase gates | Single agent, spec-first iteration |
+| **Overhead** | High — multiple artifacts per phase | Low — lightweight specs, fast execution |
+| **Speed** | Thorough but slower ramp-up | Rapid iteration with clear intent |
+| **Traceability** | Full artifact chain | Specs + version control history |
+
+**Why SDD with Antigravity works better here:**
+- **Spec as the single source of truth** — A concise spec document captures intent, constraints, and acceptance criteria without the overhead of separate PRDs, UX docs, and architecture artifacts
+- **Faster feedback loops** — Go from idea → spec → implementation → verification in a single focused session
+- **Right-sized process** — The framework scales with the project instead of imposing enterprise-level ceremony on a personal site
+- **AI-native workflow** — Antigravity's agentic capabilities handle planning, execution, and verification fluidly without needing to switch between specialized agent personas
+
 ---
 
 ## Tech Stack
 
-- **Framework:** Blazor WebAssembly (.NET 10)
+- **Frontend:** Blazor WebAssembly (.NET 10)
+- **Backend API:** Azure Functions (.NET 8, Isolated Worker)
+- **AI:** OpenRouter (GPT-4o-mini) for the portfolio chatbot
 - **Styling:** Tailwind CSS v4 (standalone CLI)
-- **Hosting:** GitHub Pages
-- **CI/CD:** GitHub Actions
+- **Hosting:** Azure Static Web Apps
+- **CI/CD:** GitHub Actions → Azure Static Web Apps deployment
+- **Analytics:** Google Analytics
 
 ## Features
 
 - Dark/Light theme with system preference detection
 - Responsive design (mobile, tablet, desktop)
-- SEO optimized with meta tags and OpenGraph
+- SEO optimized with meta tags, OpenGraph, and JSON-LD structured data
 - Fast loading with static HTML shell
 - Smooth scroll navigation
+- **🤖 AI Chatbot ("Bhavan Bot")** — An interactive AI assistant powered by OpenRouter that answers questions about skills, projects, and experience
 - **Google Analytics Integration** for traffic insights
 - **Interactive Project Modals** for detailed case studies
 - **Rich Technical Skills Display** with categorized visual breakdowns
+- **Grouped Work Experience Timeline** with company groups and role progression
 
 ## Featured Projects
 
@@ -138,29 +167,36 @@ cd BhavanPortfolio
 ## Project Structure
 
 ```
-BhavanPortfolio/
-├── Components/
-│   ├── Layout/        # MainLayout, NavBar, Footer
-│   ├── Sections/      # Hero, About, Skills, Projects, Timeline, Contact
-│   └── Shared/        # Reusable components (ThemeToggle, ProjectCard, etc.)
-├── Services/          # ThemeService, ScrollService
-├── wwwroot/
-│   ├── css/           # Tailwind output
-│   ├── js/            # JS interop modules
-│   └── assets/        # Images, resume PDF
-├── tailwind-input.css # Tailwind directives
-└── tailwind.config.js # Tailwind configuration
+├── Api/                       # Azure Functions backend
+│   ├── Functions/             # HTTP-triggered functions (ChatFunction)
+│   ├── system-prompt.txt      # AI chatbot persona and knowledge base
+│   └── Program.cs             # Function app configuration
+├── BhavanPortfolio/           # Blazor WebAssembly frontend
+│   ├── Components/
+│   │   ├── Layout/            # MainLayout, NavBar, Footer
+│   │   ├── Sections/          # Hero, About, Skills, Projects, Timeline, Education, Contact
+│   │   ├── Shared/            # Reusable components (CompanyGroup, RoleItem, ProjectCard, etc.)
+│   │   └── ChatBot.razor      # AI chatbot widget
+│   ├── Services/              # ThemeService, ScrollService
+│   ├── wwwroot/
+│   │   ├── css/               # Tailwind output
+│   │   ├── assets/            # Images, resume PDF
+│   │   └── staticwebapp.config.json  # Azure SWA routing config
+│   ├── tailwind-input.css     # Tailwind directives
+│   └── tailwind.config.js     # Tailwind configuration
+└── _bmad-output/              # BMAD artifacts (preserved for reference)
 ```
 
 ## Deployment
 
-Deployment is automated via GitHub Actions:
+Deployment is automated via GitHub Actions to **Azure Static Web Apps**:
 
 1. Push changes to the `main` branch
 2. GitHub Actions workflow triggers automatically
 3. Tailwind CSS is compiled with minification
 4. Blazor WASM app is published
-5. Site is deployed to GitHub Pages
+5. Azure Functions API is built
+6. Both frontend and API are deployed to Azure Static Web Apps
 
 ### Manual Deployment
 
@@ -172,8 +208,6 @@ cd BhavanPortfolio
 
 # Publish Blazor
 dotnet publish -c Release -o publish
-
-# Deploy publish/wwwroot to GitHub Pages
 ```
 
 ## Configuration
@@ -187,13 +221,7 @@ The site supports dark and light themes with the following priority:
 
 ### Base Href
 
-For deployment to a repository project page (e.g., `username.github.io/repo-name`), update the base href in `wwwroot/index.html`:
-
-```html
-<base href="/repo-name/" />
-```
-
-For user/organization pages (`username.github.io`), keep it as:
+For Azure Static Web Apps with a custom domain, the base href should be:
 
 ```html
 <base href="/" />
