@@ -169,6 +169,31 @@
         },
         new ProjectData
         {
+            Title = "LockApp",
+            Description = "A personal digital wellbeing Android app built with React Native that uses an accountability partner model to enforce screen-time limits instead of relying on willpower.",
+            ImageUrl = "assets/images/projects/lock-app/lock-app.png",
+            ImageAlt = "LockApp Home Screen showing app usage cards and limits",
+            GitHubUrl = "https://github.com/bhavan0/lock-app",
+            Technologies = new[] { "React Native", "TypeScript", "Android", "Kotlin", "EmailJS" },
+            Features = new List<string>
+            {
+                "Per-app daily time limits with quick presets and custom minute options",
+                "Tamper-proof config requiring OTP verification from an accountability partner",
+                "Background monitoring via Kotlin Foreground Service with UsageEvents API",
+                "Guardian-gated extensions for controlled limit overrides",
+                "Usage alerts via Push Notifications at 75% and 90% of daily limit",
+                "Usage history 7-day bar chart and daily breakdown per app"
+            },
+            TechnicalHighlights = @"
+                <div class=""space-y-2"">
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Precise Background Tracking:</strong> Implements a Kotlin foreground service that polls the active app every 2 seconds, utilizing the Android <code>UsageEvents</code> API for DST-safe, highly accurate tracking regardless of timezone changes.</p>
+                    <p><strong class=""text-indigo-600 dark:text-indigo-400"">Tamper-Proof Architecture:</strong> Replaces the traditional 'willpower' model with accountability by gating the 'remove limit' functionality behind a secure OTP verification system via EmailJS, meaning users cannot bypass their own restrictions.</p>
+                </div>",
+            WhyThisStack = "React Native provided a fast UI development experience, while still allowing deep integration with Android's native APIs (Foreground Services, UsageStatsManager, Draw Over Other Apps) via custom Kotlin bridge modules for the core monitoring functionality.",
+            ArchitectureDiagramUrl = "assets/images/projects/lock-app/architecture.png"
+        },
+        new ProjectData
+        {
             Title = "Architect for Men - Hair Design",
             Description = "Full-stack mobile barbershop platform featuring real-time scheduling, GPS tracking, and automated customer engagement. Enables seamless booking for clients and powerful management tools for admins.",
             ImageUrl = "assets/images/projects/afm/architecture.png", // Using architecture as main image

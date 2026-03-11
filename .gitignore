@@ -21,3 +21,6 @@
 # Azure Functions local settings (contains secrets)
 **/local.settings.json
 **/published/
+
+# macOS
+.DS_Store

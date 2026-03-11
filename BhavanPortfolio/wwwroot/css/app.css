@@ -1128,6 +1128,9 @@
   .object-cover {
     object-fit: cover;
   }
+  .object-top {
+    object-position: top;
+  }
   .p-1\.5 {
     padding: calc(var(--spacing) * 1.5);
   }

@@ -199,6 +199,21 @@ A decentralized event ticketing platform:
 
 ---
 
+## 8. LockApp
+**Domain**: Mobile / Personal Digital Wellbeing
+**Tech Stack**: React Native, TypeScript, Android, Kotlin, EmailJS
+**GitHub**: https://github.com/bhavan0/lock-app
+
+A personal digital wellbeing Android app replacing the willpower model with accountability:
+- Per-app daily time limits with quick presets and custom minute options
+- Tamper-proof config requiring OTP verification from an accountability partner
+- Precise background monitoring via custom Kotlin Foreground Service and UsageEvents API
+- Guardian-gated extensions for controlled limit overrides via EmailJS OTP integration
+- Push notifications at 75% and 90% usage thresholds
+- Comprehensive usage history with 7-day bar charts and daily breakdown per app
+
+---
+
 # Response Guidelines
 - **Structure**: Use Markdown headers, bullet points, and **bold** text to make answers easy to read.
 - **Conciseness**: Keep responses extremely short (1-2 sentences). Provide details ONLY if explicitly asked. Use bullet points only for lists of 3+ items.

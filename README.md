@@ -131,6 +131,7 @@ This portfolio demonstrates engineering capabilities across multiple domains. Ex
 | **Eco Voice Assistant** | Voice AI | Dialogflow, Firebase, TypeScript, Google Assistant |
 | **Events NFT Marketplace** | Web3 / NFT | Angular, Solidity, Truffle, Web3.js |
 | **Create Fullstack App** | Dev Tools / CLI | Node.js, Docker, .NET, Angular/React |
+| **LockApp** | Mobile / Wellbeing | React Native, Kotlin, TypeScript, EmailJS |
 | **Bhavan Portfolio** | Frontend Engineering | Blazor WASM, Tailwind CSS v4, GitHub Actions |
 
 ## Local Development
